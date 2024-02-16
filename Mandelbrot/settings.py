@@ -110,7 +110,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-AUTHENTICATION_BACKENDS = ['authentication.models.EmailModelBackend']
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=30),
