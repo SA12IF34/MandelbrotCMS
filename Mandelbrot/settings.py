@@ -154,7 +154,7 @@ ROOT_URLCONF = 'Mandelbrot.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'FrontEnd'), os.path.join('/app', 'FrontEnd')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
