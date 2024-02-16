@@ -18,7 +18,7 @@ environ.Env.read_env(BASE_DIR / '.env')
 SECRET_KEY = ENV('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*', 'saifchan.online']
 
