@@ -8,9 +8,9 @@ ENV = environ.Env()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve()
-BASE_DIR2 = Path(__file__).resolve().parent.parent
-environ.Env.read_env(BASE_DIR2 / '.env')
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -218,12 +218,12 @@ USE_TZ = True
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/assets/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'FrontEnd/sessions-manager/dist/assets',
-    BASE_DIR / 'FrontEnd/learning-tracker/dist/assets',
-    BASE_DIR / 'Frontend/entertainment/dist/assets',
-    BASE_DIR / 'FrontEnd/goals/dist/assets',
-    BASE_DIR / 'FrontEnd/home-tasks/dist/assets',
-    BASE_DIR / 'FrontEnd/website-home/dist/assets'
+    os.path.join(BASE_DIR, 'FrontEnd/sessions-manager/dist/assets'),
+    os.path.join(BASE_DIR, 'FrontEnd/learning-tracker/dist/assets'),
+    os.path.join(BASE_DIR, 'Frontend/entertainment/dist/assets'),
+    os.path.join(BASE_DIR, 'FrontEnd/goals/dist/assets'),
+    os.path.join(BASE_DIR, 'FrontEnd/home-tasks/dist/assets'),
+    os.path.join(BASE_DIR, 'FrontEnd/website-home/dist/assets')
     
 ]
 
