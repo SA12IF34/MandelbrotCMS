@@ -215,7 +215,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-# STATIC_URL = 'assets/'
+STATIC_URL = '/assets/'
 STATICFILES_DIRS = [
     BASE_DIR / 'FrontEnd/sessions-manager/dist/assets',
     BASE_DIR / 'FrontEnd/learning-tracker/dist/assets',
