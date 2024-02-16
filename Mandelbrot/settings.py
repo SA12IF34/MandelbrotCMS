@@ -1,5 +1,6 @@
 from pathlib import Path
 from datetime import timedelta
+import os
 import environ
 
 
@@ -153,7 +154,7 @@ ROOT_URLCONF = 'Mandelbrot.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'FrontEnd'],
+        'DIRS': [os.path.join(BASE_DIR, 'FrontEnd')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
