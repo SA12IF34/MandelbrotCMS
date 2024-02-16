@@ -1,5 +1,5 @@
 Bash
 #!/bin/bash
-cd ..
+pwd
 python manage.py makemigrations
 python manage.py migrate
