@@ -28,6 +28,7 @@ ALLOWED_HOSTS = ['*', 'saifchan.online']
 
 INSTALLED_APPS = [
     'authentication',
+    'whitenoise',
     'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -154,7 +155,7 @@ ROOT_URLCONF = 'Mandelbrot.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'FrontEnd/website-home/dist')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
