@@ -155,7 +155,7 @@ ROOT_URLCONF = 'Mandelbrot.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'FrontEnd/website-home/dist')],
+        'DIRS': [os.path.join(BASE_DIR, 'FrontEnd/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -224,13 +224,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'Frontend/entertainment/dist/assets'),
     os.path.join(BASE_DIR, 'FrontEnd/goals/dist/assets'),
     os.path.join(BASE_DIR, 'FrontEnd/home-tasks/dist/assets'),
-    os.path.join(BASE_DIR, 'FrontEnd/website-home/dist/assets'),
-    os.path.join('/app', 'FrontEnd/sessions-manager/dist/assets'),
-    os.path.join('/app', 'FrontEnd/learning-tracker/dist/assets'),
-    os.path.join('/app', 'Frontend/entertainment/dist/assets'),
-    os.path.join('/app', 'FrontEnd/goals/dist/assets'),
-    os.path.join('/app', 'FrontEnd/home-tasks/dist/assets'),
-    os.path.join('/app', 'FrontEnd/website-home/dist/assets')
+    os.path.join(BASE_DIR, 'FrontEnd/website-home/dist/assets')
     
 ]
 
