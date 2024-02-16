@@ -1,0 +1,29 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#root {
+    width: 100%;
+    max-width: 1280px;
+    height: max-content;
+    min-height: 100vh;
+    padding: 29px;
+    margin: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+}
+
+
+@media screen and (max-width: 1024px) {
+    #root {
+        padding: 5vh 5vw;
+    }
+}

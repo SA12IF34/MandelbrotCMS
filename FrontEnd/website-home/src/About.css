@@ -1,0 +1,88 @@
+.AboutPage {
+    --d-level-1: calc(100vw / 1.618);
+    --d-level-2: calc(100vw / 1.618 / 1.68);
+    --d-level-6: calc(100vw / 1.618 / 1.618 / 1.618 / 1.618 / 1.618 / 1.618);
+}
+
+.GrandContainer {
+    width: 100%;
+    height: max-content;
+    position: relative;
+}
+
+.ParentContainer {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    margin: 0 auto;
+}
+
+main {
+    width: var(--d-level-1);
+    height: max-content;
+    padding: 50px 80px;
+}
+
+main > div:nth-child(1) {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--d-level-6)
+}
+
+main p {
+    font-size: 1.2em;
+}
+
+main > div > p:nth-child(6) {
+    font-size: 1.2em;
+    margin-bottom: 40px;
+    margin-left: 40px;
+}
+
+.Image {
+    width: var(--d-level-2);
+    height: max-content;
+    padding-right: 80px;
+    z-index: -2;
+}
+
+.Image img {
+    width: 100%;
+    height: max-content;
+    border: 1px solid black;
+    border-radius: 7px;
+    margin-top: 70px;
+}
+
+.AboutPage .bg {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.AboutPage .RightBg {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    right: 0;
+    top: 50px;
+    background-image: url('./assets/about/rightbg.png');
+    background-repeat: repeat-y;
+    background-position: right top;
+    background-size: calc(100% - 250px) auto;
+
+}
+
+.AboutPage .LeftBg {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    left: 0;
+    top: 50px;
+    background-image: url('./assets/about/leftbg.png');
+    background-repeat: repeat-y;
+    background-position: left top;
+    background-size: calc(100% - 250px) auto;
+}

@@ -1,0 +1,64 @@
+header {
+    width: 100%;
+    height: max-content;
+}
+
+header>div {
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+header>div:nth-child(1) {
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+header>div:nth-child(2) {
+    height: 50px;
+    padding: 5px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+h1 {
+    font-weight: 500;
+}
+
+nav {
+    display: flex;
+}
+nav a {
+    color: black;
+    text-decoration: none;
+    margin: 0px 5px;
+    padding: 0px 5px;
+    border-left: 1px solid silver;
+    border-right: 1px solid silver;
+    cursor: pointer;
+}
+
+
+header>div:nth-child(2)>a {
+    align-self: center;
+}
+
+header>div button {
+    min-width: 80px;
+    height: 30px;
+    padding: 3px 15px;
+    font-size: 1em;
+    background-color: #2B231D;
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* header>div:nth-child(1) button {
+    width: ;
+} */
+
+main {
+    padding: 30px 10px;
+}

@@ -1,0 +1,9 @@
+django
+djangorestframework
+django-cors-headers
+whitenoise
+django-environ
+djangorestframework-simplejwt
+beautifulsoup4
+requests
+google-api-python-client

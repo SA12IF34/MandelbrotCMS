@@ -1,0 +1,709 @@
+.PortfolioPage {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 600px;
+    perspective-origin: top;
+    overflow: hidden;
+
+    --d-level-h-1: calc(100% / 1.618);
+    --d-level-h-2: calc(100% / 1.618 / 1.618);
+    --d-level-v-1: calc(100vh / 1.618);
+    --d-level-v-2: calc(100vh / 1.618 / 1.618);
+}
+
+.PortfolioPage p {
+    font-size: 1.618em;
+}
+
+.SkipBtn {
+    font-size: 1.3em;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    padding: 5px 10px;
+    border: 1px solid silver;
+    outline: none;
+    background-color: #eee;
+    border-radius: 7px;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+#Phase-1.deactivate {
+    display: none !important;
+}
+#Phase-2.deactivate {
+    display: none !important;
+}
+#Phase-3.deactivate {
+    display: none !important;
+}
+
+
+#Phase-1 {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 1;
+    background-color: white;
+}
+
+#Phase-1 > div {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    
+}
+
+
+#Phase-1 .golden-1 {
+    width: var(--d-level-v-1);
+    height: var(--d-level-v-1);
+    bottom: 0;
+}
+
+#Phase-1 .golden-2 {
+    width: var(--d-level-v-1);
+    height: var(--d-level-v-2);
+    top: 0;
+}
+
+#Phase-1 .golden-2 p {
+    position: absolute;
+    width: max-content;
+    max-width: calc(100% - 60px);
+    height: max-content;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#Phase-1 .golden-2 .write-line {
+    display: inline-block;
+    width: 1px;
+    height: 28px;
+    background-color: black;
+
+    animation-name: write-line;
+    animation-duration: 0.6s;
+    animation-timing-function:ease;
+    animation-iteration-count:infinite;
+    animation-fill-mode:both;
+}
+
+#Phase-1 .golden-1 > div {
+    position: absolute;
+    width: max-content;
+    height: max-content;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#Phase-1 .golden-1 > div span {
+    font-size: 7em;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#Phase-1 .golden-1 > div .appear {
+    color: sliver;
+    animation-name: appear;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+    animation-direction:normal;
+    animation-fill-mode: forwards;
+}
+
+#Phase-1 .golden-1 > div .disappear {
+    animation-name: disappear;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in;
+    animation-iteration-count: 1;
+    animation-direction:normal;
+    animation-fill-mode: forwards;
+}
+
+.StartSecond {
+    transform-style: preserve-3d;
+    perspective: 600px;
+    perspective-origin: center;
+    animation-name: second-start;
+    animation-duration: 1.7s;
+    animation-timing-function: ease-out;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+
+}
+
+.MandelbrotContainer {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -10;
+    transform-style: preserve-3d;
+    transform: translateZ(100px) rotateX(-90deg);
+    perspective-origin: top;
+    transform-origin: top;
+    overflow: hidden;
+    transition: 0.3s;
+    animation-name: mandelbrot;
+    animation-delay: 1s;
+    animation-duration: 1.85s;
+    animation-timing-function: ease-out;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+}
+
+.MandelbrotContainer img {
+    position: absolute;
+    width: 55%;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ChangePerspective {
+    animation-name: perspective;
+    animation-delay: 1.9s;
+    animation-duration: 0.01s;
+    animation-timing-function: ease;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+}
+
+@keyframes second-start {
+    0% {
+        transform-origin: center;
+        transform: translateZ(0px) rotateX(0deg);
+    } 50% {
+        transform-origin: center;
+        transform: translateZ(-100px) rotateX(0deg);
+    } 100% {
+        transform-origin: center bottom;
+        transform: translateZ(700px) rotateX(90deg);
+    }
+}
+
+@keyframes mandelbrot {
+    0% {
+        transform: translateZ(300px)  rotateX(-90deg);
+    } 
+
+    45.945945945% {
+        transform: translateZ(-100px) rotateX(0deg);
+    }
+    100% {
+        transform-origin: bottom;
+        transform: translateZ(550px) rotateX(0deg);
+    }
+}
+
+@keyframes perspective {
+    from {
+        perspective-origin: top;
+    } to {
+        perspective-origin: center;
+    }
+}
+
+
+
+@keyframes appear {
+    from {
+        color: silver;
+        font-size: 7em;
+    } to {
+        color: black;
+        font-size: 5em;
+    }
+}
+
+@keyframes disappear {
+    from {
+        font-size: 5em;
+        color: black;
+    } to {
+        color: white;
+        font-size: 5em;
+    }
+}
+
+@keyframes write-line {
+    from {
+        background-color: whitesmoke;
+    } to {
+        background-color: black;
+    }
+}
+
+
+#Phase-2 {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    z-index: 2;
+    overflow: hidden;
+    background-color: black;
+    background-size: 200% 100%;
+    background-position: 0;
+    animation-name: phase-2;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+
+    --sessions-manager: #2b231d;
+    --learning-tracker: silver;
+    --entertainment: #350d0b;
+    --goals-missions: gray;
+    
+}
+
+
+#Phase-2 > div {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+.ParagraphContainer {
+    width: calc(100vw / 1.618);
+    height: 100vh;
+    position: relative;
+    padding: 30px;
+}
+
+.Paragraph {
+    position: relative;
+    width: 100%;
+}
+
+.SessionsManagerTransition,
+.LearningTrackerTransition,
+.EntertainmentTransition,
+.GoalsTransition,
+.MissionsTransition,
+.LastTransition {
+    animation-duration: 1s !important;
+    animation-timing-function: ease-out !important;
+    animation-fill-mode: forwards !important;
+    animation-iteration-count: 1 !important;
+}
+
+#Phase-2.SessionsManagerTransition {
+    background-image: linear-gradient(to left, var(--sessions-manager) 5%, white, white, white);
+    animation-name: bg-sessions-manager;
+}
+
+#Phase-2 > div.SessionsManagerTransition {
+    animation-name: sessions-manager-transition;
+
+}
+
+.ScreenContainer {
+    perspective: 1000px;
+    perspective-origin: top;
+}
+
+#Phase-2.SessionsManagerTransition div.ParagraphContainer {
+    width: var(--d-level-h-2) !important; 
+    height: 100vh;
+}
+
+#Phase-2.SessionsManagerTransition div.ScreenContainer {
+    width: var(--d-level-h-1);
+    height: 100vh;
+
+}
+
+#Phase-2 .Screen {
+    width: calc(100vw / 1.618);
+    height: calc(100vh / 1.618);
+    border-radius: 20px;
+    border: 3px solid rgb(204, 204, 204);
+    position: absolute;
+    overflow: hidden;
+
+    transform-style: preserve-3d;
+    transform-origin: center;
+    animation-duration: 0.8s, 90s;
+    animation-timing-function: ease-out, ease;
+    animation-fill-mode: forwards, forwards;
+    animation-iteration-count: 1, infinite;
+}
+
+#Phase-2 .Screen img,
+#Phase-2 .Screen video {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#Phase-2 .SessionsManagerScreen {
+    transform-origin: bottom !important;
+    transform: rotateX(80deg);
+    right: -100%;
+    bottom: 10vh;
+    animation-name: SM-translate, SM-rotate;
+
+
+}
+
+
+#Phase-2.LearningTrackerTransition {
+    animation-name: bg-learning-tracker;
+}
+
+#Phase-2 > div.LearningTrackerTransition {
+    animation-name: learning-tracker-transition;
+
+}
+
+#Phase-2.LearningTrackerTransition > div {
+    flex-direction: column;
+}
+
+#Phase-2.LearningTrackerTransition div.ParagraphContainer {
+    width: 100% !important;
+    height: var(--d-level-v-2) !important;
+}
+
+#Phase-2.LearningTrackerTransition div.ScreenContainer {
+    width: 100%;
+    height: var(--d-level-v-1);
+}
+
+#Phase-2 .LearningTrackerScreen {
+    transform: translateX(-50%) rotateX(20deg);
+    bottom: -100%;
+    left: 50%;
+    animation-name: LT-translate, LT-rotate;
+}
+
+
+
+#Phase-2.EntertainmentTransition {
+    animation-name: bg-entertainment;
+}
+
+#Phase-2 > div.EntertainmentTransition {
+    animation-name: entertainment-transition;
+}
+
+#Phase-2.EntertainmentTransition > div {
+    flex-direction: column;
+}
+
+#Phase-2.EntertainmentTransition div.ParagraphContainer {
+    width: 100% !important;
+    height: var(--d-level-v-2) !important;
+}
+
+#Phase-2.EntertainmentTransition div.ScreenContainer {
+    width: 100%;
+    height: var(--d-level-v-1);
+}
+
+#Phase-2 .EntertainmentScreen {
+    transform-origin: bottom !important;
+    transform: translateX(-50%) rotateX(60deg);
+    bottom: 10vh;
+    left: -100%;
+    animation-name: E-translate, E-rotate;
+    animation-duration: 0.8s, 35s;
+}
+
+
+#Phase-2.GoalsTransition {
+    animation-name: bg-goals;
+
+}
+
+#Phase-2 > div.GoalsTransition {
+    animation-name: goals-transition;
+}
+
+#Phase-2.GoalsTransition > div {
+    flex-direction: column;
+}
+
+#Phase-2.GoalsTransition div.ParagraphContainer {
+    width: 100% !important;
+    height: var(--d-level-v-2) !important;
+}
+
+#Phase-2.GoalsTransition div.ScreenContainer {
+    width: 100%;
+    height: var(--d-level-v-1);
+}
+
+#Phase-2 .GoalsScreen {
+    transform: translateX(-50%) ;
+    top: -100%;
+    left: 50%;
+    animation-name: G-translate;
+    animation-duration: 0.8s;
+}
+
+#Phase-2.MissionsTransition {
+    perspective: 1000px;
+}
+
+#Phase-2 > div.MissionsTransition {
+    transform-style: preserve-3d;
+    animation-name: missions-transition;
+}
+
+#Phase-2.MissionsTransition > div {
+    flex-direction: column;
+}
+
+#Phase-2.MissionsTransition div.ParagraphContainer {
+    width: 100% !important;
+    height: var(--d-level-v-2) !important;
+}
+
+#Phase-2.MissionsTransition div.ScreenContainer {
+    width: 100%;
+    height: var(--d-level-v-1);
+}
+
+#Phase-2 .MissionsScreen {
+    transform-origin: bottom !important;
+    transform: translateX(-50%) rotate(-45deg);
+    bottom: -100%;
+    left: 50%;
+    animation-name: M-translate, M-rotate;
+    animation-duration: 0.8s, 35s;
+}
+
+#Phase-2 > div.LastTransition {
+    transform-style: preserve-3d;
+    animation-name: last-transition;
+}
+
+.AccountContainer {
+    width: 100%;
+    height: 100vh;
+}
+
+.AccountContainer > div {
+    width: calc(100vw / 1.618);
+    margin: 0 auto;
+}
+
+.AccountContainer .One {
+    height: var(--d-level-v-2);
+    position: relative;
+}
+
+.AccountContainer .One p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.AccountContainer .Two {
+    height: var(--d-level-v-1);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.AccountContainer button {
+    padding: 5px 10px;
+    font-size: 1.3em;
+    background-color: #eee;
+    border: 1px solid silver;
+    outline: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+@keyframes last-transition {
+    from {
+        transform: translateZ(0px);
+    } to {
+        transform: translateZ(-900px);
+    }
+}
+
+@keyframes phase-2 {
+    from {
+        background-color: black;
+    } to {
+        background-color: white;
+    }
+}
+
+@keyframes bg-sessions-manager {
+    0% {
+        background-position: 0%;
+    } 100% {
+        background-position: 100% ;
+    }
+}
+
+@keyframes sessions-manager-transition {
+    from {
+        transform: translateX(0%);
+    } to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes SM-translate {
+    from {
+        right: -100%;
+    } to {
+        right: 10vw;
+    }
+}
+
+@keyframes SM-rotate {
+    from {
+        transform: rotateX(80deg) rotateZ(0deg);
+    } to {
+        transform: rotateX(80deg) rotateZ(360deg);
+    }
+}
+
+
+
+@keyframes bg-learning-tracker {
+    from {
+        background-image: linear-gradient(to left, var(--sessions-manager) 5%, white, white, white);
+    } to {
+        background-image: linear-gradient(to top, var(--learning-tracker) 5%, white, white, white);
+    }
+}
+
+
+@keyframes learning-tracker-transition {
+    from {
+        transform: translateY(0%);
+    } to {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes LT-translate {
+    from {
+        bottom: -100%;
+    } to {
+        bottom: 10vh;
+    }
+}
+
+
+@keyframes LT-rotate {
+    from {
+        transform: translateX(-50%) rotateX(20deg) rotateY(360deg);
+    } to {
+        transform: translateX(-50%) rotateX(20deg) rotateY(0deg);
+    }
+}
+
+
+@keyframes bg-entertainment {
+    from {
+        background-image: linear-gradient(to top, var(--learning-tracker) 5%, white, white, white)
+    } to {
+        background-image: linear-gradient(to top, var(--entertainment) 5%, white, white, white)
+    }
+}
+
+@keyframes entertainment-transition {
+    from {
+        transform: translateX(0%);
+    } to {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes E-translate {
+    from {
+        left: -100%;
+    } to {
+        left: 50%;
+    }
+}
+
+@keyframes E-rotate {
+    from {
+        transform: translateX(-50%) rotateX(40deg);
+    } to {
+        transform: translate(-50%) rotate(0deg);
+    }
+}
+
+
+
+@keyframes bg-goals {
+    from {
+        background-image: linear-gradient(to top, var(--entertainment) 5%, white, white, white)
+    } to {
+        background-image: linear-gradient(to top, var(--goals-missions) 5%, white, white, white)
+    }
+}
+
+@keyframes goals-transition {
+    from {
+        transform: translateY(0%);
+    } to {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes G-translate {
+    from {
+        transform: translateX(-50%) translateY(0%);
+        top: -100%;
+    } to {
+        transform: translateX(-50%) translateY(-50%);
+        top: 40%;
+    }
+}
+
+@keyframes missions-transition {
+    from {
+        transform: translateZ(0px);
+    } to {
+        transform: translateZ(1000px);
+    }
+}
+
+@keyframes M-translate {
+    from {
+        bottom: -100%;
+    } to {
+        bottom: 10vh;
+    }
+}
+
+@keyframes M-rotate {
+    from {
+        transform: translateX(-50%) rotateX(-45deg);
+    } to {
+        transform: translateX(-50%) rotateX(0deg);
+    }
+} 
+
