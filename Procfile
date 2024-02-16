@@ -1,2 +1,2 @@
-release: ./release-tasks.sh
+release: ./release_tasks.sh
 web: gunicorn Mandelbrot.wsgi
