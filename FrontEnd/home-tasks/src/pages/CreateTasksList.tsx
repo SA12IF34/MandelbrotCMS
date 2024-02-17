@@ -399,10 +399,6 @@ function CreateTasksList({handleAlert}: {handleAlert: any}) {
       let searchField = document.getElementById('search-field') as HTMLInputElement;
       let selectedResult = document.querySelector('.selected-result') as HTMLSpanElement;
 
-      console.log(selectedResult);
-      console.log(searchField);
-      console.log(document.activeElement);
-
       if (selectedResult) {
         
         let resultsContainer = document.querySelector('.search-results') as HTMLDivElement;
@@ -470,6 +466,12 @@ function CreateTasksList({handleAlert}: {handleAlert: any}) {
       handleAlert('The list must have at least one task.');
       return;
     }
+    
+    if (!data['container']) {
+      data['container'] = {}
+      
+    }
+
     data['container']!['title'] = titleRef.current?.value;
     data['container']!['date'] = dateRef.current?.value;
     data['tasks'] = tasks;
