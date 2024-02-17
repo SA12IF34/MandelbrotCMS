@@ -291,7 +291,7 @@ const charTime = parseInt(duration / content.length);
         break;
       
       case 'Missions':
-        var paragraphValue = `We're not done yet. Of course we have a section where you set your daily missions, and you can track them over the browser extension of the CMS, isn't it great?!`;
+        var paragraphValue = `We're not done yet. Of course we have a section where you set your daily missions, and you will be able to track them over the browser extension which will be available soon, isn't it great?!`;
         setTimeout(() => {
           handleAnimateParagraph(missionsVoice, paragraphValue, '#Phase-2.MissionsTransition p', handleStartThirdPhase);
           handleAddScreen(identifier);
