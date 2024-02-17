@@ -242,7 +242,7 @@ STATIC_URL = '/assets/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'FrontEnd/sessions-manager/dist/assets'),
     os.path.join(BASE_DIR, 'FrontEnd/learning-tracker/dist/assets'),
-    os.path.join(BASE_DIR, 'Frontend/entertainment/dist/assets'),
+    os.path.join(BASE_DIR, 'FrontEnd/entertainment/dist/assets'),
     os.path.join(BASE_DIR, 'FrontEnd/goals/dist/assets'),
     os.path.join(BASE_DIR, 'FrontEnd/home-tasks/dist/assets'),
     os.path.join(BASE_DIR, 'FrontEnd/website-home/dist/assets')
