@@ -4,6 +4,7 @@ djangorestframework
 django-cors-headers
 whitenoise
 dj-database-url
+psycopg2
 django-environ
 djangorestframework-simplejwt
 beautifulsoup4

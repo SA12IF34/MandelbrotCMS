@@ -182,13 +182,15 @@ WSGI_APPLICATION = 'Mandelbrot.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 if IS_HEROKU_APP:
-    import dj_database_url
-
     DATABASES = {
-        "default": dj_database_url.config(
-            conn_max_age=600,
-            ssl_require=True,
-        ),
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': ENV('BG_NAME'), 
+            'USER': ENV('BG_USER'),
+            'PASSWORD': ENV('BG_PASSWORD'),
+            'HOST': ENV('BG_HOST'), 
+            'PORT': ENV('BG_PORT'),
+        }
     }
 
 else:
