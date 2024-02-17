@@ -19,10 +19,18 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = ENV('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 
-ALLOWED_HOSTS = ['*', 'saifchan.online']
+if IS_HEROKU_APP:
+    DEBUG = False
+else:
+    DEBUG = True
 
+if IS_HEROKU_APP:
+    ALLOWED_HOSTS = ['saifchan-website-5405fadf9541.herokuapp.com', 'saifchan.online']
+
+else:
+    ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -173,12 +181,24 @@ WSGI_APPLICATION = 'Mandelbrot.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if IS_HEROKU_APP:
+    import dj_database_url
+
+    DATABASES = {
+        "default": dj_database_url.config(
+            conn_max_age=600,
+            conn_health_checks=True,
+            ssl_require=True,
+        ),
     }
-}
+
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
