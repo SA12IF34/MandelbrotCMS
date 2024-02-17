@@ -185,11 +185,11 @@ if IS_HEROKU_APP:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': ENV('BG_NAME'), 
-            'USER': ENV('BG_USER'),
-            'PASSWORD': ENV('BG_PASSWORD'),
-            'HOST': ENV('BG_HOST'), 
-            'PORT': ENV('BG_PORT'),
+            'NAME': ENV('PG_NAME'), 
+            'USER': ENV('PG_USER'),
+            'PASSWORD': ENV('PG_PASSWORD'),
+            'HOST': ENV('PG_HOST'), 
+            'PORT': ENV('PG_PORT'),
         }
     }
 
