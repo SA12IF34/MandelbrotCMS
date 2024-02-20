@@ -9,4 +9,5 @@ django-environ
 djangorestframework-simplejwt
 beautifulsoup4
 requests
+json
 google-api-python-client

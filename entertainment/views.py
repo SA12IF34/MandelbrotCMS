@@ -12,6 +12,8 @@ from .serializers import *
 import requests
 from bs4 import BeautifulSoup
 from itertools import islice
+import json
+import os
 
 from django.conf import settings
 
@@ -78,6 +80,31 @@ def get_anilist(url):
     }
 
 
+def read_json():
+    try:
+       with open(os.path.join(settings.BASE_DIR, 'entertainment/tokens.json'), 'r') as f:
+           data = json.load(f)
+           access_token = data.get('access_token')
+           refresh_token = data.get('refresh_token')
+           return access_token, refresh_token
+
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"Error reading or parsing tokens.json: {e}")
+        return None, None
+
+def write_json(access_token, refresh_token):
+    try:
+        with open('tokens.json', 'r') as f:
+            data = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        data = {}  # Create an empty dict if the file doesn't exist or is invalid
+
+    data['access_token'] = access_token
+    data['refresh_token'] = refresh_token
+
+    with open('tokens.json', 'w') as f:
+        json.dump(data, f, indent=4)
+
 def get_mal(url):
     if url.endswith('/'):
         url = list(url)
@@ -92,16 +119,28 @@ def get_mal(url):
     else:
         id = url.split('/')[-2]
 
-    access_token = settings.ENV('MAL_ACCESS_TOKEN')
-    refresh_token = settings.ENV('MAL_REFRESH_TOKEN')
-
+    access_token, refresh_token = read_json()
+    client_id = settings.ENV('MAL_CLIENT_ID')
+    client_secret = settings.ENV('MAL_CLIENT_SECRET')
+    
+    
     response = requests.get(f'https://api.myanimelist.net/v2/anime/{id}?fields=title,main_picture,synopsis', headers={
         'Authorization': 'Bearer '+access_token
     })
+    
+    if response.status_code == 401:
+        new_tokens = requests.post('https://myanimelist.net/v1/oauth2/token', data={
+            'client_id': client_id,
+            'client_secret': client_secret,
+            'grant_type': 'refresh_token',
+            'refresh_token':refresh_token
+        }).json()
+
+        write_json(new_tokens['access_token'], new_tokens['refresh_token']);
+        return get_mal(url)
 
     data = response.json()
-    print(data)
-    print(response.status)
+
     return {
         'name': data['title'],
         'description': data['synopsis'],
