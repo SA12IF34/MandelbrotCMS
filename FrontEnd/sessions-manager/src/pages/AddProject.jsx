@@ -156,7 +156,7 @@ function AddProject({api}) {
       </section>
       <section>
         <div>
-          <h2>Starting Date: </h2>
+          <h2>Start Date: </h2>
           <input type="date" name="start-date" id="start-date" ref={startRef} />
         </div>
         <div>

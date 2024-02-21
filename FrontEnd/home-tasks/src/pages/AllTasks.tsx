@@ -44,7 +44,7 @@ function AllTasks() {
       <div className="all-tasks">
         {data && data.length > 0 ? data.map(container => {
           return (
-            <Link style={{textDecoration: 'none'}} to={`/tasks/${container['id' as keyof typeof container]}/`}>
+            <Link style={{textDecoration: 'none'}} to={`/missions/${container['id' as keyof typeof container]}/`}>
               <div className="tasks-container">
                 <div>
                   <h2>{container['title' as keyof typeof container]}</h2>
@@ -59,7 +59,7 @@ function AllTasks() {
             </Link>
           )
         }): (
-          <h1>There are no created task lists.</h1>
+          <h1>There are no created missions lists.</h1>
         )}
       </div>
     </div>

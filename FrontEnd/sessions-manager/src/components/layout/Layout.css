@@ -44,7 +44,7 @@ header>div:nth-child(2)>a {
 
 header>div button {
     min-width: 80px;
-    height: 30px;
+    min-height: 30px;
     padding: 3px 15px;
     font-size: 1em;
     background-color: #2B231D;
@@ -61,4 +61,12 @@ header>div button {
 
 main {
     padding: 30px 10px;
+}
+
+
+@media screen and (max-width: 365px) {
+    header h1 {
+        font-size: 1.7em !important;
+    }
+
 }

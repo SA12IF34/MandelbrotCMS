@@ -3,14 +3,16 @@ import './App.css';
 
 import Layout from './layout/Layout';
 import Home from './pages/Home';
+import CreateTasksList from './pages/CreateTasksList';
 import AllTasks from './pages/AllTasks';
 import Tasks from './pages/Tasks';
-import CreateTasksList from './pages/CreateTasksList';
+import Edit from './pages/Edit';
 
 import axios from 'axios';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
+
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -53,9 +55,10 @@ function App() {
       <Layout>
         <Routes>
           <Route path='/home/' element={<Home />} />
-          <Route path='/all-tasks/' element={<AllTasks />} />
-          <Route path='/tasks/:id/' element={<Tasks />} />
-          <Route path='/create-tasks-list/' element={<CreateTasksList handleAlert={handleAlert} />} />
+          <Route path='/create-missions-list/' element={<CreateTasksList handleAlert={handleAlert} />} />
+          <Route path='/all-missions/' element={<AllTasks />} />
+          <Route path='/missions/:id/' element={<Tasks />} />
+          <Route path='/missions/:id/edit/' element={<Edit />} />
           <Route path='/sign-up/' element={<Signup handleAlert={handleAlert} />} />
           <Route path='/log-in/' element={<Login handleAlert={handleAlert} />} />
           <Route path='/profile/' element={<Profile />} />

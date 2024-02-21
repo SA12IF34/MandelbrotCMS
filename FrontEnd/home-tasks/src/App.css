@@ -351,8 +351,11 @@ nav>a:hover {
   font-size: 1em;
 }
 
+
 .task-form textarea {
-  min-width: 300px;
+  min-width: 100px;
+  width: 100%;
+  max-width: 300px;
   height: 150px;
   padding: 5px;
   border: 1px solid black;
@@ -607,4 +610,96 @@ button.logout {
   font-size: 1em;
   padding: 5px 10px;
   margin-top: 50px;
+}
+
+/* Mission Items */
+@media screen and (max-width: 768px) {
+    h1 {
+      font-size: 1.7em !important;
+      width: 100%;
+    }
+
+    header>div:nth-child(1) {
+      padding: 15px 20px;
+    }
+
+    header nav {
+      row-gap: 7px;
+    }
+
+    h2 {
+      font-size: 1.3em;
+      width: 100%;
+    }
+
+    .tasks-container>div>h2:nth-child(2) {
+      text-align: end;
+    }
+
+    .tasks-page>div:nth-child(1)>div h1 {
+      font-size: 1.4em !important;
+      width: max-content;
+    }
+}
+
+
+/* Missions Form */
+
+@media screen and (max-width: 768px) {
+  .task-form {
+    flex-wrap: wrap;
+    row-gap: 20px;
+  }
+
+  .task-form textarea {
+    min-width: auto;
+    max-width: none;
+  }
+
+  .task-form input,
+  .search-results {
+    width: auto;
+  }
+
+  .task-form select {
+    width: max-content;
+  }
+
+  .new-list-page>form>div:nth-child(3)>div {
+    flex-wrap: wrap;
+  }
+
+  .new-list-page>form>div:nth-child(3)>div>div {
+    flex-basis: 100%;
+  }
+}
+
+
+@media screen and (max-width: 500px) {
+
+  .new-list-page {
+    padding: 20px 10px 50px;
+  }
+
+  .new-list-page>form>div:nth-child(1) {
+    width: 100%;
+  }
+
+  .new-list-page>form>div:nth-child(1) {
+    width: 100%;
+  }
+
+  .container-reward {
+    width: 80%;
+  }
+
+  .container-reward>img  {
+    max-width: 150px;
+  }
+
+  .container-reward>h3 {
+    word-break: break-word;
+  }
+
+
 }

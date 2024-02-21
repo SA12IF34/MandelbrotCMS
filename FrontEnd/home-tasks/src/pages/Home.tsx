@@ -174,7 +174,7 @@ function Home() {
       {data ? (!data['done' as keyof typeof data] ? (
       <>
         <div className='today-tasks'>
-          <h1>Today's Tasks ({data && data['title' as keyof typeof data]})</h1>
+          <h1>Today's Missions ({data && data['title' as keyof typeof data]})</h1>
           <div className='tasks-list list'>
             {data && (data['tasks' as keyof typeof data] as Array<object>).map(task => {
               return (

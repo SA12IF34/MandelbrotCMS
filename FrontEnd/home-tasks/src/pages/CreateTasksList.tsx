@@ -137,7 +137,8 @@ function CreateTasksList({handleAlert}: {handleAlert: any}) {
         chosenContainer.remove();
       }
 
-      document.querySelector('.task-form')?.appendChild(chosenContainer);
+      // document.querySelector('.task-form')?.appendChild(chosenContainer);
+      (document.querySelector('.task-form') as HTMLElement)?.insertBefore(chosenContainer, (document.querySelector('.add-task-btn') as HTMLButtonElement))
 
     }
   }
@@ -497,7 +498,7 @@ function CreateTasksList({handleAlert}: {handleAlert: any}) {
         </div>
         <div className="tasks-items-container">
           <div className="sub-title-flex">
-            <h1>Tasks</h1>
+            <h1>Missions</h1>
             <IoIosAdd onClick={handleOpenTaskForm} />
           </div>
           {taskForm && (

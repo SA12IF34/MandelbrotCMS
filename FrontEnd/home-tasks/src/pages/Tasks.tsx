@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TbPointFilled } from "react-icons/tb";
-import { FiEdit } from "react-icons/fi";
+// import { FiEdit } from "react-icons/fi";
 import { api } from "../App";
 
 function Tasks() {
@@ -62,7 +62,7 @@ function Tasks() {
             <h1>{list && list['title' as keyof typeof list]}</h1>
             <div>
               <h1>{list && list['date' as keyof typeof list]}</h1>
-              <FiEdit />
+              {/* <FiEdit /> */}
             </div>
           </div>
           <div className="tasks-list list tasks">

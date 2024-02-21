@@ -18,9 +18,10 @@ urlpatterns = [
 ]
 
 CMS_REACT_ROUTES = [
-    'all-tasks',
-    'tasks/<int:id>',
-    'create-tasks-list',
+    'all-missions',
+    'missions/<int:id>',
+    'missions/<int:id>/edit',
+    'create-missions-list',
     'sign-up',
     'log-in',
     'profile'

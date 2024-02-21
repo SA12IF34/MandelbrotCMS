@@ -63,10 +63,14 @@
 
 .ContactPage .Form .FullW {
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    column-gap: 5px;
 }
 
 .ContactPage .Form form input, 
 .ContactPage .Form form textarea {
+    width: 100%;
     background-color: rgba(226, 226, 226, 0.686);
     border: 1px solid silver;
     outline: none;

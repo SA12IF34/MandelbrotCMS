@@ -29,7 +29,7 @@ function Home() {
   }, [])
 
   return (
-    <div className='page'>
+    <div className='page home'>
       {projects && projects.length > 0 ? projects.map(project => {
         return (
           <ProjectItem  id={project['id']}

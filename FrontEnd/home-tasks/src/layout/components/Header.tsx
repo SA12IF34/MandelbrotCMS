@@ -65,11 +65,11 @@ function Header() {
         <a href={'/goals/'}>
           <span>Goals</span>
         </a>
-        <a href={'/all-tasks/'}>
-          <span>All Tasks</span>
+        <a href={'/all-missions/'}>
+          <span>All Missions</span>
         </a>
-        <a href={'/create-tasks-list/'}>
-          <span>New Tasks List</span>
+        <a href={'/create-missions-list/'}>
+          <span>New Missions List</span>
         </a>
       </nav>
     </header>

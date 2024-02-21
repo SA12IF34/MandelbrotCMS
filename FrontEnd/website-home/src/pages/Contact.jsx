@@ -15,11 +15,11 @@ function Contact() {
           <br />
           <div>
             <ul>
-              <li>GitHub</li>
-              <li>Stack Overflow</li>
-              <li>Leetcode</li>
-              <li>LinkedIn</li>
-              <li>Upwork</li>
+              <li><a style={{color: 'black'}} href="http://github.com/SA12IF34" target="_blank" >GitHub</a></li>
+              {/* <li>Stack Overflow</li> */}
+              {/* <li>Leetcode</li> */}
+              <li><a style={{color:'black'}} href="http://www.linkedin.com/in/saifchan" target="_blank">LinkedIn</a></li>
+              <li><a style={{color: 'black'}} href="http://www.upwork.com/freelancers/~01ef34f2c2b3e1bcb1" target='_blank'>Upwork</a></li>
             </ul>
           </div>
         </div>
@@ -34,15 +34,17 @@ function Contact() {
         <div className='Form'>
           <h2>Say Hello</h2>
           <br />
-          <form action="">
+          <form action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="a51e0962-12dd-43c9-8339-021ca55d9582" />
+            <input type="hidden" name="redirect" value="https://saifchan.online/" />
             <div className='FullW'>
-              <input type="text" name="name" id="name" placeholder='Your Name' />
-              <input type="email" name="email" id="email" placeholder='Your Email' />
+              <input type="text" name="First Name" id="name" required placeholder='Your Name' />
+              <input type="email" name="email" id="email" required placeholder='Your Email' />
             </div>
             <div className='FullW'>
-              <input type="text" name="subject" id="subject" placeholder='Subject' />
+              <input type="text" name="subject" id="subject" required placeholder='Subject' />
             </div>
-            <textarea className='FullW' name="message" cols="30" rows="10" placeholder='Message..'></textarea>
+            <textarea className='FullW' name="content" required cols="30" rows="10" placeholder='Message..'></textarea>
             <input type="submit" value="Send" />
           </form>
         </div>

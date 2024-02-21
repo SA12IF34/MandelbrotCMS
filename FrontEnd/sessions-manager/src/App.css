@@ -24,11 +24,11 @@
 .page a {
     text-decoration: none;
 }
+ 
 
-
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 912px) {
     .home {
-        justify-content: space-around;
+        justify-content: space-evenly;
     }
 }
 

@@ -546,3 +546,25 @@ nav button {
   z-index: 1;
 }
 
+
+@media screen and (max-width: 768px) {
+  .goal-name-input, .goal-reward-text-input {
+    font-size: 1.7em;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  
+  .new-goal-page .related h2, .new-goal-page .rewards h2 {
+    font-size: 1.3em;
+  }
+
+  .course-results>div, .project-results>div {
+    width: 45%;
+  }
+
+  .reward-results>div {
+    width: 45%;
+  }
+ 
+}
