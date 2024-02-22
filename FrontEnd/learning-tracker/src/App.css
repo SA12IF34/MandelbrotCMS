@@ -186,6 +186,10 @@ main button {
     height: 300px;
   
   }
+
+  .material {
+    padding: 0 20px 40px;
+  }
 }
 
 /* Material Page */

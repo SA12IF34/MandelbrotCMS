@@ -123,7 +123,7 @@ function MaterialsContainer({dual=true, data}: props) {
                   </Link>
                 )
               }) : (
-                <h1 style={{margin: '20px', color: 'white'}}>There are no materials</h1>
+                <h1 style={{margin: '20px', color: 'white', maxWidth: 'calc(100% - 80px)'}}>There are no materials</h1>
               )}
             </div>
           </div>

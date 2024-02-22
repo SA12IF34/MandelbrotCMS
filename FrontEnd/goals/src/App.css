@@ -177,7 +177,8 @@ nav button {
 }
 
 .related>div:nth-child(1) .course-item {
-  width: 300px;
+  max-width: 300px;
+  width: 100%;
   height: max-content;
   max-height: 200px;
   border: 1px solid black;
@@ -208,7 +209,8 @@ nav button {
 
 .related>div:nth-child(2) .project-item {
   padding: 10px 15px;
-  width: 300px;
+  max-width: 300px;
+  width: 100%;
   height: 130px;
   border: 1px solid black;
   border-radius: 10px;
@@ -227,7 +229,8 @@ nav button {
 }
 
 .related>div:nth-child(3) .mission-item {
-  width: 300px;
+  max-width: 300px;
+  width: 100%;
   height: 250px;
   padding: 15px;
   border: 1px solid black;
@@ -452,8 +455,8 @@ nav button {
 
 .course-results>div,
 .project-results>div {
-  flex-basis: 28%;
   max-width: 200px;
+  width: 100%;
   height: 180px;
   border:1px solid silver;
   padding: 5px;
@@ -483,7 +486,8 @@ nav button {
 }
 
 .reward-results>div {
-  flex-basis: 23%;
+  max-width: 200px;
+  width: 100%;
   height: max-content;
   padding: 10px;
   border: 1px solid silver;
@@ -549,22 +553,34 @@ nav button {
 
 @media screen and (max-width: 768px) {
   .goal-name-input, .goal-reward-text-input {
+    font-size: 1.5em;
+  }
+
+  .page h1 {
     font-size: 1.7em;
   }
+
 }
 
 @media screen and (max-width: 500px) {
   
+  .page,
+  .goal-page {
+    padding: 20px 0px;
+  }
+
+
   .new-goal-page .related h2, .new-goal-page .rewards h2 {
     font-size: 1.3em;
   }
 
-  .course-results>div, .project-results>div {
-    width: 45%;
+  .course-results>div, 
+  .project-results>div {
+    min-width: 40%;
   }
 
   .reward-results>div {
-    width: 45%;
+    width: 40%;
   }
- 
+
 }

@@ -155,6 +155,7 @@ nav>a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  column-gap: 10px;
 }
 
 .tasks-list>div>div button {
@@ -675,7 +676,29 @@ button.logout {
 }
 
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 560px) {
+
+  .home-page,
+  .all-tasks-page,
+  .tasks-page {
+    padding: 20px 10px;
+  }
+
+  .tasks-list>div>div h2 {
+    font-size: 1.15em;
+  }
+
+  .tasks-list>div>div svg {
+    font-size: 25px;
+  }
+
+  .tasks-list {
+    margin: 20px 0px;
+  }
+
+  .container {
+    margin: 20px 0px;
+  }
 
   .new-list-page {
     padding: 20px 10px 50px;
@@ -701,5 +724,6 @@ button.logout {
     word-break: break-word;
   }
 
+  
 
 }

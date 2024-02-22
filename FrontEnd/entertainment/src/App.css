@@ -73,6 +73,7 @@ header {
   z-index: 10;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 header button {
@@ -138,6 +139,10 @@ main button {
   nav {
     left: 50%;
     transform: translateX(-50%);
+  }
+
+  main {
+    padding: 30px 0;
   }
 }
 
@@ -437,6 +442,11 @@ section {
   display: flex;
   flex-direction: column;
   row-gap: 20px;
+  width: 100%;
+}
+
+.info h2 {
+  max-width: 100%;
 }
 
 .info>div span,
@@ -484,6 +494,11 @@ section {
 }
 
 @media screen and (max-width: 500px) {
+
+  header h1 {
+    font-size: 1.7em;
+  }
+
   .url-field-container>div {
     flex-wrap: wrap;
     row-gap: 10px;
