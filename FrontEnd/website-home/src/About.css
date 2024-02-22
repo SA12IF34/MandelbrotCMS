@@ -1,7 +1,9 @@
+
 .AboutPage {
     --d-level-1: calc(100vw / 1.618);
     --d-level-2: calc(100vw / 1.618 / 1.68);
     --d-level-6: calc(100vw / 1.618 / 1.618 / 1.618 / 1.618 / 1.618 / 1.618);
+    overflow: hidden;
 }
 
 .GrandContainer {
@@ -17,23 +19,23 @@
     margin: 0 auto;
 }
 
-main {
+.AboutPage main {
     width: var(--d-level-1);
     height: max-content;
     padding: 50px 80px;
 }
 
-main > div:nth-child(1) {
+.AboutPage main > div:nth-child(1) {
     display: flex;
     flex-direction: column;
     row-gap: var(--d-level-6)
 }
 
-main p {
+.AboutPage main p {
     font-size: 1.2em;
 }
 
-main > div > p:nth-child(6) {
+.AboutPage main > div > p:nth-child(6) {
     font-size: 1.2em;
     margin-bottom: 40px;
     margin-left: 40px;
@@ -85,4 +87,40 @@ main > div > p:nth-child(6) {
     background-repeat: repeat-y;
     background-position: left top;
     background-size: calc(100% - 250px) auto;
+}
+
+@media screen and (max-width: 911px) {
+    .ParentContainer {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .AboutPage main {
+        width: 100%;
+        padding: 20px 30px;
+    }
+
+    .Image {
+        padding: 0;
+        flex-basis: calc(100vh / 1.618 / 1.618);
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        margin-top: 20px;
+    }
+
+    .Image img {
+        margin: auto;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        width: auto;
+        max-width: 80%;
+        max-height: 100%;
+    }
+
+    .AboutPage .bg {
+        display: none;
+    }
 }

@@ -1,3 +1,7 @@
+#root {
+    overflow: auto;
+}
+
 .ContactPage {
     width: 100%;
     height: max-content;
@@ -59,6 +63,7 @@
     flex-direction: column;
     row-gap: 10px;
     margin: 10px;
+    min-width: 300px;
 }
 
 .ContactPage .Form .FullW {
@@ -128,4 +133,26 @@
     background-image: url(./assets/contact/leftbg.png);
     background-repeat: repeat-y;
     background-position: left top;
+}
+
+@media screen and (max-width: 768px) {
+
+    .ContactPage main {
+        padding: 50px 30px 0 30px;
+    }
+
+    .ContactPage main > div {
+        width: 100%;
+    }
+
+    .ContactPage .Form form {
+        width: 100%;
+        max-width: 550px;
+        
+        margin: 10px auto;
+    }
+
+    .ContactPage .bg {
+        display: none;
+    }
 }

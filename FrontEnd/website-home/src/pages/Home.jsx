@@ -12,54 +12,50 @@ function Home() {
   return (
     <div className='HomePage'>
 
-        <div className='IntroParagraph'>
-            <p>
-            Hello and welcome to my website, 
-            this is the personal website of a
-            full stack software engineer.
-            </p>
-        </div>
+        <main>
+            <div className='IntroParagraph'>
+                <p>
+                Hello and welcome to my website, 
+                this is the personal website of a
+                full stack software engineer.
+                </p>
+            </div>
 
-        <div className='NavContainer'>
-            <Link to={'/mandelbrotCMS/'}>
-                <div className='portfolio'>
-                    <h2>Portfolio</h2>
-                    <div className="Img">
-                        <img src={portfolioImg} alt="mandelbrotCMS portfolio" />
+            <div className='NavContainer'>
+                <Link to={'/mandelbrotCMS/'}>
+                    <div className='portfolio'>
+                        <h2>Portfolio</h2>
+                        <div className="Img">
+                            <img src={portfolioImg} alt="mandelbrotCMS portfolio" />
+                        </div>
                     </div>
-                </div>
-            </Link>
-            <Link to={'/skills/'}>
-                <div className='skills'>
-                    <h2>Skills</h2>
-                    <div className="Img">
-                        <img src={skillsImg} alt="saifChan skills" />
+                </Link>
+                <Link to={'/skills/'}>
+                    <div className='skills'>
+                        <h2>Skills</h2>
+                        <div className="Img">
+                            <img src={skillsImg} alt="saifChan skills" />
+                        </div>
                     </div>
-                </div>
-            </Link>
-            <Link to={'/about/'}>
-                <div className='about'>
-                    <h2>About</h2>
-                    <div className="Img">
-                        <img src={aboutImg} alt="saifChan about" />
+                </Link>
+                <Link to={'/about/'}>
+                    <div className='about'>
+                        <h2>About</h2>
+                        <div className="Img">
+                            <img src={aboutImg} alt="saifChan about" />
+                        </div>
                     </div>
-                </div>
-            </Link>
-            <Link to={'/contact/'}>
-                <div className='contact'>
-                    <h2>Contact</h2>
-                    <div className='Img'>
-                        <img src={contactImg} alt="saifChan contact" />
+                </Link>
+                <Link to={'/contact/'}>
+                    <div className='contact'>
+                        <h2>Contact</h2>
+                        <div className='Img'>
+                            <img src={contactImg} alt="saifChan contact" />
+                        </div>
                     </div>
-                </div>
-            </Link>
-        </div>
-
-        <div className='golden-1 golden'></div>
-        <div className='golden-2 golden'></div>
-        <div className='golden-3 golden'></div>
-        <div className='golden-4 golden'></div>
-
+                </Link>
+            </div>
+        </main>
         <img className='bg' src={bg} alt="" />
     </div>
   )

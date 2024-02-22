@@ -1,3 +1,7 @@
+#root {
+    overflow: hidden;
+}
+
 .HomePage {
     width: 100%;
     height: 100vh;
@@ -6,16 +10,24 @@
 
 .HomePage .bg {
     width: 100%;
+    min-width: 768px;
     height: auto;
     max-height: 85%;
     position: absolute;
     bottom: 0;
-    z-index:-1;
-    
+    z-index: -1;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .HomePage .golden {
     display: none;
+}
+
+.HomePage main {
+    max-width: 1280px;
+    position: relative;
+    margin: auto;
 }
 
 .home-golden .golden {
@@ -65,7 +77,8 @@
 
 .NavContainer {
     width: calc(100vw / 1.618);
-    height: calc((100vh / 1.618) / 1.618 / 1.618);
+    min-height: calc((100vh / 1.618) / 1.618 / 1.618);
+    max-height: 200px;
     display: flex;
     justify-content: space-between;
     position: absolute;
@@ -76,7 +89,7 @@
 }
 
 .NavContainer > a {
-    height: 100%;
+    height: calc((100vh / 1.618) / 1.618 / 1.618);
     width: calc((100vh / 1.618) / 1.618 / 1.618);
     overflow: hidden;
     cursor: pointer;
@@ -106,6 +119,8 @@
 .NavContainer > a > div > .Img {
     height: calc(100% - 30px);
     width: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
 .NavContainer > a > div > .Img > img {
@@ -118,4 +133,55 @@
 .about .Img,
 .contact .Img {
     height: calc(100% - 40px) !important;
+}
+
+@media screen and (max-width: 767px) {
+
+    .NavContainer {
+        width: 100%;
+        justify-content: space-evenly;
+    }
+
+    .NavContainer > a > div > .Img > img {
+        width: auto;
+        height: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+}
+
+@media screen and (max-width: 500px) {
+    .IntroParagraph {
+        width: 100%;
+    }
+    
+    .IntroParagraph p  {
+        padding: 20px;
+    }
+
+    .NavContainer {
+        justify-content: center;
+        flex-wrap: wrap;
+        column-gap: 20vw;
+        row-gap: 20px;
+        max-height: none;
+    }
+
+    .NavContainer > a {
+        width: calc((100vh / 1.618) / 1.618 / 1.618 / 1.618);
+        height: calc((100vh / 1.618) / 1.618 / 1.618 / 1.618);
+        
+    }
+
+    .NavContainer > a > div > h2 {
+        font-size: 1.2em;
+    }
+
+    
+    #root {
+        overflow: hidden;
+    }
 }

@@ -2,6 +2,10 @@ body::-webkit-scrollbar {
     width: 0px;
 }
 
+#root {
+    overflow: auto;
+}
+
 .SkillsPage h2 {
     font-size: 1.618em;
 }
@@ -16,20 +20,20 @@ body::-webkit-scrollbar {
     display: none;
 }
 
-main {
+.SkillsPage main {
     width: 100%;
     height: calc(100vw / 1.618);
     position: relative;
 
 }
 
-main .golden {
+.SkillsPage main .golden {
     display: block !important;
     position: absolute;
     top: 0;
 }
-
-main .FrontendContainer {
+ 
+.SkillsPage main .FrontendContainer {
     width: calc(100vw / 1.618 / 1.618);
     height: calc(100vw / 1.618);
     left: 0%;
