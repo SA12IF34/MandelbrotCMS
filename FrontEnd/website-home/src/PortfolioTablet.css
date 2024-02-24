@@ -1,6 +1,6 @@
 @media screen and (max-width: 912px) {
     #Phase-2.SessionsManagerTransition div.ParagraphContainer {
-        width: 100%;
+        width: 100% !important;
     }
 
     #Phase-2.SessionsManagerTransition div.ScreenContainer {
@@ -12,8 +12,8 @@
     }
 
     #Phase-2 .Screen video {
-        height: 100%;
-        width: auto;
+        height: 100% !important;
+        width: auto !important;
     }
 
     .AccountContainer .One p {

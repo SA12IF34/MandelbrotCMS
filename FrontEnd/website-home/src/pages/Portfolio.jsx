@@ -301,11 +301,11 @@ function Portfolio() {
     let img;
     switch (identifier) {
       case 'SessionsManager':
-        if (window.matchMedia('(max-width: 912px)').matches) {
+        if (window.matchMedia('(max-width: 912px) and (min-width: 768px)').matches) {
           img = SessionsManagerTabImg;
         } else if (window.matchMedia('(max-width: 600px)').matches) {
           img = SessionsManagerMobileImg;
-        } else {
+        } else if (window.matchMedia('(min-width: 1000px)').matches) {
           img = SessionsManagerImg;
         }
 
@@ -314,11 +314,11 @@ function Portfolio() {
         break;
       
       case 'LearningTracker':
-        if (window.matchMedia('(max-width: 912px)').matches) {
+        if (window.matchMedia('(max-width: 912px) and (min-width: 768px)').matches) {
           img = LearningTrackerTabImg;
         } else if (window.matchMedia('(max-width: 600px)').matches) {
           img = LearningTrackerMobileImg;
-        } else {
+        } else if (window.matchMedia('(min-width: 1000px)').matches) {
           img = LearningTrackerImg;
         }
 
@@ -326,11 +326,11 @@ function Portfolio() {
         break;
       
       case 'Entertainment':
-        if (window.matchMedia('(max-width: 912px)').matches) {
+        if (window.matchMedia('(max-width: 912px) and (min-width: 768px)').matches) {
           img = EntertainmentTabImg;
         } else if (window.matchMedia('(max-width: 600px)').matches) {
           img = EntertainmentMobileImg;
-        } else {
+        } else if (window.matchMedia('(min-width: 1000px)').matches) {
           img = EntertainmentImg;
         }
 
@@ -339,22 +339,22 @@ function Portfolio() {
       
       case 'Goals':
         let video;
-        if (window.matchMedia('(max-width: 912px)').matches) {
+        if (window.matchMedia('(max-width: 912px) and (min-width: 768px)').matches) {
           video = GoalsTabVideo;
         } else if (window.matchMedia('(max-width: 600px)').matches) {
           video = GoalsMobileVideo;
-        } else {
+        } else if (window.matchMedia('(min-width: 1000px)').matches) {
           video = GoalsVideo;
         }
         addScreen('GoalsScreen', video, true);
         break;
       
       case 'Missions':
-        if (window.matchMedia('(max-width: 912px)').matches) {
+        if (window.matchMedia('(max-width: 912px) and (min-width: 768px)').matches) {
           img = MissionsTabImg;
         } else if (window.matchMedia('(max-width: 600px)').matches) {
           img = MissionsMobileImg;
-        } else {
+        } else if (window.matchMedia('(min-width: 1000px)').matches) {
           img = MissionsImg;
         }
         addScreen('MissionsScreen', img);

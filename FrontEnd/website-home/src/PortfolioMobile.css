@@ -24,7 +24,7 @@
         width: 100%;
     }
 
-   .ParagraphContainer {
+    #Phase-2 .ParagraphContainer {
         width: 100% !important;
     }
 
@@ -36,6 +36,11 @@
         animation-duration: 0.8s, 60s;
     }
 
+
+    #Phase-2 .SessionsManagerScreen {
+        transform-origin: center !important;
+        transform: rotateX(20deg) translateX(-50%);
+    }
 
     @keyframes second-start {
         0% {
@@ -66,10 +71,18 @@
 
     @keyframes SM-translate {
         from {
-            right: -100%;
+            left: 200%;
         } to {
-            right: 50%;
-            transform: rotateX(40deg) translateX(50%);
+            left: 50%;
+            /* transform: rotateX(20deg) translateX(50%) ; */
+        }
+    }
+
+    @keyframes SM-rotate {
+        from {
+            transform: rotateX(20deg) rotateY(0deg) translateX(-50%);
+        } to {
+            transform: rotateX(20deg) rotateY(360deg) translateX(-50%);
         }
     }
 
