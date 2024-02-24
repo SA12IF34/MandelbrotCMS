@@ -8,8 +8,8 @@
         transform: translateY(30px);
     }
 
-    #Phase-2 div.ParagraphContainer {
-        font-size: 1.25em;
+    .PortfolioPage p {
+        font-size: 1.25em !important;
     }
 
     #Phase-2.SessionsManagerTransition div.ParagraphContainer {
