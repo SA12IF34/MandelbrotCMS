@@ -342,7 +342,7 @@ function Portfolio() {
         if (window.matchMedia('(max-width: 912px)').matches) {
           video = GoalsTabVideo;
         } else if (window.matchMedia('(max-width: 600px)').matches) {
-          img = GoalsMobileVideo;
+          video = GoalsMobileVideo;
         } else {
           video = GoalsVideo;
         }

@@ -12,6 +12,14 @@
         font-size: 1.25em !important;
     }
 
+    .phase-2-intro {
+        width: 100%;
+    }
+
+    .phase-2-intro p {
+        width: 100%;
+    }
+
     #Phase-2.SessionsManagerTransition div.ParagraphContainer {
         width: 100% !important;
     }
