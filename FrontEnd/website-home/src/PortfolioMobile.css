@@ -4,6 +4,10 @@
         height: 100svh;
     }
 
+    #Phase-1 .golden-1 {
+        width: 100%;
+    }
+
     #Phase-2 div.ParagraphContainer {
         transform: translateY(30px);
     }
@@ -20,7 +24,7 @@
         width: 100%;
     }
 
-    #Phase-2.SessionsManagerTransition div.ParagraphContainer {
+   .ParagraphContainer {
         width: 100% !important;
     }
 
@@ -55,7 +59,7 @@
             transform: translateZ(-100px) rotateX(0deg);
         }
         100% {
-            transform-origin: bottom;
+            /* transform-origin: bottom; */
             transform: translateZ(585px) rotateX(0deg);
         }
     }
