@@ -1,9 +1,5 @@
 @media screen and (max-width: 600px) {
 
-    #root {
-        min-height: 100svh;
-    }
-
     .PortfolioPage {
         height: 100svh;
     }

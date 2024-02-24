@@ -16,3 +16,10 @@ h1, h2, h3, h4 {
     min-height: 100vh;
     margin: auto;
 }
+
+
+@media screen and (max-width: 768px) {
+    #root {
+        min-height: 100svh !important;
+    }
+}
