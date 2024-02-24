@@ -1,5 +1,5 @@
 #root {
-    overflow: hidden;
+    overflow: hidden !important;
 }
 
 .HomePage {
@@ -154,6 +154,11 @@
 }
 
 @media screen and (max-width: 500px) {
+
+    .HomePage {
+        height: 100svh !important;
+    }
+
     .IntroParagraph {
         width: 100%;
     }

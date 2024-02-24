@@ -8,6 +8,10 @@
         transform: translateY(30px);
     }
 
+    #Phase-2 div.ParagraphContainer {
+        font-size: 1.25em;
+    }
+
     #Phase-2.SessionsManagerTransition div.ParagraphContainer {
         width: 100% !important;
     }
