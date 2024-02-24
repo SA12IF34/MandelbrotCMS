@@ -1,5 +1,9 @@
 @media screen and (max-width: 600px) {
 
+    .PortfolioPage {
+        height: 100svh;
+    }
+
     #Phase-2 div.ParagraphContainer {
         transform: translateY(30px);
     }
