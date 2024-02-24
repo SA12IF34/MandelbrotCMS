@@ -3,6 +3,8 @@ import { handleAddPart } from './Utilities/partitions';
 import { addScreen } from './Utilities/screens';
 import { partTransition } from './Utilities/transitions';
 import '../Portfolio.css';
+import '../PortfolioTablet.css';
+import '../PortfolioMobile.css';
 
 // Page Components
 import Paragraph from './components/portfolio/Paragraph';
@@ -27,30 +29,22 @@ import LearningTrackerImg from '../assets/portfolio/Learning_Tracker.png';
 import EntertainmentImg from '../assets/portfolio/Entertainment.png';
 import MissionsImg from '../assets/portfolio/Missions.png';
 
+import SessionsManagerTabImg from '../assets/portfolio/tablet/Sessions_Manager.png';
+import LearningTrackerTabImg from '../assets/portfolio/tablet/Learning_Tracker.png';
+import EntertainmentTabImg from '../assets/portfolio/tablet/Entertainment.png';
+import MissionsTabImg from '../assets/portfolio/tablet/Missions.png';
+
+import SessionsManagerMobileImg from '../assets/portfolio/mobile/Sessions_Manager.png';
+import LearningTrackerMobileImg from '../assets/portfolio/mobile/Learning_Tracker.png';
+import EntertainmentMobileImg from '../assets/portfolio/mobile/Entertainment.png';
+import MissionsMobileImg from '../assets/portfolio/mobile/Missions.png'
+
 // Videos
 import GoalsVideo from '../assets/portfolio/Goals.mp4';
-
+import GoalsTabVideo from '../assets/portfolio/tablet/Goals.mp4';
+import GoalsMobileVideo from '../assets/portfolio/mobile/Goals.mp4';
 
 function Portfolio() {
-
-/* Calculating the duration of an audio 
-const audioContext = new AudioContext();
-
-fetch(voice) 
-.then(response => response.arrayBuffer()) 
-.then(buffer => audioContext.decodeAudioData(buffer)) 
-.then(audioBuffer => { 
-    
-  const duration = parseInt(`${audioBuffer.duration}`.lice(0, 5).replace('.', '')); 
-  audioContext.resume();
-  }); 
-
-*/
-
-/* Distributing the duration on the paragraph length
-const charTime = parseInt(duration / content.length);
-
-*/
 
   async function handleCalculateDuration(voice) {
 
@@ -304,25 +298,66 @@ const charTime = parseInt(duration / content.length);
   }
 
   function handleAddScreen(identifier) {
+    let img;
     switch (identifier) {
       case 'SessionsManager':
-        addScreen('SessionsManagerScreen', SessionsManagerImg);
+        if (window.matchMedia('(max-width: 912px)').matches) {
+          img = SessionsManagerTabImg;
+        } else if (window.matchMedia('(max-width: 600px)').matches) {
+          img = SessionsManagerMobileImg;
+        } else {
+          img = SessionsManagerImg;
+        }
+
+        addScreen('SessionsManagerScreen', img);
+
         break;
       
       case 'LearningTracker':
-        addScreen('LearningTrackerScreen', LearningTrackerImg);
+        if (window.matchMedia('(max-width: 912px)').matches) {
+          img = LearningTrackerTabImg;
+        } else if (window.matchMedia('(max-width: 600px)').matches) {
+          img = LearningTrackerMobileImg;
+        } else {
+          img = LearningTrackerImg;
+        }
+
+        addScreen('LearningTrackerScreen', img);
         break;
       
       case 'Entertainment':
-        addScreen('EntertainmentScreen', EntertainmentImg);
+        if (window.matchMedia('(max-width: 912px)').matches) {
+          img = EntertainmentTabImg;
+        } else if (window.matchMedia('(max-width: 600px)').matches) {
+          img = EntertainmentMobileImg;
+        } else {
+          img = EntertainmentImg;
+        }
+
+        addScreen('EntertainmentScreen', img);
         break;
       
       case 'Goals':
-        addScreen('GoalsScreen', GoalsVideo, true);
+        let video;
+        if (window.matchMedia('(max-width: 912px)').matches) {
+          video = GoalsTabVideo;
+        } else if (window.matchMedia('(max-width: 600px)').matches) {
+          img = GoalsMobileVideo;
+        } else {
+          video = GoalsVideo;
+        }
+        addScreen('GoalsScreen', video, true);
         break;
       
       case 'Missions':
-        addScreen('MissionsScreen', MissionsImg);
+        if (window.matchMedia('(max-width: 912px)').matches) {
+          img = MissionsTabImg;
+        } else if (window.matchMedia('(max-width: 600px)').matches) {
+          img = MissionsMobileImg;
+        } else {
+          img = MissionsImg;
+        }
+        addScreen('MissionsScreen', img);
         break
 
       default:
@@ -411,6 +446,20 @@ const charTime = parseInt(duration / content.length);
           var phaseOneParent = document.getElementById('Phase-1');
           var phaseTwoParent = document.getElementById('Phase-2');
           
+          var mandelbrotContainer = document.querySelector('.MandelbrotContainer');
+
+          if (mandelbrotContainer) {
+            mandelbrotContainer.remove();
+          }
+
+          var voices = document.querySelectorAll('audio');
+
+          if (voices.length > 0) {
+            voices.forEach(voice => {
+              voice.remove();
+            }) 
+          }
+
           phaseOneParent.classList.add('deactivate');
           phaseTwoParent.classList.add('deactivate');
           setTimeout(() => {

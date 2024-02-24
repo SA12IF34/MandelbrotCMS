@@ -182,4 +182,3 @@ def youtube(url):
         playlist_id = url.split("list=")[-1].split("&")[0]
         return playlist_scrape(playlist_id=playlist_id)
 
-coursera("https://www.coursera.org/learn/introduction-computer-vision-watson-opencv")

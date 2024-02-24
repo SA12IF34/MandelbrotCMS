@@ -1,0 +1,56 @@
+@media screen and (max-width: 600px) {
+
+    #Phase-2 div.ParagraphContainer {
+        transform: translateY(30px);
+    }
+
+    #Phase-2.SessionsManagerTransition div.ParagraphContainer {
+        width: 100% !important;
+    }
+
+    #Phase-2.SessionsManagerTransition p {
+        width: 100% !important;
+    }
+
+    #Phase-2 .Screen {
+        animation-duration: 0.8s, 60s;
+    }
+
+
+    @keyframes second-start {
+        0% {
+            transform-origin: center;
+            transform: translateZ(0px) rotateX(0deg);
+        } 50% {
+            transform-origin: center;
+            transform: translateZ(-100px) rotateX(0deg);
+        } 100% {
+            transform-origin: center bottom;
+            transform: translateZ(1400px) rotateX(90deg);
+        }
+    }
+    
+    @keyframes mandelbrot {
+        0% {
+            transform: translateZ(300px)  rotateX(-90deg);
+        } 
+    
+        45.945945945% {
+            transform: translateZ(-100px) rotateX(0deg);
+        }
+        100% {
+            transform-origin: bottom;
+            transform: translateZ(585px) rotateX(0deg);
+        }
+    }
+
+    @keyframes SM-translate {
+        from {
+            right: -100%;
+        } to {
+            right: 50%;
+            transform: rotateX(40deg) translateX(50%);
+        }
+    }
+
+}
