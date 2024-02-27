@@ -64,7 +64,7 @@ function CreateTasksList({handleAlert}: {handleAlert: any}) {
       
       if (response.status === 201) {
         const {id} = await response.data;
-        window.location.assign(`/tasks/${id}/`)
+        window.location.assign(`/missions/${id}/`)
       }
 
     } catch (error) {

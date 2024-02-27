@@ -3,7 +3,7 @@ __pycache__/
 .venv/
 venv/
 
-# .env
+.env
 entertainment/soso.py
 
 # Django files
