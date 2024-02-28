@@ -19,13 +19,13 @@
         transform: translateY(30px);
     }
 
-    /* #Phase-2.SessionsManagerTransition div.ParagraphContainer {
+    #Phase-2.SessionsManagerTransition div.ParagraphContainer {
         height: 100svh;
     }
 
     #Phase-2.SessionsManagerTransition div.ScreenContainer {
         height: 100svh;
-    } */
+    }
 
     .PortfolioPage p {
         font-size: 1.25em !important;
