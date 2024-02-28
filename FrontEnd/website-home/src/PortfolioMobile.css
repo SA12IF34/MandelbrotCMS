@@ -2,14 +2,29 @@
 
     .PortfolioPage {
         height: 100svh;
+
+        --d-level-v-1: calc(100svh / 1.618);
+        --d-level-v-2: calc(100svh / 1.618 / 1.618);
     }
 
     #Phase-1 .golden-1 {
         width: 100%;
     }
+    
+    .MandelbrotContainer {
+        height: 100svh;
+    }
 
     #Phase-2 div.ParagraphContainer {
         transform: translateY(30px);
+    }
+
+    #Phase-2.SessionsManagerTransition div.ParagraphContainer {
+        height: 100svh;
+    }
+
+    #Phase-2.SessionsManagerTransition div.ScreenContainer {
+        height: 100svh;
     }
 
     .PortfolioPage p {
