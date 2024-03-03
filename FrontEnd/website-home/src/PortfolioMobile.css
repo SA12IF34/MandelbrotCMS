@@ -51,6 +51,11 @@
         animation-duration: 0.8s, 60s;
     }
 
+    #Phase-2 .Screen img {
+        height: 100% !important;
+        width: auto;
+    }
+
 
     #Phase-2 .SessionsManagerScreen {
         transform-origin: center !important;

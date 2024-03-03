@@ -20,7 +20,7 @@ function Skills() {
               <h2>Frontend</h2>
               <ul>
                 <li>
-                  I can <a href="/MandelbrotCMS/">build professional and 
+                  I can <a href="/mandelbrotCMS/">build professional and 
                   complicated UIs</a> using different web dev 
                   tools.
                 </li>

@@ -5,7 +5,6 @@ import Home from './pages/Home';
 import Goal from './pages/Goal';
 import NewGoal from './pages/NewGoal';
 
-import Layout from './layout/Layout';
 
 import axios from 'axios';
 
@@ -44,13 +43,13 @@ function App() {
 
   return (
     <>
-      <Layout>
+      {/* <Layout> */}
         <Routes>
           <Route path='/goals/' element={<Home />} />
           <Route path='/goals/:id/' element={<Goal handleAlert={handleAlert} />} />
           <Route path='/goals/new/' element={<NewGoal />} />
         </Routes>     
-      </Layout> 
+      {/* </Layout>  */}
     </>
   )
 }
