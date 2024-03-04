@@ -16,7 +16,7 @@ function About() {
               <p>
                 Hello again, I'm Saif Ayesh, a full stack developer and a software engineer. My tech stack includes  Python/Django for backend, and React.js/Next.js and vanilla Javascript for frontend. 
                 <br />
-                I have my experience building numerous projects for myself (most of them are not online currently; the sourse code is <a target='_blank' href='http://github.com/SA12IF34/'>here</a>). (<Link to={'/mandelbrotCMS/'}>my portfolio</Link>)
+                I have my experience building numerous projects for myself (most of them are not online currently; the source code is <a target='_blank' href='http://github.com/SA12IF34/'>here</a>). (<Link to={'/mandelbrotCMS/'}>my portfolio</Link>)
               </p>
               <p>
                 I have been using my skills, honing them, and building various <a target='_blank' href="http://github.com/SA12IF34/">projects</a> (e.g., social media, ecommerce, etc...) for more than two years. 
