@@ -190,7 +190,7 @@ def post_material_by_url(request):
 
 
 # Global variables
-types = ['anime', 'game', 'other']
+types = ['anime', 'game', 'shows & movies', 'other']
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

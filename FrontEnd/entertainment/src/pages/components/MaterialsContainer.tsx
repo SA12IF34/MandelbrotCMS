@@ -18,6 +18,7 @@ function MaterialsContainer({dual=true, data}: props) {
     (e.target as HTMLButtonElement).classList?.add('chosen');
     (e.target as HTMLButtonElement).parentElement?.querySelector('.game')?.classList.remove('chosen');
     (e.target as HTMLButtonElement).parentElement?.querySelector('.other')?.classList.remove('chosen');
+    (e.target as HTMLButtonElement).parentElement?.querySelector('.shows')?.classList.remove('chosen');
 
     setMaterials(data!['anime' as keyof typeof data]);
   }
@@ -26,16 +27,25 @@ function MaterialsContainer({dual=true, data}: props) {
     (e.target as HTMLButtonElement).classList?.add('chosen');
     (e.target as HTMLButtonElement).parentElement?.querySelector('.anime')?.classList.remove('chosen');
     (e.target as HTMLButtonElement).parentElement?.querySelector('.other')?.classList.remove('chosen');
+    (e.target as HTMLButtonElement).parentElement?.querySelector('.shows')?.classList.remove('chosen');
 
     setMaterials(data!['game' as keyof typeof data]);
   }
 
+  function handleSetShows(e: any) {
+    const target = e.target as HTMLButtonElement;
+    target.classList?.add('chosen');
+    target.parentElement?.querySelector('.anime')?.classList.remove('chosen');
+    target.parentElement?.querySelector('.game')?.classList.remove('chosen');
+    target.parentElement?.querySelector('.other')?.classList.remove('chosen');
+  }
 
   function handleSetOther(e: any) {
     const target = e.target as HTMLButtonElement;
     target.classList?.add('chosen');
     target.parentElement?.querySelector('.anime')?.classList.remove('chosen');
     target.parentElement?.querySelector('.game')?.classList.remove('chosen');
+    target.parentElement?.querySelector('.shows')?.classList.remove('chosen');
 
     setMaterials(data!['other' as keyof typeof data]);
   }
@@ -133,6 +143,7 @@ function MaterialsContainer({dual=true, data}: props) {
             <div className='type-btns'>
               <button onClick={handleSetAnime} className="anime type chosen">anime</button>
               <button onClick={handleSetGames} className="game type">game</button>
+              <button onClick={handleSetShows} className="shows type">shows & movies</button>
               <button onClick={handleSetOther} className='other type'>other</button>
             </div>
           )}

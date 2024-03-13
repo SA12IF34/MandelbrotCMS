@@ -18,6 +18,7 @@ function Contact() {
               <li><a style={{color: 'black'}} href="http://github.com/SA12IF34" target="_blank" >GitHub</a></li>
               {/* <li>Stack Overflow</li> */}
               {/* <li>Leetcode</li> */}
+              <li><a style={{color: 'black'}} href="https://medium.com/@saifchan" target='_blank'>Medium</a></li>
               <li><a style={{color:'black'}} href="http://www.linkedin.com/in/saifchan" target="_blank">LinkedIn</a></li>
               <li><a style={{color: 'black'}} href="http://www.upwork.com/freelancers/~01ef34f2c2b3e1bcb1" target='_blank'>Upwork</a></li>
             </ul>

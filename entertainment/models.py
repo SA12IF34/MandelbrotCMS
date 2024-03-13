@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 TYPE_CHIOCES = [
     ('anime', 'anime'),
     ('game', 'game'),
+    ('shows & movies', 'shows & movies'),
     ('other', 'other')
 ]
 

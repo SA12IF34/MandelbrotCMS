@@ -7,6 +7,7 @@ import { api } from '../App';
 interface materialsData {
   'anime': Array<object>,
   'game': Array<object>,
+  'shows & movies': Array<object>,
   'other': Array<object>
 }
 

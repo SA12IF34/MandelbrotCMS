@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import Header from './components/Header';
-import profileImg from '../assets/about/profile.jpg';
+import personalImg from '../assets/about/personal.jpg';
 import '../About.css';
 import '../App.css';
 
@@ -42,7 +42,7 @@ function About() {
             </div>
           </main>
           <div className='Image'>
-              <img src={profileImg} alt="saif chan about" />
+              <img src={personalImg} alt="saif chan about" />
           </div>
         </div>
         <div className='bg'> 
