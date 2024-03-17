@@ -41,10 +41,11 @@ function Signup({handleAlert}: {handleAlert: any}) {
       e.preventDefault();
       handleSubmit()
     }} >
+      <h1>Create Account</h1>
       <input ref={usernameRef} type="text" name="username" id="username" required placeholder='Username' />
       <input ref={emailRef} type="email" name="email" id="email" required placeholder='Email' />
       <input ref={passwordRef} type="password" name="password" id="password" required placeholder='Password' />
-      <input type="submit" value="Create Account" />
+      <input type="submit" value="Submit" />
     </form>
   </div>
   )

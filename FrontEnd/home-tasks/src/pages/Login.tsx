@@ -44,10 +44,11 @@ function Login({handleAlert}: {handleAlert: any}) {
         e.preventDefault();
         handleSubmit();
       }}  >
+        <h1>Log In</h1>
         <input ref={usernameRef} type="text" name="username" id="username" placeholder='Username' required />
         <input ref={emailRef} type="email" name="email" id="email" placeholder='Email' required />
         <input ref={passwordRef} type="password" name="password" id="password" placeholder='Password' required />
-        <input type="submit" value="Log In" />
+        <input type="submit" value="Submit" />
       </form>
     </div>
   )

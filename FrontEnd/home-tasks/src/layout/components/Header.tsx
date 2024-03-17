@@ -1,35 +1,10 @@
-import {useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
-import { api } from '../../App';
+import { PiList } from 'react-icons/pi';
 import '../../App.css';
 
-function Header() {
+function Header({setClassName, authenticated}: {setClassName: any, authenticated: boolean}) {
 
-  const [authenticated, setAuthenticated] = useState<boolean>(false);
-
-  async function handleGetUser() {
-    try {
-      const response = await api.get('authentication/apis/profile/');
-
-      if (response.status === 200) {
-        setAuthenticated(true);
-      }
-
-    } catch (error) {
-      if (error) {
-        const response = error['response' as keyof typeof error];
-
-        if (response['status' as keyof typeof response] === 403) {
-          setAuthenticated(false);
-        }
-      }
-    }
-  }
-
-  useEffect(() => {
-    handleGetUser();
-  }, [])
-
+  
   return (
     <header>
       <div>
@@ -37,9 +12,7 @@ function Header() {
           <h1>MandelbrotCMS</h1>
         </Link>
         {authenticated ? (
-          <Link to={'/profile/'}>
-            <button className="profile">Profile</button>
-          </Link> 
+          <PiList onClick={() => {setClassName('SideBar');}} />
         ): (
           <div style={{display: 'flex', columnGap: '20px'}}> 
             <Link to={'/sign-up/'}> 
