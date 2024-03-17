@@ -367,26 +367,37 @@ section {
 }
 
 .form-container>form {
-  width: max-content;
+  width: 100%;
 }
 
-.form-container>form>div:nth-child(1) {
+.form-container>form>div {
+  width: 100%;
   display: flex;
   column-gap: 10px;
+}
+
+.form-container>form>div input[type=text],
+.form-container>form>div input[type=url] {
+  width: 100%;
+}
+
+.form-container>form>#image-url-npt {
+  width: 100%;
 }
 
 .form-container>form input {
   font-size: 1em;
   padding: 5px 10px;
+
 }
 
 .form-container>form textarea {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 18px;
   padding: 5px 10px;
-  width: 250px;
+  width: 350px;
   height: 125px;
-
+  border-radius: 5px;
 }
 
 .form-container>form>.special-input {

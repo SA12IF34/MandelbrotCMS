@@ -38,6 +38,8 @@ function MaterialsContainer({dual=true, data}: props) {
     target.parentElement?.querySelector('.anime')?.classList.remove('chosen');
     target.parentElement?.querySelector('.game')?.classList.remove('chosen');
     target.parentElement?.querySelector('.other')?.classList.remove('chosen');
+  
+    setMaterials(data!['shows & movies' as keyof typeof data]);
   }
 
   function handleSetOther(e: any) {

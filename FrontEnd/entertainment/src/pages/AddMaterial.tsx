@@ -108,6 +108,7 @@ function AddMaterial({handleAlert}: {handleAlert: any}) {
               <option value="type">type</option>
               <option value="anime">anime</option>
               <option value="game">game</option>
+              <option value="shows & movies">shows & movies</option>
               <option value="other">other</option>
             </select>
             <select ref={statusRefTwo} name="status" id="status">
@@ -119,16 +120,16 @@ function AddMaterial({handleAlert}: {handleAlert: any}) {
           </div>
           <br />
           <br />
-          <input ref={nameRef} type="text" name="name" id="name-npt" placeholder='Name' />
-          <br />
-          <br />
-          <input ref={urlRef} type="url" name="url" id="url-npt" placeholder='Material url (any)' />
+          <div>
+            <input ref={nameRef} type="text" name="name" id="name-npt" placeholder='Name' />
+            <input ref={urlRef} type="url" name="url" id="url-npt" placeholder='Material url (any)' />
+          </div>
           <br />
           <br />
           <input onChange={() => {setImage(imageUrlRef.current?.value)}} ref={imageUrlRef} type="text" name="image-url" id="image-url-npt" placeholder='Image url' />
           <br />
           {image && (
-            <><img style={{width: '200px', borderRadius: '5px', margin: '10px 0px'}} src={image} /><br/></>
+            <><img style={{maxHeight: '320px', borderRadius: '5px', margin: '10px 0px'}} src={image} /><br/></>
           )}
           <br />
           <textarea ref={descriptionRef} name="description" id="description-npt" placeholder='Description' />

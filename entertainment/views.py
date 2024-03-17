@@ -147,6 +147,21 @@ def get_mal(url):
         'image': data['main_picture']['medium']
     }
 
+def get_imdb(url):
+    # https://www.imdb.com/title/tt15398776/
+    if "title" not in url:
+        return -1
+    
+    page = requests.get(url).text
+
+    doc = BeautifulSoup(page, 'html.parser')
+
+
+    name = doc.find('h1', {'data-testid': 'hero__pageTitle'}).find('span').string
+
+    
+
+    
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
