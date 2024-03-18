@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiExternalLink } from 'react-icons/fi';
 import Header from './components/Header';
 import '../Contact.css';
 import '../App.css';
 
-function Contact() {
+function Contact({setBeforePortfolio}) {
+  
+  useEffect(() => {
+    setBeforePortfolio();
+  })
+
   return (
     <div className='ContactPage'>
       <Header title={'Contact'} />

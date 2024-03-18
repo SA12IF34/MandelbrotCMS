@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import Header from './components/Header';
 import portfolioImg from '../assets/skills/mandelbrot.png';
 import '../Skills.css';
 import '../App.css';
 
-function Skills() {
+function Skills({setBeforePortfolio}) {
+
+  useEffect(() => {
+    setBeforePortfolio()
+  }, []);
+
   return (
     <div className='SkillsPage skills-golden'>
       <Header title={'Skills in a Nutshell'} />

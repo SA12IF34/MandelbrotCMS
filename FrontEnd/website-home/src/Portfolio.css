@@ -6,6 +6,7 @@
     width: 100%;
     height: 100vh;
     position: relative;
+    z-index: 1;
     transform-style: preserve-3d;
     perspective: 600px;
     perspective-origin: top;
@@ -33,6 +34,36 @@
     border-radius: 7px;
     z-index: 1000;
     cursor: pointer;
+}
+
+.beforeStartGround {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    background-color: rgba(192, 192, 192, 0.4);
+}
+
+.beforeStartGround > button {
+    width: max-content;
+    height: max-content;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+
+}
+
+.beforeStartGround > button > svg {
+    width: 200px;
+    height: 200px;
+    color: white;
+
 }
 
 #Phase-1.deactivate {

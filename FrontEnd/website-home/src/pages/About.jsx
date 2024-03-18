@@ -1,11 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import Header from './components/Header';
 import personalImg from '../assets/about/personal.jpg';
 import '../About.css';
 import '../App.css';
 
-function About() {
+function About({setBeforePortfolio}) {
+
+  useEffect(() => {
+    setBeforePortfolio()
+ }, [])
+
   return (
     <div className='AboutPage about-golden'>
       <Header title={'About'} />

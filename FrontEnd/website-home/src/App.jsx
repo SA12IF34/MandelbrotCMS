@@ -11,14 +11,36 @@ import Portfolio from './pages/Portfolio';
 
 function App() {
 
+  function setBeforePortfolio() {
+    window.sessionStorage.setItem('beforePortfolio', 'true');
+  }
+
+  function checkBeforePortfolio() {
+    const beforePortfolio = window.sessionStorage.getItem('beforePortfolio');
+
+    return beforePortfolio;
+  }
+  
   return (
     <>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/contact/' element={<Contact />} />
-        <Route path='/about/' element={<About />} />
-        <Route path='/skills/' element={<Skills />} />
-        <Route path='/mandelbrotCMS/' element={<Portfolio />} />
+        <Route path='/' element={<Home 
+                                      setBeforePortfolio={setBeforePortfolio} 
+                                      checkBeforePortfolio={checkBeforePortfolio}
+                                 />} />
+        <Route path='/contact/' element={<Contact
+                                            setBeforePortfolio={setBeforePortfolio} 
+                                            checkBeforePortfolio={checkBeforePortfolio}
+                                         />} />
+        <Route path='/about/' element={<About 
+                                            setBeforePortfolio={setBeforePortfolio} 
+                                            checkBeforePortfolio={checkBeforePortfolio} 
+                                      />} />
+        <Route path='/skills/' element={<Skills 
+                                            setBeforePortfolio={setBeforePortfolio} 
+                                            checkBeforePortfolio={checkBeforePortfolio} 
+                                        />} />
+        <Route path='/mandelbrotCMS/' element={<Portfolio checkBeforePortfolio={checkBeforePortfolio} />} />
       </Routes>
     </>
   )

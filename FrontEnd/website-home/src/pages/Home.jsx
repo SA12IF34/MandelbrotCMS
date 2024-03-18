@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import bg from '../assets/home/bg.png';
 import portfolioImg from '../assets/home/portfolio.png';
 import skillsImg from '../assets/home/skills.png';
@@ -7,8 +7,12 @@ import contactImg from '../assets/home/contact.png';
 import { Link } from 'react-router-dom';
 import '../Home.css';
 
-function Home() {
+function Home({setBeforePortfolio}) {
     
+  useEffect(() => {
+    setBeforePortfolio();
+  }, [])
+
   return (
     <div className='HomePage'>
 

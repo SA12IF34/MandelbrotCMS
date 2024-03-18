@@ -1,4 +1,7 @@
 import React, {useState, useEffect} from 'react';
+import {createRoot} from 'react-dom/client';
+import {FaCaretRight} from 'react-icons/fa';
+
 import { handleAddPart } from './Utilities/partitions';
 import { addScreen } from './Utilities/screens';
 import { partTransition } from './Utilities/transitions';
@@ -6,10 +9,6 @@ import '../Portfolio.css';
 import '../PortfolioTablet.css';
 import '../PortfolioMobile.css';
 
-// Page Components
-import Paragraph from './components/portfolio/Paragraph';
-import Screen from './components/portfolio/Screen';
-import Container from './components/portfolio/Container';
 
 // Voices
 import introVoice  from '../assets/portfolio/voices/intro.mp3';
@@ -44,7 +43,7 @@ import GoalsVideo from '../assets/portfolio/Goals.mp4';
 import GoalsTabVideo from '../assets/portfolio/tablet/Goals.mp4';
 import GoalsMobileVideo from '../assets/portfolio/mobile/Goals.mp4';
 
-function Portfolio() {
+function Portfolio({checkBeforePortfolio}) {
 
   async function handleCalculateDuration(voice) {
 
@@ -428,9 +427,8 @@ function Portfolio() {
 
   var num = 0;
 
-  useEffect(() => {
-    if (num < 1) {
-      const p = `Here, Saif has as his portfolio a CMS he built, it's name is MandelbrotCMS.`;
+  function handleStartPage() {
+    const p = `Here, Saif has as his portfolio a CMS he built, it's name is MandelbrotCMS.`;
 
       setTimeout(() => {
         handleAnimateParagraph(introVoice, p, '#Phase-1 p', handleStartCount);  
@@ -472,6 +470,36 @@ function Portfolio() {
         })
 
       }, 1300)
+  }
+
+  function handleAskStartPage() {
+    const rootElement = document.querySelector('#root');
+    const ground = document.createElement('div');
+    const button = document.createElement('button');
+
+    button.innerHTML = `<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 192 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"></path></svg>`;
+
+    rootElement.appendChild(ground);
+    ground.appendChild(button);
+
+    ground.classList.add('beforeStartGround');
+
+    button.onclick = () => {
+      ground.remove();
+      handleStartPage();
+    }
+    
+  }
+
+  useEffect(() => {
+    if (num < 1) {
+      const beforePortfolio = checkBeforePortfolio();
+
+      if (beforePortfolio) {
+        handleStartPage();
+      } else {
+        handleAskStartPage();
+      }
 
       num = 1;
     }
