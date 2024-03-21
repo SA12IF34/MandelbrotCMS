@@ -18,7 +18,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = ENV('SECRET_KEY')
 
-
+# hello
 
 # SECURITY WARNING: don't run with debug turned on in production!
 IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
@@ -70,7 +70,7 @@ INSTALLED_APPS = [
     
 ]
 
-SITE_ID = 2
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
