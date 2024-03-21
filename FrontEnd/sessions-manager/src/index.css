@@ -10,11 +10,16 @@ body {
 
 #root {
     width: 100%;
-    max-width: 1280px;
     height: max-content;
     min-height: 100vh;
     padding: 29px;
     margin: auto;
+}
+
+main {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 h1, h2, h3, h4, h5, h6 {

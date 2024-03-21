@@ -29,5 +29,5 @@ vite build --mode production
 Set-Location -Path "..\.."
 
 git add .
-git commit -m "modification"
+git commit -m "Deploy to production"
 git push heroku master

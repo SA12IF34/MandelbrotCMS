@@ -173,6 +173,19 @@ aside.SideBar {
   transform: translateX(0%);
 }
 
+@media screen and (max-width: 912px) {
+  aside {
+    width: 50vw;
+  }
+}
+
+@media screen and (max-width: 600px) {
+
+  aside {
+    width: 100vw;
+  }
+
+}
 
 
 /* Home Page */
