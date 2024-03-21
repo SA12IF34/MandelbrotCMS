@@ -7,6 +7,8 @@ dj-database-url
 psycopg2
 django-environ
 djangorestframework-simplejwt
+django-allauth
+dj-rest-auth
 beautifulsoup4
 requests
 google-api-python-client
