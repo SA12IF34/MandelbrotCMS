@@ -2,6 +2,9 @@ import {useRef, RefObject} from 'react';
 import { api } from '../App';
 import '../App.css';
 
+import GoogleLogin from './components/GoogleLogin';
+import GithubLogin from './components/GithubLogin';
+
 function Signup({handleAlert}: {handleAlert: any}) {
 
   const usernameRef = useRef() as RefObject<HTMLInputElement>;
@@ -46,6 +49,11 @@ function Signup({handleAlert}: {handleAlert: any}) {
       <input ref={emailRef} type="email" name="email" id="email" required placeholder='Email' />
       <input ref={passwordRef} type="password" name="password" id="password" required placeholder='Password' />
       <input type="submit" value="Submit" />
+      <h3 style={{textAlign: 'center'}}>Or signup with</h3>
+      <div className='OAuthContainer'>
+        <GoogleLogin />
+        <GithubLogin />
+      </div>
     </form>
   </div>
   )

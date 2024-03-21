@@ -46,17 +46,31 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'corsheaders',
-    'rest_framework',
-    'rest_framework_simplejwt.token_blacklist',
+    
 
     'sessions_manager',
     'learning_tracker',
     'entertainment',
     'tasks',
-    'goals'
+    'goals',
+
+    'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github'
+    
+    
     
 ]
+
+SITE_ID = 2
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -69,24 +83,45 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 
+    'allauth.account.middleware.AccountMiddleware'
 ]
 
-CORS_ALLOW_CREDENTIALS = True
+CLIENT_ID = ENV('GOOGLE_CLIENT_ID')
+CLIENT_SECRET = ENV('GOOGLE_CLIENT_SECRET')
+GITHUB_CLIENT_ID = ENV('GITHUB_CLIENT_ID')
+GITHUB_CLIENT_SECRET = ENV('GITHUB_CLIENT_SECRET')
+
 CORS_ALLOW_PRIVATE_NETWORK = False
 
-CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:3000',
-    'http://localhost:5173',
-    'http://127.0.0.1:8000',
-    'chrome-extension://chaepekccofhljddepeknooibilbohob'
-]
+if IS_HEROKU_APP:
+    CORS_ALLOWED_ORIGINS = [
+        'https://saifchan.online'
+    ]
+else:
 
-CSRF_TRUSTED_ORIGINS = [
-    'http://127.0.0.1:3000',
-    'http://localhost:5173',
-    'http://127.0.0.1:8000',
-    'chrome-extension://chaepekccofhljddepeknooibilbohob'
-]
+    CORS_ALLOWED_ORIGINS = [
+        'http://127.0.0.1:3000',
+        'http://localhost:5173',
+        'http://127.0.0.1:8000',
+        'http://localhost:8000',
+        'chrome-extension://chaepekccofhljddepeknooibilbohob'
+    ]
+
+
+if IS_HEROKU_APP:
+
+
+    CSRF_TRUSTED_ORIGINS = [
+        'https://saifchan.online'
+    ]
+else:
+    CSRF_TRUSTED_ORIGINS = [
+        'http://127.0.0.1:3000',
+        'http://localhost:5173',
+        'http://127.0.0.1:8000',
+        'http://localhost:8000',
+        'chrome-extension://chaepekccofhljddepeknooibilbohob'
+    ]
 
 CORS_ALLOW_METHODS = (
     "DELETE",
@@ -108,6 +143,8 @@ CORS_ALLOW_HEADERS = [
     'x-csrftoken',
     'x-requested-with',
 ]
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -262,4 +299,6 @@ STORAGES = {
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+# LOGIN_REDIRECT_URL = '/'
+# LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_VERIFICATION = "none"

@@ -6,6 +6,7 @@ from .views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('authentication/apis/', include('authentication.urls')),
+
     path('sessions_manager/', include('sessions_manager.urls')),
     path('learning_tracker/', include('learning_tracker.urls')),
     path('entertainment/', include('entertainment.urls')),

@@ -148,7 +148,6 @@ def get_mal(url):
     }
 
 def get_imdb(url):
-    # https://www.imdb.com/title/tt15398776/
     if "title" not in url:
         return -1
     

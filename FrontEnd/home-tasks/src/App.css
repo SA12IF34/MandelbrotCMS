@@ -672,6 +672,27 @@ button.logout {
   cursor: pointer;
 }
 
+.OAuthContainer {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.OAuthContainer .LoginBtn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.OAuthContainer .LoginBtn svg {
+  width: 25px;
+  height: 25px;
+  color: black;
+}
+
 /* Profile Page */
 
 .profile-page {

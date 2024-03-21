@@ -2,11 +2,15 @@ import {useRef, RefObject} from 'react';
 import { api } from '../App';
 import '../App.css';
 
+import GoogleLogin from './components/GoogleLogin';
+import GithubLogin from './components/GithubLogin';
+
 function Login({handleAlert}: {handleAlert: any}) {
 
   const usernameRef = useRef() as RefObject<HTMLInputElement>;
   const emailRef = useRef() as RefObject<HTMLInputElement>;
   const passwordRef = useRef() as RefObject<HTMLInputElement>;
+
 
   async function handleSubmit() {
     try {
@@ -38,6 +42,7 @@ function Login({handleAlert}: {handleAlert: any}) {
     }
   }
 
+
   return (
     <div className='authentication-page'>
       <form onSubmit={(e) => {
@@ -49,6 +54,11 @@ function Login({handleAlert}: {handleAlert: any}) {
         <input ref={emailRef} type="email" name="email" id="email" placeholder='Email' required />
         <input ref={passwordRef} type="password" name="password" id="password" placeholder='Password' required />
         <input type="submit" value="Submit" />
+        <h3 style={{textAlign: 'center'}}>Or login with</h3>
+        <div className='OAuthContainer'>
+          <GoogleLogin />
+          <GithubLogin />
+        </div>
       </form>
     </div>
   )
