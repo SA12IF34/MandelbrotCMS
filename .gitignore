@@ -6,6 +6,7 @@ venv/
 .env
 entertainment/soso.py
 entertainment/tokens.json
+tokens.json
 
 # Django files
 staticfiles/
