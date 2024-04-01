@@ -197,7 +197,6 @@ aside.SideBar {
   row-gap: 50px;
 }
 
-
 .list {
   margin: 20px;
 }
@@ -337,6 +336,29 @@ aside.SideBar {
 }
 
 /* Tasks Page */
+
+
+.missions-nav {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px !important;
+}
+.missions-nav button {
+  background-color: white;
+  width: max-content;
+  height: max-content;
+  border: none !important;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+.missions-nav button svg {
+  width: 30px;
+  height: 30px;
+}
 
 .tasks-page {
   padding: 20px;

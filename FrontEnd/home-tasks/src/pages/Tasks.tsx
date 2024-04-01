@@ -4,6 +4,8 @@ import { TbPointFilled } from "react-icons/tb";
 // import { FiEdit } from "react-icons/fi";
 import { api } from "../App";
 
+import TasksNav from "./components/TasksNav";
+
 function Tasks() {
 
   const {id} = useParams();
@@ -55,34 +57,37 @@ function Tasks() {
   }, [])
 
   return (
-    <div className="tasks-page">
-      {list ? (
-        <>
-          <div>
-            <h1>{list && list['title' as keyof typeof list]}</h1>
+    <>
+      {list && (<TasksNav id={parseInt(id as string)} />)}  
+      <div className="tasks-page">
+        {list ? (
+          <>
             <div>
-              <h1>{list && list['date' as keyof typeof list]}</h1>
-              {/* <FiEdit /> */}
+              <h1>{list && list['title' as keyof typeof list]}</h1>
+              <div>
+                <h1>{list && list['date' as keyof typeof list]}</h1>
+                {/* <FiEdit /> */}
+              </div>
             </div>
-          </div>
-          <div className="tasks-list list tasks">
-            {list && (list['tasks' as keyof typeof list] as Array<object>).map(task => {
-              return (
-                <div>
-                  <TbPointFilled />
-                  <h2>{task['content' as keyof typeof task]}</h2>
-                </div>
-              )
-            })}
-          </div>
-          <button onClick={() => {
-            handleDeleteContainer(list!['id' as keyof typeof list])      
-          }}>Delete</button>
-        </>
-      ) : (
-        <h1>{pageMsg}</h1>
-      )}
-    </div>
+            <div className="tasks-list list tasks">
+              {list && (list['tasks' as keyof typeof list] as Array<object>).map(task => {
+                return (
+                  <div>
+                    <TbPointFilled />
+                    <h2>{task['content' as keyof typeof task]}</h2>
+                  </div>
+                )
+              })}
+            </div>
+            <button onClick={() => {
+              handleDeleteContainer(list!['id' as keyof typeof list])      
+            }}>Delete</button>
+          </>
+        ) : (
+          <h1>{pageMsg}</h1>
+        )}
+      </div>
+    </>
   )
 }
 

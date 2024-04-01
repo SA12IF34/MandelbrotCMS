@@ -73,6 +73,31 @@ def get_tasks(request, pk):
         return Response(status=HTTP_500_INTERNAL_SERVER_ERROR)    
 
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+@authentication_classes([SessionAuthentication, JWTAuthentication])
+def get_sequance_list(request, pk, sequance):
+    try:
+        user = request.user.id
+        containers = TasksContainer.objects.filter(user=user).order_by('id')
+        current_container = TasksContainer.objects.get(user=user, id=pk)
+        current_index = list(containers).index(current_container)
+        
+
+        try:
+            if sequance == 'next':
+                container = containers[current_index + 1]
+            elif sequance == 'prev':
+                container = containers[current_index - 1]
+
+            return Response(data={'id': container.id}, status=HTTP_200_OK)
+        
+        except IndexError:
+            return Response(status=HTTP_404_NOT_FOUND)
+
+    except:
+        return Response(status=HTTP_500_INTERNAL_SERVER_ERROR)
+
 # @api_view(['GET'])
 # @permission_classes([IsAuthenticated])
 # @authentication_classes([SessionAuthentication, JWTAuthentication])
