@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {useParams, useNavigate} from 'react-router-dom'
+import {useParams, useNavigate} from 'react-router-dom';
+import {AiOutlineEdit} from 'react-icons/ai';
+import {MdDone} from 'react-icons/md';
 
 import { api } from '../App';
 
@@ -10,6 +12,9 @@ function Project() {
 
   const {id} = useParams();
   const navigate = useNavigate();
+
+  const [startDateEditMode, setStartDateEditMode] = useState(false);
+  const [finishDateEditMode, setFinishDateEditMode] = useState(false);
 
   async function getProject(projectID) {
     try {
@@ -46,6 +51,7 @@ function Project() {
       console.error(error);
     }
   }
+
   
   async function checkPartition(partitionID, checked) {
     try {
@@ -58,6 +64,22 @@ function Project() {
       }
     } catch (error) {
       
+    }
+  }
+
+  async function handleEditDate(data) {
+    try {
+      const response = await api.patch(`projects/${id}/`, data);
+
+      if (response.status === 202) {
+        const data = await response.data;
+        setProject(data);
+
+        return response.status;
+      }
+
+    } catch (error) {
+      return 400
     }
   }
 
@@ -78,10 +100,49 @@ function Project() {
       </section>
       <section>
         <h2>
-          Start working on : {project['starting_time']}
+          Start working on : {startDateEditMode ? (
+              <span>
+                <input type="date"  />
+                <MdDone onClick={async (e) => {
+                  const dateValue = e.target.parentElement.firstElementChild.value ? e.target.parentElement.firstElementChild.value : null;
+                  const status = await handleEditDate({starting_time: dateValue})
+                  if (status === 202) {
+                    setStartDateEditMode(false);
+                  } else {
+                    setStartDateEditMode(false);
+                    alert('Edit Failed..');
+                  }
+                }} className='date-edit-icon' />
+              </span>
+            ) : (
+              <span className={project['starting_time'] === null && 'indetermined'}>
+                {project['starting_time'] ? project['starting_time'] : 'Indetermined'}
+                <AiOutlineEdit onClick={() => {setStartDateEditMode(true)}} className='date-edit-icon' />
+              </span>
+            )}
         </h2>
+
         <h2>
-          Finish working on : {project['finish_time']}
+          Finish working on : {finishDateEditMode ? (
+              <span>
+                <input type="date" />
+                <MdDone onClick={async (e) => {
+                  const dateValue = e.target.parentElement.firstElementChild.value ? e.target.parentElement.firstElementChild.value : null;
+                  const status = await handleEditDate({finish_time: dateValue});
+                  if (status === 202) {
+                    setFinishDateEditMode(false);
+                  } else {
+                    setFinishDateEditMode(false);
+                    alert('Edit Failed..');
+                  }
+                }} className='date-edit-icon' />
+              </span>
+            ) : (
+              <span className={project['finish_time'] === null && 'indetermined'}>
+                {project['finish_time'] ? project['finish_time'] : 'Indetermined'}
+                <AiOutlineEdit onClick={() => {setFinishDateEditMode(true)}} className='date-edit-icon' />
+              </span>
+            )}
         </h2>
       </section>
       <section>
