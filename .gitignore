@@ -4,7 +4,7 @@ __pycache__/
 venv/
 
 # .env
-entertainment/soso.py
+# entertainment/soso.py
 # entertainment/tokens.json
 # tokens.json
 

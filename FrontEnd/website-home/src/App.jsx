@@ -7,7 +7,7 @@ import Contact from './pages/Contact';
 import About from './pages/About';
 import Skills from './pages/Skills';
 import Portfolio from './pages/Portfolio';
-
+import GoogleLink from './pages/GoogleLink';
 
 function App() {
 
@@ -41,6 +41,7 @@ function App() {
                                             checkBeforePortfolio={checkBeforePortfolio} 
                                         />} />
         <Route path='/mandelbrotCMS/' element={<Portfolio checkBeforePortfolio={checkBeforePortfolio} />} />
+        <Route path='/google-link/' element={<GoogleLink />} />
       </Routes>
     </>
   )

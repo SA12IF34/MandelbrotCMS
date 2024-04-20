@@ -32,7 +32,8 @@ WEBSITE_REACT_ROUTES = [
     'skills',
     'about',
     'contact',
-    'mandelbrotCMS'
+    'mandelbrotCMS',
+    'google-link'
 ]
 
 for route in CMS_REACT_ROUTES:
