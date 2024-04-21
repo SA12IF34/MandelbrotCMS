@@ -49,6 +49,7 @@ function CreateTasksList({handleAlert}: {handleAlert: any}) {
   const [searchResults, setSearchResults] = useState<Array<object>>([]); 
 
   const [rewards, setRewards] = useState<Array<object>>([]);
+  const rewardRef = useRef() as RefObject<HTMLInputElement>;
 
 // Reminder Variables
   // const [reminders, setReminders] = useState<Array<reminderInterface>>([]);
@@ -258,128 +259,22 @@ function CreateTasksList({handleAlert}: {handleAlert: any}) {
 
   }
 
-// Get Reminders Function
-  // async function handleGetReminders() {
-  //   try {
-  //     const response = await api.get('tasks/apis/get-reminders/');
+  async function handleFilterRewards() {
+    try {
+      const response = await api.get(`/entertainment/apis/materials/?search=${rewardRef.current?.value}`)
+      
+      if (response.status === 200) {
+        const data = await response.data;
 
-  //     if (response.status === 200) {
-  //       const data = await response.data;
-
-  //       setReminders(data);
-
-  //     }
-
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
-
-// Set Reminder Function
-  // function handleSetReminder(id: number, reminder: HTMLElement) {
-
-  //   if (data['container']) {
-  //     if (data['container']['reminder']) {
-  //       document.querySelector(`#r-${data['container']['reminder']} .reminder-set-btn`)?.classList.remove('none');
-  //       document.querySelector(`#r-${data['container']['reminder']} .reminder-unset-btn`)?.classList.add('none')
-  //     }
-  //     data['container']['reminder'] = id;
-  //   } else {
-  //     data['container'] = {};
-  //     data['container']['reminder'] = id;
-  //   }
-
-  //   (reminder.querySelector('.reminder-set-btn') as HTMLButtonElement).classList.add('none');
-  //   (reminder.querySelector('.reminder-unset-btn') as HTMLButtonElement).classList.remove('none');
-
-  //   setData(data);
-  
-  //   setTimeout(() => {
-  //     console.log(data);
-  //   }, 150);
-  
-  // }
-
-// Unset Reminder Function
-  // function handleUnSetReminder(reminder: HTMLElement) {
-  //   delete data['container']!['reminder'];
-  //   setData(data)
+        setRewards(data);
+      }
     
-  //   setTimeout(() => {
-  //     console.log(data);
-  //   }, 150);
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
-  //   (reminder.querySelector('.reminder-set-btn') as HTMLButtonElement).classList.remove('none');
-  //   (reminder.querySelector('.reminder-unset-btn') as HTMLButtonElement).classList.add('none');
-  // }
 
-// Delete Reminder Function
-  // async function handleDeleteReminder(id: number, element: HTMLElement) {
-  //   try { 
-  //     const response = await api.delete(`/tasks/apis/delete-reminder/${id}/`);
-
-  //     if (response.status === 204) {
-  //       element.remove();
-  //     }
-
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
-// Validate Reminder Time Function
-  // function validateTime(time: string) {
-  //   if (time) {
-  //     var timeParts = time.split(":");
-      
-  //     if (parseInt(timeParts[0]) === 12) {
-  //       return `${time} pm`
-  //     }
-  //     if (parseInt(timeParts[0]) === 0) {
-  //       return `12:${timeParts[1]} am`;
-  //     }
-      
-  //     if (parseInt(timeParts[0]) > 12) {
-  //       var val = parseInt(timeParts[0]) - 12;
-        
-  //       return `${val}:${timeParts[1]} pm`;
-  //     } 
-  //     else {
-  //       return `${time} am`;
-  //     }
-  //   }  
-  // }
-
-// Add Reminder Function
-  // async function handleAddReminder() {
-  //   try {
-  //     const times = [];
-  //     times.push(validateTime(timeOne));
-  //     times.push(validateTime(timeTwo));
-  //     times.push(validateTime(timeThree));          
-
-  //     const response = await api.post('tasks/apis/new-reminder/', {
-  //       times: times.join(' - ')
-  //     })
-
-  //     if (response.status === 201) {
-
-  //       const data = await response.data;
-
-  //       reminders.unshift(data)
-  //       setReminders(reminders)
-
-  //       setReminderForm(false);
-  //       setTimeOne('');
-  //       setTimeTwo('');
-  //       setTimeThree('');
-  //     }
-
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
 
   function handleSelectObjectChange(e: any) {
     setSelectVal(e.target.value);
@@ -537,16 +432,20 @@ function CreateTasksList({handleAlert}: {handleAlert: any}) {
         <div>
           <h1>What's your reward</h1>
           <div>
-            <div className="container rewards-container">
-              {rewards.map(reward => {
-                return (
-                  <div onClick={(e) => {handleAddReward(e, reward['id' as keyof typeof reward])}} className="reward-choice">
-                    <img src={reward['image' as keyof typeof reward]} alt={reward['name' as keyof typeof reward]} />
-                    <span>{reward['name' as keyof typeof reward]}</span>
-                  </div>
-                )
-              })}
               
+            <div>
+              <input onChange={handleFilterRewards} type="text" placeholder="filter" ref={rewardRef} />
+              <div className="container rewards-container">
+                  {rewards.map(reward => {
+                    return (
+                      <div onClick={(e) => {handleAddReward(e, reward['id' as keyof typeof reward])}} className="reward-choice">
+                        <img src={reward['image' as keyof typeof reward]} alt={reward['name' as keyof typeof reward]} />
+                        <span>{reward['name' as keyof typeof reward]}</span>
+                      </div>
+                    )
+                  })}
+                  
+              </div>
             </div>
             <div className="container container-reward">
               <IoIosRemove onClick={handleRemoveReward} />

@@ -101,14 +101,24 @@ function AddProject({api}) {
     const data = {
       project: {
         name: nameRef.current.value,
-        description: descriptionRef.current.value,
-        starting_time: startRef.current.value,
-        finish_time: finishRef.current.value
+        description: descriptionRef.current.value
       },
       partitions: []
     }
-
    
+    if (startRef.current.value) {
+      data['project']['starting_time'] = startRef.current.value;
+    }
+    if (finishRef.current.value) {
+      data['project']['finish_time'] = finishRef.current.value;
+    }
+
+
+    if (nameRef.current.value === '' || descriptionRef.current.value === '') {
+      alert('Please fill all required fields');
+      return -1;
+    }
+
 
     let partitionElements = document.querySelectorAll('.partition');
     

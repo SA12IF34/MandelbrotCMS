@@ -219,6 +219,14 @@ aside.SideBar {
   padding: 20px;
 }
 
+.today-projects a,
+.today-learning_materials a {
+  display: block;
+  width: max-content;
+  height: max-content;
+  margin: 15px 0;
+}
+
 .tasks-list>div svg {
   font-size: 20px;
 }
@@ -235,6 +243,7 @@ aside.SideBar {
   border: none;
   outline: none;
   background-color: transparent;
+  cursor: pointer;
 }
 .tasks-list>div>div svg {
   font-size: 35px;
@@ -550,13 +559,30 @@ aside.SideBar {
   flex-basis: 50%;
 }
 
-.rewards-container {
+.new-list-page>form>div:nth-child(3)>div>div:nth-child(1) {
   width: 100%;
   max-width: 600px;
-  height: 250px;
+  /* margin: 20px 0; */
+  padding: 20px 0;
+}
+
+.new-list-page>form>div:nth-child(3)>div>div:nth-child(1) > input {
+  margin: 0 20px;
+  width: calc(100% - 40px);
+  height: 25px;
+  border: 1px solid silver;
+  outline: none;
+  padding: 3px;
+  font-size: 1em;
+
+}
+
+.rewards-container {
+  height: calc(100% - 25px);
   padding: 0;
   overflow-y: scroll;
   border: 1px solid silver;
+  margin: 0 20px;
 }
 
 .container-reward {

@@ -10,8 +10,10 @@ function Home() {
 
   const [data, setData] = useState<object | undefined>(undefined);
   const [undefindDataMsg, setUndefindDataMsg] = useState<string>('');
-  const [projects, setProjects] = useState<Array<object>>([])
-  const [learningMaterials, setLearningMaterials] = useState<Array<object>>([]);
+  const [missionsProjects, setProjects] = useState<Array<object>>([])
+  const projects: Array<object> = [];
+  const [missionsLearningMaterials, setLearningMaterials] = useState<Array<object>>([]);
+  const learningMaterials: Array<object> = [];
   const [reward, setReward] = useState<object>();
   const [goalProgress, setGoalProgress] = useState<number>(0);
   const [goalName, setGoalName] = useState<string>('');
@@ -36,7 +38,6 @@ function Home() {
             handleGetProject(tasks[i]['project'])
           }
           if (tasks[i]['learningMaterial']) {
-            console.log('learning material')
             handleGetLearningMaterial(tasks[i]['learningMaterial']);
             console.log(learningMaterials)
           }
@@ -47,8 +48,6 @@ function Home() {
             handleGetGoalProgress(tasks[i]['goal']);
           }
         }
-
-          
 
         if (data['reward']) {
           handleGetReward(data['reward']);
@@ -81,7 +80,8 @@ function Home() {
       if (response.status === 200) {
         const data = await response.data;
 
-        setProjects([...projects, data])
+        projects.push(data);
+        setProjects(projects)
       }
 
     } catch (error) {
@@ -98,7 +98,8 @@ function Home() {
       if (response.status === 200) {
         const data = await response.data;
         
-        setLearningMaterials([...learningMaterials, data])
+        learningMaterials.push(data);
+        setLearningMaterials(learningMaterials);
       }
 
     } catch (error) {
@@ -197,8 +198,8 @@ function Home() {
         <div className="today-projects">
           <h1>Today's Project(s)</h1>
           <div className='projects-list list'>
-            {projects.map(item => {
-              if (item) {
+            {missionsProjects.length > 0 && missionsProjects.map(item => {
+
                 var project = item['project' as keyof typeof item]
                 return (
                   <a href={`/sessions_manager/projects/${project['id' as keyof typeof project]}/`}>
@@ -207,24 +208,24 @@ function Home() {
                     </div>
                   </a>
                 )
-              }
+              
             })}
           </div>  
         </div>
         <div className="today-learning_materials">
           <h1>Today's Course(s)</h1>
           <div className="courses-list list">
-            {learningMaterials.map(item => {
-              if (item) {
-                var material = item['material' as keyof typeof item];
-                return (
-                  <a href={`learning_tracker/materials/${material['id' as keyof typeof material]}/`}>
-                    <div>
-                      <h2>{material['name' as keyof typeof material]}</h2>
-                    </div>
-                  </a>
-                )
-              }
+            {missionsLearningMaterials.length > 0 && missionsLearningMaterials.map(item => {
+              
+              var material = item['material' as keyof typeof item];
+              return (
+                <a href={`/learning_tracker/materials/${material['id' as keyof typeof material]}/`}>
+                  <div>
+                    <h2>{material['name' as keyof typeof material]}</h2>
+                  </div>
+                </a>
+              )
+              
             })}
           </div>
         </div>

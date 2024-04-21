@@ -13,7 +13,7 @@ import requests
 from bs4 import BeautifulSoup
 from itertools import islice
 import json
-import os
+import os 
 
 from django.conf import settings
 

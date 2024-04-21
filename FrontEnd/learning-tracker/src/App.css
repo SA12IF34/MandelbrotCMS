@@ -261,11 +261,13 @@ main button {
 
 .material-section>div {
   padding: 10px;
+  border-radius: 7px;
+  border: 2px solid silver;
+  background-color: transparent;
   width: max-content;
   height: max-content;
-  background-color: rgb(192, 203, 218);
-  font-size: 1em;
-  border: 1px solid gray;
+  font-size: 1.1em;
+  
 }
 
 .input-container {
