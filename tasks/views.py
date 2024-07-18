@@ -9,14 +9,17 @@ from .serializers import *
 
 from datetime import datetime
 
+from notes.utils import get_obj_notes
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 @authentication_classes([SessionAuthentication, JWTAuthentication])
 def get_task_containers(request):
-    
     try:
         user = request.user.id
+
         containers = TasksContainer.objects.filter(user=user).order_by('-id')
+
         containers_serializer = ContainerSerializer(instance=containers, many=True)
 
         return Response(data=containers_serializer.data, status=HTTP_200_OK)
@@ -28,36 +31,39 @@ def get_task_containers(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 @authentication_classes([SessionAuthentication, JWTAuthentication])
-def get_today_tasks(request, date):
-    
+def get_today_tasks(request, date): # Get's task container and the tasks related to it for the current day.
     try:
-        date_obj = datetime.strptime(date, '%Y-%m-%d').date()
         user = request.user.id
+
+        date_obj = datetime.strptime(date, '%Y-%m-%d').date()
         container = TasksContainer.objects.get(user=user, date=date_obj)
         tasks = container.task_set.all()
+
         container_serializer = ContainerSerializer(instance=container)
         tasks_serializer = TaskSerializer(instance=tasks, many=True)
+
+        related_notes = get_obj_notes(container)
 
         data = container_serializer.data
         data['tasks'] = tasks_serializer.data
 
-        return Response(data=data, status=HTTP_200_OK)
+        return Response(data={'list': data, 'notes': related_notes}, status=HTTP_200_OK)
     
     except TasksContainer.DoesNotExist:
-        return Response(status=HTTP_204_NO_CONTENT)
+        return Response(status=HTTP_404_NOT_FOUND)
 
-    except:
-        return Response(status=HTTP_500_INTERNAL_SERVER_ERROR)
+    # except:
+        # return Response(status=HTTP_500_INTERNAL_SERVER_ERROR)
     
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 @authentication_classes([SessionAuthentication, JWTAuthentication])
-def get_tasks(request, pk):
-    
+def get_tasks(request, pk): # Get's specified task lists based on id.
     try:
         container = TasksContainer.objects.get(id=pk)
         tasks = container.task_set.all()
+
         container_serializer = ContainerSerializer(instance=container)
         tasks_serializer = TaskSerializer(instance=tasks, many=True)
 
@@ -76,17 +82,18 @@ def get_tasks(request, pk):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 @authentication_classes([SessionAuthentication, JWTAuthentication])
-def get_sequance_list(request, pk, sequance):
+def get_sequance_list(request, pk, sequance): # Get's the id of next and previous task lists of currrent opened list.
     try:
         user = request.user.id
+        
         containers = TasksContainer.objects.filter(user=user).order_by('id')
         current_container = TasksContainer.objects.get(user=user, id=pk)
         current_index = list(containers).index(current_container)
         
-
         try:
             if sequance == 'next':
                 container = containers[current_index + 1]
+
             elif sequance == 'prev':
                 container = containers[current_index - 1]
 
@@ -127,48 +134,45 @@ def get_sequance_list(request, pk, sequance):
 #     except:
 #         return Response(status=500);
 
-def add_container(tasks, container_id):
+
+def add_container(tasks, container_id): # function to use in next api.
 
     for task in tasks:
         task['container'] = container_id
 
     return tasks
 
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 @authentication_classes([SessionAuthentication, JWTAuthentication])
 def post_task_list(request):
+    print(request.data)
+    # try:
+    user = request.user.id
+    print(user)
+    tasks_data = request.data['tasks']
+    container_data = request.data['container']   
+    container_data['user'] = user
+    container_serializer = ContainerSerializer(data=container_data)
+        
+    if container_serializer.is_valid(raise_exception=True):
+        container_serializer.save()
+        tasks_data = add_container(tasks_data, container_serializer.data['id']) # connecting tasks with their container
+        tasks_serializer = TaskSerializer(data=tasks_data, many=True)
+        # try:
+        if tasks_serializer.is_valid(raise_exception=True):
+            tasks_serializer.save()
+            return Response(data=container_serializer.data, status=HTTP_201_CREATED)
+        
+        # except serializers.ValidationError:
+        #     return Response(data={'valid_error': 'tasks'},status=HTTP_400_BAD_REQUEST)
     
-    try:
-        user = request.user.id
-        tasks_data = request.data['tasks']
-        container_data = request.data['container']        
-
-        container_data['user'] = user
-
-        container_serializer = ContainerSerializer(data=container_data)
+    # except serializers.ValidationError:
+    #     return Response(data={'valid_error': 'container'}, status=HTTP_400_BAD_REQUEST)
             
-        if container_serializer.is_valid(raise_exception=True):
-            container_serializer.save()
-
-            tasks_data = add_container(tasks_data, container_serializer.data['id'])
-
-            tasks_serializer = TaskSerializer(data=tasks_data, many=True)
-
-            try:
-                if tasks_serializer.is_valid(raise_exception=True):
-                    tasks_serializer.save()
-                    return Response(data=container_serializer.data, status=HTTP_201_CREATED)
-            
-            except serializers.ValidationError:
-                print(tasks_serializer.errors)
-                return Response(data={'valid_error': 'tasks'},status=HTTP_400_BAD_REQUEST)
-    
-    except serializers.ValidationError:
-        return Response(data={'valid_error': 'container'}, status=HTTP_400_BAD_REQUEST)
-            
-    except:
-        return Response(status=HTTP_500_INTERNAL_SERVER_ERROR)
+    # except:
+    #     return Response(status=HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 # @api_view(['POST'])
@@ -212,7 +216,7 @@ def update_task(request, pk):
             all_tasks = tasks_container.task_set.all()
             done_tasks = Task.objects.filter(container=tasks_container.id, done=True)
 
-            if done_tasks.count() == all_tasks.count():
+            if done_tasks.count() == all_tasks.count(): # auto complete the list when all tasks are done.
                 container_serializer = ContainerSerializer(instance=tasks_container, data={"done": True}, partial=True)
 
                 if container_serializer.is_valid():
@@ -244,6 +248,7 @@ def delete_task(request, pk):
 
     except:
         return Response(status=HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])

@@ -11,7 +11,7 @@ function Completed() {
 
   async function getCompletedProjects() {
       try {
-        const response = await api.get('projects/completed/');
+        const response = await api.get('projects/filter-category/?category=completed');
   
         if (response.status === 200) {
           const data = await response.data;

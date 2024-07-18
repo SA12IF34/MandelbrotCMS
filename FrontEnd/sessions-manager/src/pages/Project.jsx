@@ -2,13 +2,17 @@ import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import {AiOutlineEdit} from 'react-icons/ai';
 import {MdDone} from 'react-icons/md';
+import { IoClose } from "react-icons/io5";
 
 import { api } from '../App';
+
+import ProjectNotes from '../components/ProjectNotes';
 
 function Project() {
 
   const [project, setProject] = useState({});
   const [partitions, setPartitions] = useState([]);
+  const [notes, setNotes] = useState([]);
 
   const {id} = useParams();
   const navigate = useNavigate();
@@ -24,8 +28,10 @@ function Project() {
             const data = await response.data;
 
             setProject(data['project']);
-            setPartitions(data['partitions'])
+            setPartitions(data['partitions']);
+            setNotes(data['notes']);
         }
+
     } catch (error) {
         
     }
@@ -38,6 +44,7 @@ function Project() {
         if (response.status === 204) {
           navigate('/sessions_manager/')
         }
+
     } catch (error) {
         
     }
@@ -45,25 +52,34 @@ function Project() {
 
   async function deletePartition(partitionID, index) {
     document.getElementById(`${index}`).remove();
+    
     try {
       await api.delete(`partitions/${partitionID}/`);
+    
     } catch (error) {
       console.error(error);
     }
   }
 
   
-  async function checkPartition(partitionID, checked) {
+  async function checkPartition(partitionID, checked, eleToCheck=undefined) {
     try {
-      const response = await api.patch(`partitions/${partitionID}/`, {done: checked});
+      let dateNow = new Date();
+      let today = `${dateNow.getFullYear()}-${dateNow.getMonth() + 1}-${dateNow.getDate()}`;
 
-      if (response.status === 202) {
+      const response = await api.patch(`partitions/${partitionID}/`, {done: checked, check_date:today});
 
-      } else if (response.status === 200) {
-        alert('congratulations! You Have finished The Project!')
+      if ((response.status === 202 || response.status === 200) && eleToCheck) {
+        eleToCheck.classList.toggle('checked')
+      } 
+
+      if (response.status === 200) {
+        alert('congratulations! You Have finished The Project!');
+        window.location.reload();
       }
-    } catch (error) {
       
+    } catch (error) {
+
     }
   }
 
@@ -92,7 +108,7 @@ function Project() {
       <section>
         <div>
           <h2>{project['name']}</h2> 
-          <span>created on {project['creation_date']}</span>
+          
         </div>
         <p>
           {project['description']}
@@ -151,7 +167,9 @@ function Project() {
           {partitions.map((partition, index) => {
             return (
               <div id={index} className='partition'>
-                <div>
+                <div title={(partition.done ? 'un' : '')+'check partition'} 
+                     onClick={(e) => {checkPartition(partition.id, !e.target.classList.contains('checked'), e.target);}}
+                     className={partition.done ? 'checked' : ''}>
                   <h3>{partition['name']}</h3>
                   <br />
                   <p>
@@ -159,13 +177,10 @@ function Project() {
                   </p>
                 </div>
                 <div>
-                  <input onChange={(e) => {
-                    checkPartition(partition['id'], e.target.checked)
-                  }} title='check partition' className='check-partition' type="checkbox" name="done" id="done" defaultChecked={partition['done'] ? true : false} />
                   <button onClick={() => {
                     deletePartition(partition['id'], index);
                   }} title='delete partition' className='delete-partition'>
-                    x
+                    <IoClose />
                   </button>
                 </div>
               </div>
@@ -173,8 +188,13 @@ function Project() {
           })}
         </div>
       </section>
-      <br />
       <button onClick={() => {deleteProject(id)}}>Delete Project</button>
+
+      <span className='creation-date'>created on {project['creation_date']}</span>
+    
+      {notes.length > 0 && (
+        <ProjectNotes notes={notes} layout={'horizontal'} />
+      )}
     </div>
   )
 }

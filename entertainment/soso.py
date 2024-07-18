@@ -1,13 +1,14 @@
 import requests 
-import secrets
-code = "def50200a602c314a906adcaf0c7e0b218882fb0c0b66c2df03eeb2c58c35e8875f4b65c16dc73180e880cb2445b9049d374235acdfd9d6c9fa85b9ed4928b9efafac921310cf0347c30ac1f8e11eefdc8f0f809c6a831b216d5aa02c0622b8a652aaf142d93d784820c92ddf36ac96e765e471849165c9c17ee62c001415fa8c4c35b7edea925dbe3a3894e1c82f90923f41acacb1f0ee5e76c6a200e31b4447e1aa0b448ed7edb109a7b30914d9d1305d2aeb8a4475b36b4c1bcd8ec606ec731afdcac3fb3112ae92fe5dfaa62efc7a353c66e98b0e28e199e0767843afcf4c63cc3a1c00b07004cc2ee5d38e8ff850d3251ab2a783c87b2ca8f774fa4f53652135aae5028542dfec20ce49516668df662d55d9023ac1d3f8a3766a7745d9b21df50182deb287117356ddd0e73263470c7fb13760c5f1a4f3f4317ac2ccfe34e625c9a8695c1f306560144710e2e766f7f5504e2139a4cdb52084e22f69b772cb5ea7201bc800250b329e29aa77e5c73eee37ccc61a82557c730d0fe79cfe84a48511e7fca2c22094310a7d883cced68220f34052f55e30c20e34952c3"
+import secrets 
+import json
+code = "def502002cf68a1222da15922958bb6b81e977a46898c329378f08541f11def6eaa0a24c415da49482964b45b0d700f7f84522d385465d671a2a8bbb49f5191ef486d8b783853b45b1902cf7a4be081c6a1c109372e43355500e86a9392456b3c2e10f3a4df9a126c8f9e063225bc815d2204759eb2b3fca2551c47cb6fb79e6422c13261b9c8a0dabeee6ec7b5fb50a7366b288df8c27b2c6dfe9b6c8d0f1675ddc0cd4e652aefeb0f9b734989443e53cbc7f5c90fb1a31879672176903a7128944d7c3d15b1462b75c3539503cfc84a7d9cc4b40645a71f3538f0d3b8f504a6eed3d8a46fac797efc6e3b01a1ab6d4c3182e9bcf62f912245fc6b3bee1e0ef08647a7a6f1d4e3b91f95be9f5ad1d0eafd49cc693118cbac557f7b77ffd08d53b8a024d315caf63f0774102e82bdc06a8fbf485f1ff9eba609580c9e0a1e12f4a56e463078e2735fccfdf99f98869da89d81c463807bd5efd831014ff7bbbc2d0acd6606aa38d6dac4a168173144ca06cde6590f1aa1172911483c016399327f8cfb0b0670b1f0562192900d67a0b901e04d21804371b56246747c16d55"
 
-def get_new_code_verifier() -> str:
-    token = secrets.token_urlsafe(100)
-    return token[:128]
+# def get_new_code_verifier() -> str:
+#     token = secrets.token_urlsafe(100)
+#     return token[:128]
 
 
-code_verifier = get_new_code_verifier();
+# code_verifier = get_new_code_verifier();
 
 data = {
         'client_id': '533bcbceef8b2ffed855fcce5b0c52fd',
@@ -20,22 +21,27 @@ data = {
 
 
 
-# response = requests.post(f'https://myanimelist.net/v1/oauth2/token', data=data)
+# # response = requests.post(f'https://myanimelist.net/v1/oauth2/token', data=data)
 
 
-# print(response.json())
+# # print(response.json())
 
-tokens = {'token_type': 'Bearer', 'expires_in': 2502000, 'access_token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijg4MzBlMDZhM2E0NTY2OGFiOTI1MWMyMjJjODNkNGYyOWNjNzUxYzBkMTc1YjliZWE0MmQyNjYyZjhhYjVjN2NkMmVmM2I3YTIyMDE1NTM4In0.eyJhdWQiOiI1MzNiY2JjZWVmOGIyZmZlZDg1NWZjY2U1YjBjNTJmZCIsImp0aSI6Ijg4MzBlMDZhM2E0NTY2OGFiOTI1MWMyMjJjODNkNGYyOWNjNzUxYzBkMTc1YjliZWE0MmQyNjYyZjhhYjVjN2NkMmVmM2I3YTIyMDE1NTM4IiwiaWF0IjoxNzA4NDU5MTAyLCJuYmYiOjE3MDg0NTkxMDIsImV4cCI6MTcxMDk2MTEwMiwic3ViIjoiMTc2OTkwMjUiLCJzY29wZXMiOltdfQ.HwgoX0rYD_0oBpMSZXLhZbmA28r-kC0Iep298G-8muOz1h-CzlTtRuzUdliandAivmj6TvP4V2pk3N5DSWostD6jojArlW_IQsfToQprEK8b2t6IYKjI-S5P18TTULPpIfBVapvm_IztPfYcsqrU-LM2O5EQcmgQn_BobTByvy4JCgg3t_U9IbRTYFRJT6oAtUsjjNOl069l8AK0Qnlv5niBVOglHvJOzchENZcl-1CbYbMlPIVFAYoog3v2495lht4ZhKSDqv7ce_x4HyYttepCDWL3FtDhL-WJB9y4BxHwi-gMDRzd0SE9XdSUeVrhlHkiuBzYPrWmxlZj1X0InQ', 'refresh_token': 'def50200882a179d6fcef50b6023dce6e903f62c34ca88f8a141e78a349435541e267c267876b4e58930af39b4fdfc5000fd2dc88d2d0f47c8d9fc46bb111e3c29dcb321266d755702f039b8f4498f0a95cf8a30ccb4c7575be927a9fe55842ec05d842fc45634b62954a1151bbd4a99e3ac4c30fde4187897d5c33af7571a90921c2e5e5bbeb9337e2750b6e9f80ce1fb2769cc7d0e2a001463dc872817649eac6a47a849f1cc457845167886ad46ef5c73a5c4c18c95d955aa79ad556ab52d6bb66ebbe0c471cdee1238f69eb3ba669ec8758c95b6220f7d3dde5afd854d4b135d7559a06e1fa60e3492c38368a07d384928b771fd518d70ae48a22fa2df9b7ced2f6b519c45cbd7caf2d71e3d055c2597e2014893fedfef44229faae7e5d6ece771854789fd7b944b208d47402896154183c9f50828de86f3010213b3706d0533bf9563421d07b4d9d243a57ec7997e56d6233c82622b8fa65b5f28202bf7e72087a510385598c061c3cd92891716c88b70595dd39e239bdeacc90c4c46c0a3658e516b80c04aa8'}
+tokens = json.load(open('tokens.json', 'r'))
 
 access_token = tokens['access_token']
 refresh_token = tokens['refresh_token']
-
-# &grant_type=refresh_token & refresh_token=YOUR_REFRESH_TOKEN
-response_2 = requests.post('https://myanimelist.net/v1/oauth2/token', data={
+data2 = {
     'client_id': '533bcbceef8b2ffed855fcce5b0c52fd',
     'client_secret': '591b15350d8d08b5084da8e1ec69b958be7d7bc8c767b0b8de2ab61f95e2013c',
     'grant_type': 'refresh_token',
     'refresh_token':refresh_token
-})
+}
+# &grant_type=refresh_token & refresh_token=YOUR_REFRESH_TOKEN
+response_2 = requests.post('https://myanimelist.net/v1/oauth2/token', data=data2)
 
+print(response_2.status_code)
 print(response_2.json())
+
+if response_2.status_code == 200 or response_2.status_code == 202 or response_2.status_code == 201:
+    with open('tokens.json', 'w') as file:
+        json.dump(response_2.json(), file, indent=2)

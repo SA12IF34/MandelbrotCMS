@@ -8,13 +8,30 @@ from rest_framework.authentication import SessionAuthentication
 from .models import *
 from .serializers import *
 from .scrape import coursera, youtube
+from rest_framework.request import Request
+from notes.utils import get_obj_notes
+
+
+def is_unvalid(data):
+    if ('coursera' not in data['url']) and ('youtube' not in data['url']) and ('youtu.be' not in data['url']) and ('url' not in data):
+        return 'url'
+
+    if (data['source'] == 'coursera' and ('youtube' in data['url'] or 'youtu.be' in data['url'])) or (data['source'] == 'youtube' and 'coursera' in data['url']):
+        return 'source'
+    
+    return False
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 @authentication_classes([SessionAuthentication, JWTAuthentication])
 def get_material_data(request):
     if request.method == 'POST':
-        
+        if is_unvalid(request.data) == 'url':
+            return Response(data={'data': 'please enter a coursera or youtube link'}, status=HTTP_400_BAD_REQUEST) 
+        if is_unvalid(request.data) == 'source':
+            return Response(data={'data': 'please make source and url match'}, status=HTTP_400_BAD_REQUEST)
+
         if request.data['source'] == 'coursera':
             data = coursera(request.data['url'])
         
@@ -25,7 +42,12 @@ def get_material_data(request):
 
     return Response(status=HTTP_400_BAD_REQUEST)
 
+
 class MaterialsAPI(APIView):
+
+    """
+    Materials APIs class for READ, SEARCH, and UPDATE functionalities.
+    """
 
     permission_classes = [IsAuthenticated]
     authentication_classes = [SessionAuthentication, JWTAuthentication]
@@ -34,7 +56,7 @@ class MaterialsAPI(APIView):
         try:
             user = request.user.id
 
-            search_query = request.query_params.get('search', None)
+            search_query = request.query_params.get('search', None) # Applying search operation
             if search_query is not None:
                 materials = Material.objects.filter(user=user, category='in progress', name__contains=search_query)
                 serializer = MaterialSerializer(instance=materials, many=True)
@@ -61,9 +83,14 @@ class MaterialsAPI(APIView):
         except :
             return Response(status=HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def post(self, request): # Needs Modification Based on Software Design
-        
+    def post(self, request): 
         user = request.user.id
+        
+        if is_unvalid(request.data) == 'url':
+            return Response(data={'data': 'please enter a coursera or youtube link'}, status=HTTP_400_BAD_REQUEST) 
+        if is_unvalid(request.data) == 'source':
+            return Response(data={'data': 'please make source and url match'}, status=HTTP_400_BAD_REQUEST)
+        
         if request.data['source'] == 'coursera':
            data, sections = coursera(request.data['url'])
 
@@ -108,16 +135,24 @@ class MaterialsAPI(APIView):
 
 class MaterialAPI(APIView):
 
+    """
+        Material APIs class for READ, UPDATE and DELETE functionalities.
+    """
+
     permission_classes = [IsAuthenticated]
     authentication_classes = [SessionAuthentication, JWTAuthentication]
 
     def get(self, request, pk):
         material = Material.objects.get(id=pk)
         sections = material.section_set.all()
+
         serializer = MaterialSerializer(instance=material)
         serializer2 = SectionSerializer(instance=sections, many=True)
 
-        return Response(data={'material':serializer.data, 'sections': serializer2.data}, status=HTTP_200_OK)
+        related_notes = get_obj_notes(material)
+
+
+        return Response(data={'material':serializer.data, 'sections': serializer2.data, 'notes': related_notes}, status=HTTP_200_OK)
 
     def patch(self, request, pk):
         material = Material.objects.get(id=pk)
@@ -154,14 +189,18 @@ class SectionAPI(APIView):
     def patch(self, request, pk):
         section = Section.objects.get(id=pk)
         serializer = SectionSerializer(instance=section, data=request.data, partial=True)
+
         try:
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
+                
                 material = Material.objects.get(id=serializer.data['material'])
+                
                 all_sections = material.section_set.all()
                 done_sections = Section.objects.filter(material=material.id, done=True)
                 
-                if (len(all_sections) == len(done_sections)) :
+                # Applying auto category change
+                if (len(all_sections) == len(done_sections)) : 
                     material_serializer = MaterialSerializer(instance=material, data={"category": "done"}, partial=True)
                     
                     try:
@@ -172,10 +211,12 @@ class SectionAPI(APIView):
                     
                     except serializers.ValidationError:
                         serializer = SectionSerializer(instance=section, data={"done": False}, partial=True)
+                        
                         if serializer.is_valid():
                             serializer.save()
 
                             return Response(status=500)
+                        
                 return Response(status=HTTP_202_ACCEPTED)
         
         except serializers.ValidationError:

@@ -5,6 +5,7 @@ import {FaRegCheckSquare, FaCheckSquare} from 'react-icons/fa';
 import '../App.css';
 import { api } from '../App';
 
+import ListNotes from './components/ListNotes';
 
 function Home() {
 
@@ -14,10 +15,10 @@ function Home() {
   const projects: Array<object> = [];
   const [missionsLearningMaterials, setLearningMaterials] = useState<Array<object>>([]);
   const learningMaterials: Array<object> = [];
-  const [reward, setReward] = useState<object>();
+  const [reward, setReward] = useState<object | null>(null);
   const [goalProgress, setGoalProgress] = useState<number>(0);
   const [goalName, setGoalName] = useState<string>('');
-
+  const [notes, setNotes] = useState<Array<object>>([]);
 
   async function handleGetTodayTasks() {
     const year = new Date().getFullYear();
@@ -31,7 +32,9 @@ function Home() {
 
       if (response.status === 200) {
         const data = await response.data;
-        const tasks = data['tasks' as keyof typeof data];
+        const listData = data['list' as keyof typeof data]
+        const tasks = listData['tasks' as keyof typeof listData];
+        const listNotes = data['notes' as keyof typeof data]
 
         for (let i=0; i < tasks.length; i++) {
           if (tasks[i]['project']) {
@@ -49,24 +52,31 @@ function Home() {
           }
         }
 
-        if (data['reward']) {
-          handleGetReward(data['reward']);
+        if (listData['reward']) {
+          handleGetReward(listData['reward']);
         }
 
-        setData(data);
+        setData(listData);
+        setNotes(listNotes);
       
-      } else if (response.status === 204) {
+      } else if (response.status === 404) {
         setUndefindDataMsg(`You didn't create a list for today.`)
       }
 
     } catch (error) {
       var response = error!['response' as keyof typeof error]
-      if (response['status' as keyof typeof response] === 500) {
-        setUndefindDataMsg('There is a problem on the server side.')
-      } else if (response['status' as keyof typeof response] === 403) {
-        setUndefindDataMsg('You must be authenticated to use the system.');
-      }
+      var status = response['status' as keyof typeof response]
       
+      if (status === 500) {
+        setUndefindDataMsg('There is a problem on the server side.')
+      
+      } else if (status === 403) {
+        setUndefindDataMsg('You must be authenticated to use the system.');
+      
+      } else if (status === 404) {
+        setUndefindDataMsg(`You didn't create a list for today.`)
+      
+      }
     }
 
   }
@@ -114,7 +124,7 @@ function Home() {
       });
 
       if (response.status === 200) {
-        const data = await response.data;
+        const data = await response.data['material'];
         setReward(data);
       }
     
@@ -195,44 +205,50 @@ function Home() {
             }) }
           </div>
         </div>
+        
+        {missionsProjects.length > 0 && (
         <div className="today-projects">
           <h1>Today's Project(s)</h1>
-          <div className='projects-list list'>
-            {missionsProjects.length > 0 && missionsProjects.map(item => {
+          <div className='projects-list list container'>
+            {missionsProjects.map(item => {
 
-                var project = item['project' as keyof typeof item]
-                return (
-                  <a href={`/sessions_manager/projects/${project['id' as keyof typeof project]}/`}>
-                    <div>
-                      <h2>{project['name' as keyof typeof project]}</h2>
-                    </div>
-                  </a>
-                )
-              
-            })}
-          </div>  
-        </div>
-        <div className="today-learning_materials">
-          <h1>Today's Course(s)</h1>
-          <div className="courses-list list">
-            {missionsLearningMaterials.length > 0 && missionsLearningMaterials.map(item => {
-              
-              var material = item['material' as keyof typeof item];
+              var project = item['project' as keyof typeof item]
               return (
-                <a href={`/learning_tracker/materials/${material['id' as keyof typeof material]}/`}>
+                <a href={`/sessions_manager/projects/${project['id' as keyof typeof project]}/`}>
                   <div>
-                    <h2>{material['name' as keyof typeof material]}</h2>
+                    <h2>{project['name' as keyof typeof project]}</h2>
                   </div>
                 </a>
               )
-              
-            })}
-          </div>
+              })}
+          </div>  
         </div>
-        <div className="today-reward">
-          <h1>Your Reward</h1>
-          <div className="reward">
-            {reward && (
+        )}
+            
+        {missionsLearningMaterials.length > 0 && (
+          <div className="today-learning_materials">
+            <h1>Today's Course(s)</h1>
+            <div className="courses-list list container">
+              {missionsLearningMaterials.map(item => {
+                var material = item['material' as keyof typeof item];
+                return (
+                  <a href={`/learning_tracker/materials/${material['id' as keyof typeof material]}/`}>
+                    <div>
+                      <h2>{material['name' as keyof typeof material]}</h2>
+                    </div>
+                  </a>
+                )
+                
+              })}
+            </div>
+          </div>
+        ) }
+          
+        
+        {reward && (
+          <div className="today-reward">
+            <h1>Your Reward</h1>
+            <div className="reward">
               <a href={`/entertainment/materials/${reward['id' as keyof typeof reward]}`}>
                 <div className='image'>
                   <img src={reward['image' as keyof typeof reward]} alt={reward['name' as keyof typeof reward]} />
@@ -242,9 +258,10 @@ function Home() {
                   {reward['name' as keyof typeof reward]}
                 </h2>
               </a>
-            )}
+            </div>
           </div>
-        </div>
+        )}
+          
         {goalName && goalName.length > 0 &&
           (
             <div className="goal">
@@ -258,6 +275,10 @@ function Home() {
           </div>
           )
         }
+
+        {notes.length > 0 && (
+          <ListNotes notes={notes} layout='vertical' />
+        )}
       </>
       ) : (
         <div className='reward'>
@@ -274,7 +295,7 @@ function Home() {
         </div>
       )): (
         <div>
-          <h1>{undefindDataMsg}</h1>
+          <h1>{undefindDataMsg && undefindDataMsg}</h1>
         </div>
       )}
     </div>

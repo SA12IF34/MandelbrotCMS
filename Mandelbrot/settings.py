@@ -21,18 +21,13 @@ SECRET_KEY = ENV('SECRET_KEY')
 # hello
 
 # SECURITY WARNING: don't run with debug turned on in production!
-IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
+DEBUG = False
 
-if IS_HEROKU_APP:
-    DEBUG = True
-else:
-    DEBUG = True
-
-if IS_HEROKU_APP:
-    ALLOWED_HOSTS = ['saifchan-website-5405fadf9541.herokuapp.com', 'saifchan.online']
-
-else:
+if DEBUG:
     ALLOWED_HOSTS = []
+
+else:
+    ALLOWED_HOSTS = ['cms.saifchan.online', '*']
 
 # Application definition
 
@@ -55,6 +50,8 @@ INSTALLED_APPS = [
     'entertainment',
     'tasks',
     'goals',
+    'notes',
+    'saifapp',
 
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
@@ -70,7 +67,7 @@ INSTALLED_APPS = [
     
 ]
 
-SITE_ID = 3
+SITE_ID = 2
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -82,7 +79,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'allauth.account.middleware.AccountMiddleware'
 ]
 
@@ -93,28 +90,15 @@ GITHUB_CLIENT_SECRET = ENV('GITHUB_CLIENT_SECRET')
 
 CORS_ALLOW_PRIVATE_NETWORK = False
 
-if IS_HEROKU_APP:
+
+if DEBUG :
     CORS_ALLOWED_ORIGINS = [
-        'https://saifchan.online'
+    'http://127.0.0.1:3000',
+    'http://localhost:5173',
+    'http://127.0.0.1:8000',
+    'http://localhost:8000',
+    'chrome-extension://chaepekccofhljddepeknooibilbohob'
     ]
-else:
-
-    CORS_ALLOWED_ORIGINS = [
-        'http://127.0.0.1:3000',
-        'http://localhost:5173',
-        'http://127.0.0.1:8000',
-        'http://localhost:8000',
-        'chrome-extension://chaepekccofhljddepeknooibilbohob'
-    ]
-
-
-if IS_HEROKU_APP:
-
-
-    CSRF_TRUSTED_ORIGINS = [
-        'https://saifchan.online'
-    ]
-else:
     CSRF_TRUSTED_ORIGINS = [
         'http://127.0.0.1:3000',
         'http://localhost:5173',
@@ -122,6 +106,18 @@ else:
         'http://localhost:8000',
         'chrome-extension://chaepekccofhljddepeknooibilbohob'
     ]
+
+else:
+    CORS_ALLOWED_ORIGINS = [
+        'https://cms.saifchan.online',
+        'https://saifchan.online'
+    ]
+    CSRF_TRUSTED_ORIGINS = [
+        'https://cms.saifchan.online',
+        'https://saifchan.online'
+    ]
+
+
 
 CORS_ALLOW_METHODS = (
     "DELETE",
@@ -220,8 +216,15 @@ WSGI_APPLICATION = 'Mandelbrot.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
-if IS_HEROKU_APP:
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -233,13 +236,7 @@ if IS_HEROKU_APP:
         }
     }
 
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+
 
 
 # Password validation
@@ -284,12 +281,21 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'FrontEnd/entertainment/dist/assets'),
     os.path.join(BASE_DIR, 'FrontEnd/goals/dist/assets'),
     os.path.join(BASE_DIR, 'FrontEnd/home-tasks/dist/assets'),
-    os.path.join(BASE_DIR, 'FrontEnd/website-home/dist/assets')
+    os.path.join(BASE_DIR, 'FrontEnd/notes/dist/assets')
     
 ]
 
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+MEDIA_URL = '/mediafiles/'
+
+
+
 STORAGES = {
     'staticfiles': {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    },
+    'mediafiles': {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
     }
 } 

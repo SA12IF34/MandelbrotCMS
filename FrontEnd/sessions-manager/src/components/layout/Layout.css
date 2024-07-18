@@ -1,11 +1,14 @@
 header {
     width: 100%;
     height: max-content;
+    background-color: white;
+    position: relative;
+    z-index: 1;
 }
 
 header>div {
     width: 100%;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #907e79;
 }
 header>div:nth-child(1) {
     height: 100px;
@@ -30,7 +33,6 @@ nav {
 nav a {
     color: black;
     text-decoration: none;
-    margin: 0px 5px;
     padding: 0px 5px;
     border-left: 1px solid silver;
     border-right: 1px solid silver;

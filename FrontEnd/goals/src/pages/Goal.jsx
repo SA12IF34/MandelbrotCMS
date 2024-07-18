@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom';
 import { api } from '../App';
 
 import Popup from './components/Popup';
+import GoalNotes from './components/GoalNotes';
 
 function Goal({handleAlert}) {
 
@@ -14,6 +15,7 @@ function Goal({handleAlert}) {
   const [projects, setProjects] = useState([]);
   const [missions, setMissions] = useState([]);
   const [rewards, setRewards] = useState([]);
+  const [notes, setNotes] = useState([]);
   const [rewardsText, setRewardsText] = useState('');
   const [progress, setProgress] = useState('0');
 
@@ -33,6 +35,7 @@ function Goal({handleAlert}) {
         setProjects(data['projects']);
         setMissions(data['tasks']);
         setRewards(data['rewards']);
+        setNotes(data['notes']);
         setRewardsText(data['reward_text']);
       }
 
@@ -195,6 +198,10 @@ function Goal({handleAlert}) {
 
       {handleDelete && (
         <Popup handleDeleteGoal={handleDeleteGoal} setHandleDelete={setHandleDelete} />
+      )}
+
+      {notes.length > 0 && (
+        <GoalNotes notes={notes} layout='vertical' />
       )}
     </div>
   )

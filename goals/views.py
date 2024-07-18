@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.status import *
@@ -21,8 +21,13 @@ from tasks.serializers import TaskSerializer
 from entertainment.models import EntertainmentMaterial
 from entertainment.serializers import EntertainmentSerializer
 
+from notes.utils import get_obj_notes
 
 class GoalsAPI(APIView):
+
+    """
+        Goals APIs class to retrieve created goals from the DB and create new ones in it.
+    """
 
     permission_classes = [IsAuthenticated]
     authentication_classes = [SessionAuthentication, JWTAuthentication]
@@ -79,10 +84,14 @@ class GoalsAPI(APIView):
 
 class GoalAPI(APIView):
 
+    """
+        Goal APIs class to retrieve, update and delete goals from the DB.
+    """
+
     permission_classes = [IsAuthenticated]
     authentication_classes = [SessionAuthentication, JWTAuthentication]
 
-    def get(self, request, pk):
+    def get(self, request, pk): # Retrieving Goal from DB and all it's related objects.
 
         try:
             goal = Goal.objects.get(id=pk)
@@ -105,6 +114,7 @@ class GoalAPI(APIView):
             data['projects'] = projects_serializer.data
             data['tasks'] = tasks_serializer.data
             data['rewards'] = rewards_serializer.data
+            data['notes'] = get_obj_notes(goal)
 
             return Response(data=data, status=HTTP_200_OK)
         
@@ -115,7 +125,7 @@ class GoalAPI(APIView):
             return Response(status=HTTP_500_INTERNAL_SERVER_ERROR)
     
 
-    def patch(self, request, pk):
+    def patch(self, request, pk): # Updating goal's data.
 
         try:
             goal = Goal.objects.get(id=pk)
@@ -144,7 +154,11 @@ class GoalAPI(APIView):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 @authentication_classes([SessionAuthentication, JWTAuthentication])
-def get_goal_progress(request, pk):
+def get_goal_progress(request, pk): # Calculates goal's progress from the amount of done things of goal's related things.
+    
+    """
+        Calculates goal's progress from the amount of done things of goal's related things.
+    """
 
     try:
         done_num = 0
@@ -152,6 +166,7 @@ def get_goal_progress(request, pk):
 
         goal = Goal.objects.get(id=pk)
         goal_serializer = GoalSerializer(instance=goal)
+
         projects = Project.objects.filter(id__in=goal_serializer.data['projects'])
         learning_materials = Material.objects.filter(id__in=goal_serializer.data['learning_materials'])
         all_tasks = Task.objects.filter(goal=goal.id)
@@ -174,7 +189,7 @@ def get_goal_progress(request, pk):
             done_num += done_sections.count()
             total_num += all_sections.count()
         
-        progress_amount = f'{(done_num/total_num) * 100:.2f}'
+        progress_amount = f'{(done_num/total_num) * 100:.2f}' # Calculating the progress.
 
         return Response(data={'progress': progress_amount, 'goal': goal.name}, status=HTTP_200_OK)
 

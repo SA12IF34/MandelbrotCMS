@@ -3,13 +3,17 @@ import {useParams, useNavigate} from 'react-router-dom';
 import '../App.css';
 import { api } from '../App';
 
+import MaterialNotes from '../components/MaterialNotes';
+
 function Material() {
   
   const {id} = useParams();
   const navigator = useNavigate();
 
-  const [material, setMaterial] = useState({})
-  const [sections, setSections] = useState([])
+  const [material, setMaterial] = useState({});
+  const [sections, setSections] = useState([]);
+  const [notes, setNotes] = useState([]);
+  
   async function handleGetMaterial() {
     try {
       const response = await api.get(`materials/${id}/`);
@@ -17,8 +21,9 @@ function Material() {
       if (response.status === 200) {
         const data = await response.data;
 
-        setMaterial(data['material']);
+        setMaterial(data['material']); 
         setSections(data['sections']);
+        setNotes(data['notes']);
       }
 
     } catch (error) {
@@ -64,6 +69,7 @@ function Material() {
       if (response.status === 204) {
         navigator('/learning_tracker/');
       }
+    
     } catch (error) {
       console.error(error);
     }
@@ -78,6 +84,7 @@ function Material() {
       if (response.status === 202) {
         window.location.reload();
       }
+    
     } catch (error) {
       console.error(error);
     }
@@ -90,10 +97,12 @@ function Material() {
     handleGetMaterial();
     
     var img = document.getElementById("m-img");
+
     setTimeout(() => {
       if (img.src && img.src.length > 0) {
         getAverageRGB(document.getElementById("m-img"))
       }
+    
     },200)
   }, [])
 
@@ -181,7 +190,7 @@ function Material() {
           <h2>{material['name']}</h2>
           <br />
           <p>
-            {material['description']}
+            {material['description'] && material['description'] !== '-1' && material['description'].length > 1 ? material['description'] : ''}
           </p>
         </div>
       </section>
@@ -241,6 +250,10 @@ function Material() {
       <button onClick={() => {
         handleDeleteMaterial();
       }} className='material-delete-btn'>Delete</button>
+    
+    { notes.length > 0 &&
+      (<MaterialNotes notes={notes} layout='horizontal' />)
+    }
     </div>
   )
 }

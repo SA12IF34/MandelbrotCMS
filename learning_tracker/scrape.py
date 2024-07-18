@@ -26,7 +26,7 @@ def summarize_text(text):
         return summarization
 
     except:
-        return -1
+        return None
 
 
 
@@ -37,6 +37,10 @@ headers = {
 }
 
 def coursera(url):
+
+    """
+        Scrapes coursera courses.
+    """
 
     if not ('specializations'in url) and not ('professional-certificates' in url):
         page = requests.get(url, headers=headers).text
@@ -76,6 +80,9 @@ def coursera(url):
     
         # Get Course Image
         course_name = ''
+        if '?' in url:
+            url = url.split('?')[0]
+
         if url.split('/')[-1] == '':
             course_name = url.split('/')[-2]
         else:
@@ -107,6 +114,10 @@ youtube_api = build('youtube', 'v3', developerKey=api_key)
 
 def video_scrape(video_id):
 
+    """
+        Get's Youtube's videos content using youtube api.
+    """
+
     # Request video details using the video ID
     request = youtube_api.videos().list(part='snippet', id=video_id)
     response = request.execute()
@@ -135,6 +146,10 @@ def video_scrape(video_id):
 
 
 def playlist_scrape(playlist_id):
+
+    """
+        Gets Youtube's playlists content using youtube api.
+    """
 
     playlist_request = youtube_api.playlistItems().list(
         part='snippet',

@@ -36,7 +36,12 @@ function AddMaterial({handleAlert}: {handleAlert: any}) {
     } catch (error) {
       var response = error!['response' as keyof typeof error];
       var status = response['status' as keyof typeof response];
-        
+      
+      console.log(response)
+
+      if (status === 400) {
+        handleAlert(response['data' as keyof typeof response]['data'])
+      }
       if (status === 500) {
         handleAlert('There is a problem on server side.');
       };
@@ -80,12 +85,12 @@ function AddMaterial({handleAlert}: {handleAlert: any}) {
           <input ref={mainUrlRef} type="text" name="url-field" id="url-field" placeholder='material url' />
           <div className='material-info'>
             <select ref={typeRefOne} defaultValue={'type'} id="material-source">
-              <option value="type">type</option>
+              <option value="">type</option>
               <option value="anime">anime(mal or anilist)</option>
               <option value="game">game(steam)</option>
             </select>
             <select ref={statusRefOne} defaultValue={'status'} id="material-category">
-              <option value="status">status</option>
+              <option value="">status</option>
               <option value="current">current</option>
               <option value="done">done</option>
               <option value="later">later</option>

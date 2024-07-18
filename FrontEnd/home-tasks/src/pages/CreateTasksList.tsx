@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { useEffect, useState, useRef, RefObject } from "react";
 import { IoIosAdd, IoIosRemove } from "react-icons/io";
 import { api } from "../App";
@@ -138,7 +138,7 @@ function CreateTasksList({handleAlert}: {handleAlert: any}) {
         chosenContainer.remove();
       }
 
-      // document.querySelector('.task-form')?.appendChild(chosenContainer);
+      (document.querySelector('.search-container') as HTMLElement).parentElement?.classList.add('object-chosen');
       (document.querySelector('.task-form') as HTMLElement)?.insertBefore(chosenContainer, (document.querySelector('.add-task-btn') as HTMLButtonElement))
 
     }
@@ -168,7 +168,7 @@ function CreateTasksList({handleAlert}: {handleAlert: any}) {
     h2.textContent = content;
     button.type = 'button';
     button.classList.add('remove-task-btn', 'task-btn');
-    ReactDOM.render(<IoIosRemove />, button)
+    ReactDOM.createRoot(button).render(<IoIosRemove />)
 
     button.onclick = (e) => {handleRemoveTask(e, content)}
 
@@ -203,6 +203,15 @@ function CreateTasksList({handleAlert}: {handleAlert: any}) {
 
   }
 
+  function handleCancelTaskCreate() {
+    setContent('');
+    setSearchVal('');
+    setSelectVal('projects');
+    setSearchResults([]);
+
+    setTaskForm(false);
+  }
+
 
   async function handleGetRewards() {
     try {
@@ -220,23 +229,20 @@ function CreateTasksList({handleAlert}: {handleAlert: any}) {
 
   function handleAddReward(e: any, id: number) {
     const newImg = document.createElement('img');
-    const newH3  = document.createElement('h3');
     const container = document.querySelector('.container-reward') as HTMLDivElement;
-    console.log(e.target)
+
     newImg.src = e.target.querySelector('img').src;
-    newH3.textContent = e.target.querySelector('span').textContent;
 
     container.querySelector('img')?.remove();
-    container.querySelector('h3')?.remove();
 
     container.appendChild(newImg);
-    container.appendChild(newH3);
 
 
     if (data && data['container']) {
       data['container']['reward'] = id;
       console.log('1 ', data['container']['reward'])
       setData(data);
+    
     } else {
       data['container'] = {};
       data['container']['reward'] = id;
@@ -388,7 +394,7 @@ function CreateTasksList({handleAlert}: {handleAlert: any}) {
         handleInitializeDataAndHandleRequest();
       }}>
         <div>
-          <input ref={titleRef} type="text" placeholder="List Title" required />
+          <input ref={titleRef} type="text" placeholder="List Name" required />
           <input ref={dateRef} type="date" required />
         </div>
         <div className="tasks-items-container">
@@ -401,10 +407,17 @@ function CreateTasksList({handleAlert}: {handleAlert: any}) {
               <textarea value={content} onChange={(e) => {setContent(e.target.value);}} name="" id=""></textarea>
               <div>
                 <div className="search-container">
-                  <input value={searchVal} onChange={(e) => {
-                    handleSearchObject(e.target.value);
-                    setSearchVal(e.target.value);
-                  }} type="text" name="search-field" id="search-field" />
+                  <div>
+                    <input value={searchVal} onChange={(e) => {
+                      handleSearchObject(e.target.value);
+                      setSearchVal(e.target.value);
+                    }} type="text" name="search-field" id="search-field" />
+                    <select value={selectVal} onChange={handleSelectObjectChange} defaultValue={'projects'} name="object-type" id="object-type">
+                      <option value="projects">Projects</option>
+                      <option value="courses">Courses</option>
+                      <option value="goals">Goals</option>
+                    </select>
+                  </div>
                   <div className="search-results">
                     {searchResults.map(result => {
                       return (
@@ -417,21 +430,20 @@ function CreateTasksList({handleAlert}: {handleAlert: any}) {
                     })}
                   </div>
                 </div>
-                <select value={selectVal} onChange={handleSelectObjectChange} defaultValue={'projects'} name="object-type" id="object-type">
-                  <option value="projects">Projects</option>
-                  <option value="courses">Courses</option>
-                  <option value="goals">Goals</option>
-                </select>
+                
               </div>
               <button onClick={() => {handleAddTaskItem()}} type="button" className="add-task-btn task-btn">
                 <IoIosAdd />
+              </button>
+              <button onClick={() => {handleCancelTaskCreate()}} type="button" className="remove-form-btn task-btn">
+                <IoIosRemove />
               </button>
             </div>
           )}
         </div>
         <div>
           <h1>What's your reward</h1>
-          <div>
+          <div className='container'>
               
             <div>
               <input onChange={handleFilterRewards} type="text" placeholder="filter" ref={rewardRef} />
@@ -447,7 +459,7 @@ function CreateTasksList({handleAlert}: {handleAlert: any}) {
                   
               </div>
             </div>
-            <div className="container container-reward">
+            <div title="remove reward" className="container-reward">
               <IoIosRemove onClick={handleRemoveReward} />
             </div> 
           </div>

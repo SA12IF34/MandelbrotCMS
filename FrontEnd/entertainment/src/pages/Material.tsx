@@ -4,6 +4,8 @@ import '../App.css';
 
 import {api} from '../App';
 
+import MaterialNotes from './components/MaterialNotes';
+
 interface materialData {
   'id': number,
   'name': string,
@@ -16,10 +18,17 @@ interface materialData {
   'user': number
 }
 
+interface NoteData {
+  'id': number,
+  'name': string,
+  'content': string
+}
+
 function Material({handleAlert}: {handleAlert: any}) {
 
   const {id} = useParams();
   const [material, setMaterial] = useState<materialData>();
+  const [notes, setNotes] = useState<Array<NoteData>>([]);
 
   const statusRef = useRef() as RefObject<HTMLSelectElement>;
 
@@ -32,7 +41,8 @@ function Material({handleAlert}: {handleAlert: any}) {
       if (response.status === 200) {
         const data = await response.data;
         
-        setMaterial(data);
+        setMaterial(data['material']);
+        setNotes(data['notes']);
       }
 
     } catch (error) {
@@ -132,7 +142,7 @@ function Material({handleAlert}: {handleAlert: any}) {
                   <option selected={material!['status'] === 'done' ? true : false} value={'done'}>done</option>
                   <option selected={material!['status'] === 'later' ? true : false} value={'later'}>later</option>
                 </select>
-                <span title='change speciality' onClick={handleChangeSpecial} style={{cursor: 'pointer'}} className="special">{(! material!['special'] ? 'not ' : '')}special</span>
+                <span title='change speciality' onClick={handleChangeSpecial} style={{cursor: 'pointer'}} className={material!['special'] ? 'special' : ''}>{(! material!['special'] ? 'not ' : '')}special</span>
               </div>
             </div>
           </div>
@@ -147,6 +157,9 @@ function Material({handleAlert}: {handleAlert: any}) {
       </>): (<>
         <h1 style={{margin: '30px'}}>{message}</h1>
       </>)}
+      {notes.length > 0 && (
+        <MaterialNotes notes={notes} layout='horizontal' />
+      )}
     </div>
   )
 }

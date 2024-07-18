@@ -11,13 +11,14 @@ function InProgress() {
 
   async function getInProgressProjects() {
     try {
-      const response = await api.get('projects/in-progress/');
+      const response = await api.get('projects/filter-category/?category=in progress');
       
       if (response.status === 200) {
         const data = await response.data;
-
+        
         setProjects(data);
       }
+
     } catch (error) {
         console.error(error)
     }

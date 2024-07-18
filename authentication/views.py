@@ -3,22 +3,27 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import *
+
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from rest_framework.authentication import SessionAuthentication
+
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenRefreshView
-from rest_framework.generics import GenericAPIView
 
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.github.views import GitHubOAuth2Adapter
 from dj_rest_auth.registration.views import SocialLoginView
+
 import requests
+
 from django.conf import settings
 
+
+# Social Authentication
 
 class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
@@ -39,6 +44,7 @@ def get_github_access_token(request):
 
         if (response.text.startswith('error')):
             return Response(status=HTTP_400_BAD_REQUEST)
+        
         else:
             access_token = response.text.split('&')[0].split('=')[1]
 
@@ -46,6 +52,9 @@ def get_github_access_token(request):
         
     except:
         return Response(status=HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+# JWT Authentication
 
 class TokenObtainPairSerializerChan(TokenObtainPairSerializer):
     @classmethod
@@ -83,8 +92,8 @@ class TokenRefreshAPI(TokenRefreshView):
 
             if refresh_token and access_token:
                 # Set cookies in the original response
-                response.set_cookie('refresh_token', refresh_token)  # Example: Set to expire in 7 days
-                response.set_cookie('access_token', access_token)  # Example: Set to expire in 1 hour
+                response.set_cookie('refresh_token', refresh_token)  
+                response.set_cookie('access_token', access_token)  
 
         return response
 
@@ -103,7 +112,6 @@ class SignUpJWTAPI(APIView):
     authentication_classes = [JWTAuthentication]
 
     def post(self, request):
-        print(request.data)
         if not User.objects.filter(email=request.data['email']).exists():
             try:
                 user = User.objects.create_user(username=request.data['username'].lower(), email=request.data['email'], password=request.data['password'])
@@ -123,7 +131,7 @@ class SignUpJWTAPI(APIView):
             return Response(status=HTTP_306_RESERVED)
         
 
-
+# Session Based Authentication
 
 class RegisterAPI(APIView): 
 
@@ -131,7 +139,6 @@ class RegisterAPI(APIView):
     authentication_classes = [SessionAuthentication]
     
     def post(self, request):
-
         data = request.data
 
         if not User.objects.filter(email=data['email']).exists():
@@ -168,12 +175,9 @@ class AuthenticationAPI(APIView):
         return Response(data={"response": "user not found"}, status=HTTP_404_NOT_FOUND)
 
 
-
-
 class ProfileAPI(APIView):
 
     permission_classes = [IsAuthenticated]
-    # authentication_classes = [SessionAuthentication]
 
     def get(self, request):
         user = request.user

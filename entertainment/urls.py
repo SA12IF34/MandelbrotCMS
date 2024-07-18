@@ -4,7 +4,8 @@ from django.shortcuts import render, redirect
 REACT_ROUTES = [
     'materials/<int:id>',
     'add-material',
-    'special'
+    'special',
+    'search'
 ]
 
 def page(request, id=None):

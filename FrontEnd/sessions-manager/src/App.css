@@ -2,16 +2,16 @@
     width: 100%;
     height: max-content;
     display: flex;
-    row-gap: 30px;
-    column-gap: 30px;
+    row-gap: 20px;
+    column-gap: 20px;
     flex-wrap: wrap;
 }
 
 .project {
-    width: 265px;
+    width: 260px;
     height: 145px;
-    padding: 7px;
-    background-color: #D9D9D9;
+    padding: 10px;
+    background-color: #dedede;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
@@ -111,14 +111,16 @@
     width: 100%;
     min-height: 80px;
     height: max-content;
-    padding: 10px;
+    padding: 15px;
     border-bottom: 1px solid var(--border-color);
-    background-color: #EEEEEE;
-    
+    cursor: pointer;
 }
 
 .partition>div:nth-child(1) {
     max-width: 90%;
+}
+.partition>div:nth-child(1) > * {
+    pointer-events: none;
 }
 
 .new-project>section:nth-child(2) .partition .remove-btn,
@@ -137,6 +139,8 @@
 
 .project-page>section:nth-child(1) p {
     font-size: 1.1em;
+    text-wrap: balance;
+    margin-left: 10px;
 }
 
 .new-project>section:nth-child(2) .partition-form {
@@ -236,10 +240,122 @@
     display: flex;
     flex-direction: column;
     row-gap: 50px;
-
     position: relative;
 }
 
+/* Notes Element */
+.notes-element {
+    background-color: #fff;
+    border: 5px solid black;
+    border-radius: 15px;
+    padding: 15px;
+    position: absolute;
+    transition: 0.4s ease-out;
+}
+.vertical-layout {
+    width: 300px;
+    height: 10px;
+    top: 0;
+    right: 25%;
+    transform: translate(50%) translateY(calc(-100% - 30px));
+}
+.vertical-layout.opened {
+    height: 200px;
+    transform: translate(50%) translateY(0);
+}
+.horizontal-layout {
+    width: 260px;
+    height: 300px;
+    right: 0;
+    top: 25%;
+    transform: translateY(-50%) translateX(calc(100% + 39px));
+}
+.horizontal-layout.opened {
+    transform: translateY(-50%) translateX(0);
+
+}
+.notes-element > .notes {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.notes-element > .notes::-webkit-scrollbar {
+    width: 5px;
+}
+.notes-element > .notes::-webkit-scrollbar-thumb {
+    background-color: silver;
+}
+.notes-element a {
+    color: black;
+    text-decoration: none;
+}
+.notes-element .note {
+    padding: 10px;
+    border-bottom: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+
+    .notes-element .note h3 {
+        font-weight: 500;
+    }
+    .notes-element .note p {
+        font-size: 1em;
+    }
+}
+.notes-element > .notes-element-btn {
+    padding: 10px;
+    border: 5px solid black;
+    border-radius: 12px;
+    width: max-content;
+    height: max-content;
+    position: absolute;
+    background-color: white;
+}
+.vertical-layout > .notes-element-btn {
+    border-top: none;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    top: 100%;
+    right: 50%;
+    transform: translateX(50%);
+}
+.horizontal-layout > .notes-element-btn {
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%);
+}
+.notes-element > .notes-element-btn button {
+    display: flex;
+    width: max-content;
+    height: max-content;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.notes-element > .notes-element-btn button > svg {
+ font-size: 50px;   
+}
+
+@media screen and (max-width: 912px) and (min-width: 820px) {
+    .horizontal-layout {
+        top: 30%;
+    }
+}
+
+/* Notes Element End */
+
+
+.project-page .creation-date {
+    position: absolute;
+    right: 0;
+    bottom: 100%;;
+}
 
 .project-page>section {
     display: flex;
@@ -252,6 +368,12 @@
     display: flex;
     column-gap: 20px;
     align-items: center;
+}
+
+.project-page>section:nth-child(2) {
+    flex-direction: row;
+    column-gap: 25%;
+    flex-wrap: wrap;
 }
 
 .project-page>section:nth-child(2) span {
@@ -278,13 +400,23 @@
 }
 
 .project-page>section:nth-child(3)>div {
-    padding: 20px;
+    background-color: #dedede;
+    border-radius: 20px;
+    padding: 0 20px;
+}
+
+.project-page>section:nth-child(3)>div>:last-child {
+    border-bottom: none;
 }
 
 .project-page>section:nth-child(3) .delete-partition {
     bottom: 10px!important;
     top: auto;
     cursor: pointer;
+
+}
+.project-page>section:nth-child(3) .delete-partition > svg {
+    font-size: 30px;
 }
 
 .project-page>section:nth-child(3) .check-partition {
@@ -295,6 +427,10 @@
     right: 10px;
     background-color: white;
     border: 1px solid var(--border-color);
+}
+
+.project-page>section:nth-child(3) .checked {
+    text-decoration: line-through;
 }
 
 .project-page>button {
@@ -324,13 +460,22 @@
 }
 
 @media screen and (max-width: 500px) {
+
+    main {
+        padding: 30px 0;
+    }
+
+    .page a {
+        width: 100%;
+    }
+
     .project-page>section:nth-child(1)>div {
         flex-wrap: wrap;
         row-gap: 10px;
     }
 
     .project-page>section:nth-child(3)>div  {
-        padding: 20px 0px;
+        padding: 0 10px;
     }
 
     .new-project>section:nth-child(2)>div:nth-child(2) {
@@ -340,5 +485,12 @@
     .new-project>section:nth-child(3) h2,
     .project-page>section:nth-child(2) h2 {
         font-size: 1.4em;
+    }
+
+    .home > a {
+        width: 100%;
+    }
+    .project {
+        width: 100%;
     }
 }

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TbPointFilled } from "react-icons/tb";
+import {FaCheck} from 'react-icons/fa6';
+import {IoClose} from 'react-icons/io5'
 // import { FiEdit } from "react-icons/fi";
 import { api } from "../App";
 
@@ -73,8 +75,15 @@ function Tasks() {
               {list && (list['tasks' as keyof typeof list] as Array<object>).map(task => {
                 return (
                   <div>
-                    <TbPointFilled />
-                    <h2>{task['content' as keyof typeof task]}</h2>
+                    <div style={{width: 'max-content', height: 'max-content', padding: '0px'}}>
+                      <TbPointFilled />
+                      <h2>{task['content' as keyof typeof task]}</h2>
+                    </div>
+                    {task['done' as keyof typeof task ] ? (
+                      <FaCheck className={'done'} />
+                    ) : (
+                      <IoClose />
+                    )}
                   </div>
                 )
               })}

@@ -46,6 +46,9 @@ function Header() {
           <li>
             <Link onClick={handleChangePage} to={'/entertainment/special/'}>Special</Link>
           </li>
+          <li>
+            <Link onClick={handleChangePage} to={'/entertainment/search/'}>Search</Link>
+          </li>
         </ul>
       </nav>
     </header>

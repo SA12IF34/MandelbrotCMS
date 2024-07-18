@@ -22,8 +22,7 @@ urlpatterns = [
     
     # APIs
     path('apis/projects/', ProjectsAPI.as_view()),
-    path('apis/projects/completed/', completed_projects),
-    path('apis/projects/in-progress/', in_progress_projects),
+    path('apis/projects/filter-category/', project_filter_category),
     path('apis/projects/<int:pk>/', ProjectAPI.as_view()),
     path('apis/projects/<int:pk>/create-partition/', PartitionsAPI.as_view()),
     path('apis/partitions/<int:pk>/', PartitionAPI.as_view())

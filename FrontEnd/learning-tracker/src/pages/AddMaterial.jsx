@@ -29,7 +29,13 @@ function AddMaterial() {
       }      
 
     } catch (error) {
-      console.error(error);
+      var response = error['response'];
+      var status = response['status']
+      if (status === 500) {
+        alert('Internal Server Problem, try again later.');
+      } else if (status === 400) {
+        alert(response['data']['data']);
+      }
     }
   }
 
@@ -43,10 +49,18 @@ function AddMaterial() {
 
       if (response.status === 201) {
         const data = await response.data;
+    
         window.location.assign(`/learning_tracker/materials/${data['id']}/`)
       }
+    
     } catch (error) {
-      console.error(error);
+      var response = error['response'];
+      var status = response['status'];
+      if (status === 500) {
+        alert('Internal Server Problem, try again later.');
+      } else if (status === 400) {
+        alert(response['data']['data']);
+      }
     }
   }
 

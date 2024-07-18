@@ -17,6 +17,10 @@ function Home() {
   const [done, setDone] = useState<materialsData>();
   const [later, setLater] = useState<materialsData>();
 
+  const [currentType, setCurrentType] = useState<string>('anime');
+  const [doneType, setDoneType] = useState<string>('anime');
+  const [laterType, setLaterType] = useState<string>('anime');
+
   async function handleGetData() {
     try {
       const response = await api.get('materials/');
@@ -46,7 +50,10 @@ function Home() {
         <br />
         {current && (
           <MaterialsContainer 
-          dual={true} 
+          dual={true}
+          setPageLink={true}
+          pageLink={`/entertainment/search/?type=${currentType}&status=current`}
+          setType={setCurrentType}
           data={current} />
         )}
       </section>
@@ -57,6 +64,9 @@ function Home() {
         {done && (
           <MaterialsContainer 
           dual={true} 
+          setPageLink={true}
+          pageLink={`/entertainment/search/?type=${doneType}&status=done`}
+          setType={setDoneType}
           data={done} />
         )}
       </section>
@@ -66,7 +76,10 @@ function Home() {
         <br />
         {later && (
           <MaterialsContainer 
-          dual={true} 
+          dual={true}
+          setPageLink={true} 
+          pageLink={`/entertainment/search/?type=${laterType}&status=later`}
+          setType={setLaterType}
           data={later} />
         )}
       </section>

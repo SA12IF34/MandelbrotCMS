@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import Material from './pages/Material';
 import AddMaterial from './pages/AddMaterial';
 import Special from './pages/Special';
+import MaterialsSearch from './pages/MaterialsSearch';
 
 import axios from 'axios';
 
@@ -55,6 +56,7 @@ function App() {
         <Route path='/entertainment/materials/:id/' element={<Material handleAlert={handleAlert} />} />
         <Route path='/entertainment/add-material/' element={<AddMaterial handleAlert={handleAlert} />} />
         <Route path='/entertainment/special/' element={<Special />} />
+        <Route path='/entertainment/search/' element={<MaterialsSearch />} />
       </Routes>
     </Layout>
     </>

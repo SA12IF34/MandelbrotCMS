@@ -57,6 +57,9 @@
 
 header {
   width: 100%;
+  background-color: white;
+  position: relative;
+  z-index: 1;
 }
 
 header>div {
@@ -100,24 +103,75 @@ header a {
 }
 
 nav {
-  width: fit-content;
+  width: 100%;
+  box-shadow: 0 5px 9px -6px silver;
+  margin: 0 auto;
+  border-bottom: 1px solid #dddddd;
+  position: relative;
+  overflow: hidden;
+}
+nav>div:nth-child(1) {
+  width: max-content;
   padding: 7px 15px;
   display: flex;
-  column-gap: 15px;
-  justify-content: space-around;
+  column-gap: 30px;
+  justify-content: start;
   flex-wrap: wrap;
-  box-shadow: 0px 1px 6px 0px silver;
-  margin: 0 auto;
-  border: 1px solid #dddddd;
-  border-top: none;
-
-}
-
-nav>a {
+  flex-basis: 120px;
   transition: 0.3s;
 }
 
-nav>a:hover {
+nav>.slider,
+nav>.reverse-slider {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transition: 0.3s;
+}
+nav>.slider {
+  background: linear-gradient(to right, transparent 95%, #eee 99%);
+}
+nav>.reverse-slider {
+  background: linear-gradient(to left, transparent 95%, #eee 99%);
+}
+
+@media screen and (max-width: 912px) {
+  nav>.slider {
+    background: linear-gradient(to right, transparent 90%, #eee 99%);
+  }
+  nav>.reverse-slider {
+    background: linear-gradient(to left, transparent 90%, #eee 99%);
+  }
+}
+
+nav>.slider>svg,
+nav>.reverse-slider>svg {
+  font-size: 35px;
+  color: black;
+  position: absolute;
+  width: max-content;
+  height: max-content;
+  top: 50%;
+  transform: translateY(-50%);
+  text-shadow: 0px 0px 0px black;
+  pointer-events: all;
+  user-select: none;
+}
+nav>.slider>svg {
+  right: 10px;
+}
+nav>.reverse-slider>svg {
+  left: 10px;
+}
+
+nav>div>a {
+  transition: 0.3s;
+}
+
+nav>div>a:hover {
   color: gray;
 }
 
@@ -195,18 +249,149 @@ aside.SideBar {
   display: flex;
   flex-direction: column;
   row-gap: 50px;
+  position: relative;
 }
 
 .list {
   margin: 20px;
 }
 
+/* Notes Element */
+.notes-element {
+  background-color: #fff;
+  border: 5px solid black;
+  border-radius: 15px;
+  padding: 15px;
+  position: absolute;
+  transition: 0.4s ease-out;
+}
+.vertical-layout {
+  width: 300px;
+  height: 10px;
+  top: 0;
+  right: 25%;
+  transform: translate(50%) translateY(calc(-100%));
+}
+.vertical-layout.opened {
+  height: 200px;
+  transform: translate(50%) translateY(0);
+}
+.horizontal-layout {
+  width: 260px;
+  height: 300px;
+  right: 0;
+  top: 25%;
+  transform: translateY(-50%) translateX(calc(100% + 39px));
+}
+.horizontal-layout.opened {
+  transform: translateY(-50%) translateX(0);
+
+}
+.notes-element > .notes {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.notes-element > .notes::-webkit-scrollbar {
+  width: 5px;
+}
+.notes-element > .notes::-webkit-scrollbar-thumb {
+  background-color: silver;
+}
+.notes-element a {
+  color: black;
+  text-decoration: none;
+}
+.notes-element .note {
+  padding: 10px;
+  border-bottom: 1px solid gray;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+
+  .notes-element .note h3 {
+      font-weight: 500;
+  }
+  .notes-element .note p {
+      font-size: 1em;
+  }
+}
+.notes-element > .notes-element-btn {
+  padding: 10px;
+  border: 5px solid black;
+  border-radius: 12px;
+  width: max-content;
+  height: max-content;
+  position: absolute;
+  background-color: white;
+}
+.vertical-layout > .notes-element-btn {
+  border-top: none;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  top: 100%;
+  right: 50%;
+  transform: translateX(50%);
+}
+.horizontal-layout > .notes-element-btn {
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  top: 50%;
+  right: 100%;
+  transform: translateY(-50%);
+}
+.notes-element > .notes-element-btn button {
+  display: flex;
+  width: max-content;
+  height: max-content;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.notes-element > .notes-element-btn button > svg {
+font-size: 50px;   
+}
+
+@media screen and (max-width: 540px) {
+  .vertical-layout {
+    width: 260px;
+    height: 300px;
+    right: 0;
+    top: 35%;
+    transform: translateY(-50%) translateX(calc(100% + 10px));
+  }
+
+  .vertical-layout.opened {
+    height: 300px;
+    transform: translateY(-50%) translateX(0);
+  }
+
+  .vertical-layout > .notes-element-btn {
+    border-right: none;
+    border-top: 5px solid black;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 12px;
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%);
+  }
+}
+/* Notes Element End */
+
 .list>div {
   border-bottom: 1px solid silver;
   display: flex;
   align-items: center;
-  box-shadow: -2px 2px 7px -1px silver;
   margin-top: 3px;
+  box-shadow: 0 6px 5px -6px silver;
+}
+
+.list>div h2 {
+  font-size: 1.2em;
 }
 
 .list a {
@@ -224,11 +409,11 @@ aside.SideBar {
   display: block;
   width: max-content;
   height: max-content;
-  margin: 15px 0;
+  margin-bottom: 15px;
 }
 
-.tasks-list>div svg {
-  font-size: 20px;
+.tasks-list>div > div svg {
+  font-size: 30px;
 }
 
 .tasks-list>div>div {
@@ -244,6 +429,7 @@ aside.SideBar {
   outline: none;
   background-color: transparent;
   cursor: pointer;
+  display: flex;
 }
 .tasks-list>div>div svg {
   font-size: 35px;
@@ -259,6 +445,11 @@ aside.SideBar {
 .reward a {
   color: black;
   text-decoration: none;
+  display: flex;
+  flex-direction: column;
+}
+.reward a h2 {
+  width: max-content;
 }
 
 .reward .image {
@@ -391,6 +582,18 @@ aside.SideBar {
 .tasks>div {
   padding: 20px;
   column-gap: 10px;
+  justify-content: space-between;
+}
+.tasks>div > svg {
+  font-size: 25px;
+  color: red;
+}
+.tasks>div > svg.done {
+  color: rgb(10, 231, 10) !important;
+}
+
+.tasks>div>div > svg {
+  font-size: 20px !important;
 }
 
 .tasks-page button {
@@ -448,6 +651,13 @@ aside.SideBar {
   display: flex;
   column-gap: 20px;
   align-items: flex-end;
+  margin: 0;
+  position: relative;
+  padding-right: 60px;
+}
+
+.object-chosen {
+  display: none !important;
 }
 
 .task-form textarea,
@@ -461,34 +671,43 @@ aside.SideBar {
 .task-form textarea {
   min-width: 100px;
   width: 100%;
-  max-width: 300px;
-  height: 150px;
+  max-width: 400px;
+  height: 200px;
   padding: 5px;
-  border: 1px solid black;
+  border: 1px solid silver;
   outline: none;
   border-radius: 5px;
+  resize: none;
+  box-shadow: 0px 0px 12px 2px silver inset;
 }
 
 .task-form input {
   height: max-content;
-  width: 200px;
-  border: 1px solid black;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid black;
   padding: 1px 3px;
   outline: none;
-  border-radius: 3px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
 }
 
 .search-container {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid black;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 100%;
+}
+.search-container > div:nth-child(1) {
+  width: 100%;
+  display: flex;
 }
 
 .search-results {
   height: 100%;
-  width: 200px;
-  border: 1px solid black;
+  width: 100%;
   border-top: none;
   overflow-y: scroll;
 }
@@ -507,23 +726,26 @@ aside.SideBar {
 
 .task-form select {
   height: max-content;
-  border: 1px solid black;
+  border: none;
   outline: none;
-  border-radius: 3px;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
 .task-form>div {
-  height: 150px;
   display: flex;
   column-gap: 5px;
+  height: 200px;
+  width: 100%;
 }
 
 .chosen-object {
   width: 100%;
   padding: 10px;
   border: 1px solid silver;
-  box-shadow: 0px 1px 5px  0px #e2e2e2;
+  box-shadow: 0 1px 5px #e2e2e2;
   cursor: pointer;
+  max-width: 400px;
 
 }
 
@@ -541,19 +763,38 @@ aside.SideBar {
   cursor: pointer;
 }
 
+.task-form .task-btn {
+  position: absolute;
+}
+
 .task-btn svg {
   pointer-events: none;
 }
 
+.add-task-btn {
+  right: 20px;
+  bottom: 20px;
+}
+.remove-form-btn {
+  right: 20px;
+  top: 20px;
+}
+
+
 .task-item {
   display: flex;
   justify-content: space-between;
+  box-shadow: 0 7px 9px -7px silver;
+  border-bottom: 1px solid silver;
+  margin: 0;
 }
 
 
 .new-list-page>form>div:nth-child(3)>div {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
 }
 .new-list-page>form>div:nth-child(3)>div>div {
   flex-basis: 50%;
@@ -561,9 +802,7 @@ aside.SideBar {
 
 .new-list-page>form>div:nth-child(3)>div>div:nth-child(1) {
   width: 100%;
-  max-width: 600px;
-  /* margin: 20px 0; */
-  padding: 20px 0;
+  height: 250px;
 }
 
 .new-list-page>form>div:nth-child(3)>div>div:nth-child(1) > input {
@@ -585,23 +824,32 @@ aside.SideBar {
   margin: 0 20px;
 }
 
+.rewards-container::-webkit-scrollbar {
+  width: 3px;
+}
+.rewards-container::-webkit-scrollbar-thumb {
+  background-color: silver;
+}
+
 .container-reward {
   height: 250px;
   display: flex;
   column-gap: 20px;
   position: relative;
+  padding: 20px;
 }
 
 .container-reward>img {
   height: 100%;
   width: auto;
+  margin: 0 auto;
 }
 
 .container-reward svg {
   font-size: 40px;
   position: absolute;
-  right: 20px;
-  top: 20px;
+  right: 0;
+  top: 0;
   cursor: pointer;
 }
 
@@ -810,6 +1058,8 @@ button.logout {
   .task-form {
     flex-wrap: wrap;
     row-gap: 20px;
+    padding-right: 20px;
+    padding-bottom: 60px;
   }
 
   .task-form textarea {
@@ -817,13 +1067,12 @@ button.logout {
     max-width: none;
   }
 
-  .task-form input,
-  .search-results {
-    width: auto;
-  }
-
   .task-form select {
     width: max-content;
+  }
+
+  .chosen-object {
+    max-width: none;
   }
 
   .new-list-page>form>div:nth-child(3)>div {
@@ -832,6 +1081,30 @@ button.logout {
 
   .new-list-page>form>div:nth-child(3)>div>div {
     flex-basis: 100%;
+  }
+
+  .new-list-page>form>div:nth-child(3) input {
+    margin: 0 !important;
+    width: 100% !important;
+  }
+  
+  .rewards-container {
+    margin: 0 !important;
+  }
+
+  .container-reward svg {
+    top: auto;
+    bottom: 0;
+  }
+
+  .add-task-btn {
+    left: 20px;
+    bottom: 20px;
+  }
+  .remove-form-btn {
+    right: 20px;
+    bottom: 20px;
+    top: auto;
   }
 }
 
@@ -858,6 +1131,10 @@ button.logout {
 
   .container {
     margin: 20px 0px;
+  }
+
+  .reward a {
+    align-items: center;
   }
 
   .new-list-page {

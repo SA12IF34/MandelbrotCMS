@@ -23,12 +23,7 @@ vite build --mode production
 
 Set-Location -Path '..'
 
-Set-Location -Path ".\website-home"
+Set-Location -Path ".\notes"
 vite build --mode production
 
-Set-Location -Path "..\.."
-
-git add .
-git add --chmod=+x release_tasks.sh
-git commit -m "Deploy to production"
-git push heroku master
+Set-Location -Path '..'

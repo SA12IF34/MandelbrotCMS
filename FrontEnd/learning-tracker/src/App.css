@@ -5,6 +5,8 @@ header {
   padding-top: 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding-bottom: 5px;
 }
 
 header a {
@@ -49,11 +51,6 @@ main button {
 }
 
 /* Home */
-
-.home h1 {
-  margin: 0 20px;
-}
-
 .materials,
 .materials>section {
   width: 100%;
@@ -172,7 +169,7 @@ main button {
   .material-container>a>div {
     width: calc((100vw / 2) - 45px);
     height: 300px;
-
+    
   }
 }
 
@@ -199,7 +196,116 @@ main button {
   height: max-content;
   padding: 0 40px;
   padding-bottom: 40px;
+  position: relative;
 }
+
+/* Notes Element */
+.notes-element {
+  background-color: #fff;
+  border: 5px solid black;
+  border-radius: 15px;
+  padding: 15px;
+  position: absolute;
+  transition: 0.4s ease-out;
+}
+.vertical-layout {
+  width: 300px;
+  height: 10px;
+  top: 0;
+  right: 25%;
+  transform: translate(50%) translateY(calc(-100% - 30px));
+}
+.vertical-layout.opened {
+  height: 200px;
+  transform: translate(50%) translateY(0);
+}
+.horizontal-layout {
+  width: 260px;
+  height: 300px;
+  right: 0;
+  top: 25%;
+  transform: translateY(-50%) translateX(calc(100%));
+}
+.horizontal-layout.opened {
+  transform: translateY(-50%) translateX(0);
+
+}
+.notes-element > .notes {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.notes-element > .notes::-webkit-scrollbar {
+  width: 5px;
+}
+.notes-element > .notes::-webkit-scrollbar-thumb {
+  background-color: silver;
+}
+.notes-element a {
+  color: black;
+  text-decoration: none;
+}
+.notes-element .note {
+  padding: 10px;
+  border-bottom: 1px solid gray;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+
+  .notes-element .note h3 {
+      font-weight: 500;
+  }
+  .notes-element .note p {
+      font-size: 1em;
+  }
+}
+.notes-element > .notes-element-btn {
+  padding: 10px;
+  border: 5px solid black;
+  border-radius: 12px;
+  width: max-content;
+  height: max-content;
+  position: absolute;
+  background-color: white;
+}
+.vertical-layout > .notes-element-btn {
+  border-top: none;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  top: 100%;
+  right: 50%;
+  transform: translateX(50%);
+}
+.horizontal-layout > .notes-element-btn {
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  top: 50%;
+  right: 100%;
+  transform: translateY(-50%);
+}
+.notes-element > .notes-element-btn button {
+  display: flex;
+  width: max-content;
+  height: max-content;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.notes-element > .notes-element-btn button > svg {
+font-size: 50px;   
+}
+
+
+@media screen and (max-width:540px) {
+  .horizontal-layout {
+    top: 5%;
+  }
+}
+
+/* Notes Element End */
 
 .material>section {
   width: 100%;

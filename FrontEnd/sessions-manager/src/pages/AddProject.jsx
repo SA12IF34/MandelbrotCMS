@@ -5,8 +5,6 @@ function AddProject({api}) {
 
   const nameRef = useRef();
   const descriptionRef = useRef();
-  const [partitions, setPartitions] = useState([]);
-
   const startRef = useRef();
   const finishRef = useRef();
 
@@ -18,8 +16,10 @@ function AddProject({api}) {
       
       if (response.status === 201) {
         const data = await response.data;
+        
         navigate(`/sessions_manager/projects/${data['id']}/`);
       }
+
     } catch (error) {
       console.log(data)
     }
@@ -32,20 +32,21 @@ function AddProject({api}) {
   function addPartition(parent, partitionName, partitionDescription) {
 
     let partition = document.createElement('div');
-    partition.classList.add('partition');
-
     let name = document.createElement('h3');
-    name.textContent = partitionName;
     let br = document.createElement('br');
-    let description = document.createElement('p')
-    description.textContent = partitionDescription;
+    let description = document.createElement('p');
     let btn = document.createElement('button');
+    
+    partition.classList.add('partition');
     btn.classList.add('remove-btn');
-    btn.onclick = removePartition;
+    
+    name.textContent = partitionName;
+    description.textContent = partitionDescription;
     btn.textContent = 'x';
     
+    btn.onclick = removePartition;
+    
     partition.append(name, br, description, btn);
-
     parent.appendChild(partition);
   }
 
@@ -75,7 +76,6 @@ function AddProject({api}) {
     btnContainer.classList.add('btn-container');
 
     btnContainer.append(addBtn, cancelBtn);
-
     container.append(nameInput, descriptionInput, btnContainer);
     parent.appendChild(container);
 
@@ -86,6 +86,7 @@ function AddProject({api}) {
     addBtn.onclick = () => {
       if (nameInput.value === '' || descriptionInput.value === '') {
         alert("please fill all inputs in order to create new partition");
+      
       } else {
         let name = nameInput.value;
         let description = descriptionInput.value;
@@ -108,6 +109,7 @@ function AddProject({api}) {
    
     if (startRef.current.value) {
       data['project']['starting_time'] = startRef.current.value;
+    
     }
     if (finishRef.current.value) {
       data['project']['finish_time'] = finishRef.current.value;
@@ -130,7 +132,6 @@ function AddProject({api}) {
     const partitions = []
 
     partitionElements.forEach((p) => {
-      
       partitions.push({
         name: p.querySelector('h3').textContent,
         description: p.querySelector('p').textContent
@@ -147,6 +148,7 @@ function AddProject({api}) {
     if (data === -1){
       return;
     }
+    
     addProject(data);
   }
 

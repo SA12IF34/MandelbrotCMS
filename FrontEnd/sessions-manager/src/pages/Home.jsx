@@ -15,9 +15,9 @@ function Home() {
       
       if (response.status === 200) {
         const data = await response.data;
-        console.log(data)
         setProjects(data);
       }
+
     } catch (error) {
       console.error(error)
     }

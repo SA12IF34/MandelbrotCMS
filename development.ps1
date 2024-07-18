@@ -21,4 +21,9 @@ Set-Location -Path ".."
 Set-Location -Path ".\sessions-manager"
 vite build --mode development
 
+Set-Location -Path ".."
+
+Set-Location -Path ".\notes"
+vite build --mode development
+
 

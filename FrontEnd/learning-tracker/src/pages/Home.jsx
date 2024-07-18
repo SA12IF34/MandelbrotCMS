@@ -18,10 +18,12 @@ function Home() {
         const data = await response.data;
         const conditionOne = (inProgressMaterial.length === 0 && doneMaterial.length === 0 && futureMaterial.length === 0);
         const conditionTwo = (data['in_progress'].length > 0 || data['done'].length > 0 || data['future'].length > 0)
+        
         if (conditionOne && conditionTwo) {
           setInProgressMaterial(data['in_progress']);
           setDoneMaterial(data['done']);
           setFutureMaterial(data['future']);
+        
         }
       }
 
@@ -32,8 +34,6 @@ function Home() {
 
 
   useEffect(() => {
-
-    console.log("shit");
 
     handleGetMaterials();
 
@@ -46,13 +46,14 @@ function Home() {
           if (btn1 && btn2) {
             btn1.remove();
             btn2.remove();
+          
           }
         }
       })
     }
-    let rightBtns = document.querySelectorAll('button.right');
-    let leftBtns = document.querySelectorAll('button.left')
     
+    let rightBtns = document.querySelectorAll('button.right');
+    let leftBtns = document.querySelectorAll('button.left')   
 
     rightBtns.forEach((rightBtn, index) => {
       let translateValue = 0;
@@ -67,14 +68,15 @@ function Home() {
     
         if (fullWidth <= 1280 && fullWidth > 912) {
           gap = 20;
-          limit = 3;
+          limit = 4;
         } 
         if (fullWidth <= 912 && fullWidth > 744) {
           gap = 15;
-          limit = 2;
+          limit = 3;
         }
         if (fullWidth <= 744 && fullWidth > 500) {
           gap = 30;
+          limit = 2;
         }
         
         if (translateCount < container.childNodes.length-limit){
@@ -95,7 +97,6 @@ function Home() {
         const fullWidth = document.body.offsetWidth;
         const elementWidth = container.firstElementChild.offsetWidth;
         let gap = 0;
-    
     
         if (fullWidth <= 1280 && fullWidth > 912) {
           gap = 20;
@@ -131,7 +132,7 @@ function Home() {
                 <Link to={`/learning_tracker/materials/${material['id']}/`} key={material['id']}>
                   <div>
                     <div className='img-container'>
-                      <img src={material['image']} alt={material['name']} />
+                      <img src={material['image']} alt={material['name']} fetchpriority="high" />
                     </div>
                     <br />
                     <h3>{material['name']}</h3>

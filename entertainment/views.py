@@ -1,13 +1,16 @@
 from rest_framework.views import APIView
 from rest_framework.status import *
-from rest_framework.response import Response
+from rest_framework.response import Response 
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.authentication import SessionAuthentication
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import permission_classes, api_view, authentication_classes
+from rest_framework.request import Request
 from django.db.models import Q
 from .models import *
 from .serializers import *
+
+from notes.utils import get_obj_notes
 
 import requests
 from bs4 import BeautifulSoup
@@ -17,7 +20,7 @@ import os
 
 from django.conf import settings
 
-def get_steam(url):
+def get_steam(url): # Scrapes game data from Steam.
 
     page = requests.get(url).text
 
@@ -38,7 +41,7 @@ def get_steam(url):
         'image': image
     }
 
-def get_anilist(url):
+def get_anilist(url): # Get's anime's data from Anilist's API.
     if url.endswith('/'):
         url = list(url)
         url[-1] = ''
@@ -92,20 +95,15 @@ def read_json():
         print(f"Error reading or parsing tokens.json: {e}")
         return None, None
 
-def write_json(access_token, refresh_token):
-    try:
-        with open('tokens.json', 'r') as f:
-            data = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        data = {}  # Create an empty dict if the file doesn't exist or is invalid
+def write_json(data):
 
-    data['access_token'] = access_token
-    data['refresh_token'] = refresh_token
+    with open(os.path.join(settings.BASE_DIR, 'entertainment/tokens.json'), 'w') as f:
+        json.dump(data, f, indent=2)
 
-    with open('tokens.json', 'w') as f:
-        json.dump(data, f, indent=4)
+    print('wrote json')
+    return
 
-def get_mal(url):
+def get_mal(url): # Get's anime's data from Myanimelist's API.
     if url.endswith('/'):
         url = list(url)
         url[-1] = ''
@@ -120,6 +118,9 @@ def get_mal(url):
         id = url.split('/')[-2]
 
     access_token, refresh_token = read_json()
+    if access_token is None or refresh_token is None:
+        return
+    
     client_id = settings.ENV('MAL_CLIENT_ID')
     client_secret = settings.ENV('MAL_CLIENT_SECRET')
     
@@ -128,18 +129,13 @@ def get_mal(url):
         'Authorization': 'Bearer '+access_token
     })
     
-    if response.status_code == 401:
-        new_tokens = requests.post('https://myanimelist.net/v1/oauth2/token', data={
-            'client_id': client_id,
-            'client_secret': client_secret,
-            'grant_type': 'refresh_token',
-            'refresh_token':refresh_token
-        }).json()
+    data = response.json()
 
-        write_json(new_tokens['access_token'], new_tokens['refresh_token']);
+    if response.status_code == 401:
+        update_tokens(client_id, client_secret, refresh_token)
         return get_mal(url)
 
-    data = response.json()
+    update_tokens(client_id, client_secret, refresh_token)    
 
     return {
         'name': data['title'],
@@ -147,20 +143,18 @@ def get_mal(url):
         'image': data['main_picture']['medium']
     }
 
-def get_imdb(url):
-    if "title" not in url:
-        return -1
-    
-    page = requests.get(url).text
+def update_tokens(client_id, client_secret, refresh_token):
+    new_tokens = requests.post('https://myanimelist.net/v1/oauth2/token', data={
+            'client_id': client_id,
+            'client_secret': client_secret,
+            'grant_type': 'refresh_token',
+            'refresh_token':refresh_token
+    }).json()
 
-    doc = BeautifulSoup(page, 'html.parser')
+    write_json(new_tokens)
+    return
 
 
-    name = doc.find('h1', {'data-testid': 'hero__pageTitle'}).find('span').string
-
-    
-
-    
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -169,6 +163,12 @@ def post_material_by_url(request):
     user = request.user.id
         
     data = request.data
+
+    if ('myanimelist' not in data['url']) and ('anilist' not in data['url']) and ('steam' not in data['url']):
+        return Response(data={'data': 'use myanimelist, anilist or steam url.'}, status=HTTP_400_BAD_REQUEST)
+
+    if (data['type'] == '') or (data['status'] == ''):
+        return Response(data={'data': 'include type and status.'}, status=HTTP_400_BAD_REQUEST)
 
     if data['type'] == 'anime':
         if 'myanimelist' in data['url']:
@@ -203,7 +203,7 @@ def post_material_by_url(request):
         return Response(status=HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-# Global variables
+# Global variable to use for organizing response data
 types = ['anime', 'game', 'shows & movies', 'other']
 
 @api_view(['GET'])
@@ -278,7 +278,10 @@ class MaterialAPI(APIView):
         try:
             material = EntertainmentMaterial.objects.get(id=pk)
             serializer = EntertainmentSerializer(instance=material) 
-            return Response(data=serializer.data, status=HTTP_200_OK)
+
+            related_notes = get_obj_notes(material)
+
+            return Response(data={'material': serializer.data, 'notes': related_notes}, status=HTTP_200_OK)
             
         except EntertainmentMaterial.DoesNotExist:  
             return Response(status=HTTP_404_NOT_FOUND)
@@ -304,4 +307,29 @@ class MaterialAPI(APIView):
         material.delete()
 
         return Response(status=HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+def search(request):
+    user = request.user.id
+    search_query = request.query_params.dict()
+    keys = request.query_params.keys()
+    
+    for key in keys:
+        try:
+            if search_query[key] == '': del search_query[key]
+            if search_query[key] == 'shows': search_query[key] = 'shows & movies'
+        except KeyError:
+            pass
+
+    try:
+        if search_query['special'] != '':
+            search_query['special'] = search_query['special'] == 'true'
+    
+    except KeyError:
+        pass
+
+    materials = EntertainmentMaterial.objects.filter(user=user, **search_query)
+    serializer = EntertainmentSerializer(instance=materials, many=True)
+
+    return Response(data=serializer.data, status=HTTP_200_OK)
     

@@ -1,16 +1,19 @@
 import {useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MdArrowRight, MdArrowLeft } from "react-icons/md";
+import { MdArrowRight, MdArrowLeft, MdOpenInFull } from "react-icons/md";
 import '../../App.css';
 
 type props = {
   dual: boolean,
+  setPageLink: boolean,
+  pageLink: string,
+  setType?: any,
   data: object | materialsType | null
 }
 
 type materialsType = Array<object> | null | undefined;
 
-function MaterialsContainer({dual=true, data}: props) {
+function MaterialsContainer({dual, setPageLink, pageLink, setType, data}: props) {
 
   const [materials, setMaterials] = useState<materialsType>(undefined);
 
@@ -21,6 +24,7 @@ function MaterialsContainer({dual=true, data}: props) {
     (e.target as HTMLButtonElement).parentElement?.querySelector('.shows')?.classList.remove('chosen');
 
     setMaterials(data!['anime' as keyof typeof data]);
+    setType('anime');
   }
 
   function handleSetGames(e: any) {
@@ -30,6 +34,7 @@ function MaterialsContainer({dual=true, data}: props) {
     (e.target as HTMLButtonElement).parentElement?.querySelector('.shows')?.classList.remove('chosen');
 
     setMaterials(data!['game' as keyof typeof data]);
+    setType('game');
   }
 
   function handleSetShows(e: any) {
@@ -40,6 +45,7 @@ function MaterialsContainer({dual=true, data}: props) {
     target.parentElement?.querySelector('.other')?.classList.remove('chosen');
   
     setMaterials(data!['shows & movies' as keyof typeof data]);
+    setType('shows & movies');
   }
 
   function handleSetOther(e: any) {
@@ -50,6 +56,7 @@ function MaterialsContainer({dual=true, data}: props) {
     target.parentElement?.querySelector('.shows')?.classList.remove('chosen');
 
     setMaterials(data!['other' as keyof typeof data]);
+    setType('other');
   }
 
 
@@ -61,6 +68,8 @@ function MaterialsContainer({dual=true, data}: props) {
     } else if (!dual && data) {
       setMaterials((data as materialsType));
     }
+
+
 
     let rightBtns = document.querySelectorAll('button.right') as NodeListOf<HTMLButtonElement>;
     let leftBtns = document.querySelectorAll('button.left') as NodeListOf<HTMLButtonElement>;
@@ -118,6 +127,11 @@ function MaterialsContainer({dual=true, data}: props) {
 
   return (
     <div className={`container ${!dual ? 'container-not-dual' : ''}`}>
+      {materials && materials!.length > 0 && setPageLink && (
+        <Link className='materials-page-link' target='_blank' to={pageLink}>
+          <MdOpenInFull />
+        </Link>
+      )}
           <div>
             <div className='materials'>
               {materials && materials!.length > 0 ? materials?.map((material) => {
