@@ -32,7 +32,6 @@ else:
 # Application definition
 
 INSTALLED_APPS = [
-    'authentication',
     'whitenoise',
     'whitenoise.runserver_nostatic',
     'django.contrib.admin',
@@ -61,8 +60,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.github'
+    'allauth.socialaccount.providers.github',
     
+    'authentication'
     
     
 ]
