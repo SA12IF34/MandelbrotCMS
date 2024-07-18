@@ -21,7 +21,7 @@ SECRET_KEY = ENV('SECRET_KEY')
 # hello
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if DEBUG:
     ALLOWED_HOSTS = []
@@ -53,14 +53,14 @@ INSTALLED_APPS = [
     'saifapp',
 
     'rest_framework',
-    'rest_framework_simplejwt.token_blacklist',
-    'rest_framework.authtoken',
-    'dj_rest_auth',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.github',
+    # 'rest_framework_simplejwt.token_blacklist',
+    # 'rest_framework.authtoken',
+    # 'dj_rest_auth',
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.github',
     
     # 'authentication'
     
