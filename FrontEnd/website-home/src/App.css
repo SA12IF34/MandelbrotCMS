@@ -1,0 +1,38 @@
+
+.Header {
+    position: relative;
+    width: 95%;
+    height: 70px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Header::after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 99%;
+    background-color: gray;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+header h2 {
+    font-size: 1.618em;
+}
+
+.Header a {
+    display: block;
+    color: black;
+    width: max-content;
+    height: max-content;
+}
+
+.Header svg {
+    font-size: 30px;
+}

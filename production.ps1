@@ -27,3 +27,9 @@ Set-Location -Path ".\notes"
 vite build --mode production
 
 Set-Location -Path '..'
+
+Set-Location -Path ".\website-home"
+vite build --mode production
+
+
+Set-Location -Path "..\.."

@@ -1,0 +1,161 @@
+body::-webkit-scrollbar {
+    width: 0px;
+    
+}
+
+#root {
+    overflow: auto;
+    --width-level-1: calc(100vw / 1.618);
+    --width-level-2: calc(100vw / 1.618 / 1.618);
+    --height-level-4: calc(100vh / 1.618 / 1.618 / 1.618 / 1.618);
+}
+
+.SkillsPage {
+    width: 100%;
+    height: max-content;
+    position: relative;
+}
+
+.SkillsPage h2 {
+    font-size: 1.7em;
+}
+
+.SkillsPage main {
+    padding: 5vw;
+}
+
+.SkillsPage main > div:nth-child(2) {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.SkillsContainer {
+    margin: 30px 15px;
+    width: var(--width-level-2);
+
+}
+
+
+.SkillsContainer ul {
+    margin: 10px 15px;
+}
+
+.SkillsContainer ul li {
+    margin: 15px 5px;
+    font-size: calc(1.7em / 1.618);
+}
+
+
+.OtherContent {
+    width: 100%;
+    padding: 5vw;
+    position: relative;
+}
+
+.Paragraphs {
+    width: var(--width-level-1);
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--height-level-4);
+    line-height: 1.4;
+}
+
+.Underlined {
+    text-decoration: underline;
+}
+
+.PortfolioNav {
+    max-width: 90%;
+    margin-top: var(--height-level-4) !important;
+
+}
+
+.PortfolioNav > a {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    height: max-content;
+}
+
+.PortfolioNav .PortfolioBtn {
+    position: relative;
+    width: max-content;
+    max-width: 100%;
+}
+
+.PortfolioNav img {
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+}
+
+.PortfolioNav h2 {
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    color: white;
+    transform: translate(0%, -50%);
+}
+
+.SkillsPage .bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -10%;
+    left: 0;
+}
+
+.SkillsPage .bg .RightBg {
+    position: absolute;
+    width: 50%;
+    max-width: 500px;
+    height: 100%;
+    right: 0;
+    background-image: url('./assets/skills/rightbg.png');
+    background-repeat: repeat-y;
+    background-position: right top;
+}
+
+.SkillsPage .bg .LeftBg {
+    position: absolute;
+    width: 50%;
+    max-width: 500px;
+    height: 100%;
+    left: 0;
+    background-image: url('./assets/skills/leftbg.png');
+    background-repeat: repeat-y;
+    background-position: left top;
+}
+
+@media screen and (max-width:912px) {
+    .SkillsContainer {
+        width: var(--width-level-1);
+    }
+
+    .Paragraphs {
+        width: auto;
+    }
+
+    .SkillsPage .bg {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .SkillsContainer {
+        width: 100%;
+    }
+}
+
+@media screen  and (max-width: 500px){
+    .PortfolioNav {
+        margin: auto;
+    }
+
+    .OtherContent h2 {
+        font-size: 1.5em;
+    }
+}

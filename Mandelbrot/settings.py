@@ -281,7 +281,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'FrontEnd/entertainment/dist/assets'),
     os.path.join(BASE_DIR, 'FrontEnd/goals/dist/assets'),
     os.path.join(BASE_DIR, 'FrontEnd/home-tasks/dist/assets'),
-    os.path.join(BASE_DIR, 'FrontEnd/notes/dist/assets')
+    os.path.join(BASE_DIR, 'FrontEnd/notes/dist/assets'),
+    os.path.join(BASE_DIR, 'FrontEnd/website-home/dist/assets')
     
 ]
 

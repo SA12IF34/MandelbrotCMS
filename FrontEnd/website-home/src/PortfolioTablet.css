@@ -1,0 +1,53 @@
+@media screen and (max-width: 912px) {
+    #Phase-2.SessionsManagerTransition div.ParagraphContainer {
+        width: 100% !important;
+    }
+
+    #Phase-2.SessionsManagerTransition div.ScreenContainer {
+        width: 100%;
+    }
+
+    #Phase-2.SessionsManagerTransition > div {
+        flex-direction: column;
+    }
+
+    #Phase-2 .Screen video {
+        height: 100% !important;
+        width: auto !important;
+    }
+
+    .AccountContainer .One p {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 912px) and (min-width: 768px) {
+
+    @keyframes second-start {
+        0% {
+            transform-origin: center;
+            transform: translateZ(0px) rotateX(0deg);
+        } 50% {
+            transform-origin: center;
+            transform: translateZ(-100px) rotateX(0deg);
+        } 100% {
+            transform-origin: center bottom;
+            transform: translateZ(1200px) rotateX(90deg);
+        }
+    }
+    
+    @keyframes mandelbrot {
+        0% {
+            transform: translateZ(300px)  rotateX(-90deg);
+        } 
+    
+        45.945945945% {
+            transform: translateZ(-100px) rotateX(0deg);
+        }
+        100% {
+            transform-origin: bottom;
+            transform: translateZ(600px) rotateX(0deg);
+        }
+    }
+
+}
