@@ -27,7 +27,7 @@ if DEBUG:
     ALLOWED_HOSTS = []
 
 else:
-    ALLOWED_HOSTS = ['cms.saifchan.online', '*']
+    ALLOWED_HOSTS = ['cms.saifchan.online', 'mandelbrotcms-production.up.railway.app']
 
 # Application definition
 
@@ -110,11 +110,13 @@ if DEBUG :
 else:
     CORS_ALLOWED_ORIGINS = [
         'https://cms.saifchan.online',
-        'https://saifchan.online'
+        'https://saifchan.online',
+        'https://mandelbrotcms-production.up.railway.app'
     ]
     CSRF_TRUSTED_ORIGINS = [
         'https://cms.saifchan.online',
-        'https://saifchan.online'
+        'https://saifchan.online',
+        'https://mandelbrotcms-production.up.railway.app'
     ]
 
 
