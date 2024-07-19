@@ -23,11 +23,11 @@ SECRET_KEY = ENV('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# if DEBUG:
-#     ALLOWED_HOSTS = []
+if DEBUG:
+    ALLOWED_HOSTS = []
 
-# else:
-ALLOWED_HOSTS = ['cms.saifchan.online', 'mandelbrotcms-production.up.railway.app']
+else:
+    ALLOWED_HOSTS = ['cms.saifchan.online', 'mandelbrotcms-production.up.railway.app']
 
 # Application definition
 
@@ -92,33 +92,33 @@ GITHUB_CLIENT_SECRET = ENV('GITHUB_CLIENT_SECRET')
 CORS_ALLOW_PRIVATE_NETWORK = False
 
 
-# if DEBUG :
-#     CORS_ALLOWED_ORIGINS = [
-#     'http://127.0.0.1:3000',
-#     'http://localhost:5173',
-#     'http://127.0.0.1:8000',
-#     'http://localhost:8000',
-#     'chrome-extension://chaepekccofhljddepeknooibilbohob'
-#     ]
-#     CSRF_TRUSTED_ORIGINS = [
-#         'http://127.0.0.1:3000',
-#         'http://localhost:5173',
-#         'http://127.0.0.1:8000',
-#         'http://localhost:8000',
-#         'chrome-extension://chaepekccofhljddepeknooibilbohob'
-#     ]
+if DEBUG :
+    CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:3000',
+    'http://localhost:5173',
+    'http://127.0.0.1:8000',
+    'http://localhost:8000',
+    'chrome-extension://chaepekccofhljddepeknooibilbohob'
+    ]
+    CSRF_TRUSTED_ORIGINS = [
+        'http://127.0.0.1:3000',
+        'http://localhost:5173',
+        'http://127.0.0.1:8000',
+        'http://localhost:8000',
+        'chrome-extension://chaepekccofhljddepeknooibilbohob'
+    ]
 
-# else:
-CORS_ALLOWED_ORIGINS = [
-    'https://cms.saifchan.online',
-    'https://saifchan.online',
-    'https://mandelbrotcms-production.up.railway.app'
-]
-CSRF_TRUSTED_ORIGINS = [
-    'https://cms.saifchan.online',
-    'https://saifchan.online',
-    'https://mandelbrotcms-production.up.railway.app'
-]
+else:
+    CORS_ALLOWED_ORIGINS = [
+        'https://cms.saifchan.online',
+        'https://saifchan.online',
+        'https://mandelbrotcms-production.up.railway.app'
+    ]
+    CSRF_TRUSTED_ORIGINS = [
+        'https://cms.saifchan.online',
+        'https://saifchan.online',
+        'https://mandelbrotcms-production.up.railway.app'
+    ]
 
 
 
@@ -219,25 +219,25 @@ WSGI_APPLICATION = 'Mandelbrot.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-# if DEBUG:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
-
-# else:
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': ENV('PG_NAME'), 
-        'USER': ENV('PG_USER'),
-        'PASSWORD': ENV('PG_PASSWORD'),
-        'HOST': ENV('PG_HOST'), 
-        'PORT': ENV('PG_PORT'),
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': ENV('PG_NAME'), 
+            'USER': ENV('PG_USER'),
+            'PASSWORD': ENV('PG_PASSWORD'),
+            'HOST': ENV('PG_HOST'), 
+            'PORT': ENV('PG_PORT'),
+        }
+    }
 
 
 
