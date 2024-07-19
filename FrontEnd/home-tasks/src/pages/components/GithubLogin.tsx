@@ -21,7 +21,7 @@ function GithubLogin() {
             window.location.assign('/');
         }
     } catch (error) {
-        
+        console.log(error)
     }
   }
 
@@ -34,6 +34,7 @@ function GithubLogin() {
 
         if (response.status === 200) {
             const data = await response.data;
+            console.log(data);
             handleLogin(data['access_token' as keyof typeof data])
         }
 
