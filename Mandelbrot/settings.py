@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['cms.saifchan.online', 'mandelbrotcms-production.up.railway.app
 # Application definition
 
 INSTALLED_APPS = [
+    'authentication',
     'whitenoise',
     'whitenoise.runserver_nostatic',
     'django.contrib.admin',
@@ -62,7 +63,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
     
-    'authentication'
+    
     
     
 ]
