@@ -29,6 +29,10 @@ if DEBUG:
 else:
     ALLOWED_HOSTS = ['cms.saifchan.online', 'mandelbrotcms-production.up.railway.app']
 
+DOMAIN = 'cms.saifchan.online'
+CSRF_COOKIE_DOMAIN = DOMAIN
+SESSION_COOKIE_DOMAIN = DOMAIN
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -67,9 +71,11 @@ INSTALLED_APPS = [
     
     
 ]
-
-SITE_ID = 3
-
+if DEBUG:
+    SITE_ID = 2
+else:
+    SITE_ID = 3
+    
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
