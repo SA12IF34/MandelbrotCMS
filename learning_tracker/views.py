@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import permission_classes, api_view, authentication_classes
 from rest_framework.authentication import SessionAuthentication
+from django.db.models import Q
 from .models import *
 from .serializers import *
 from .scrape import coursera, youtube
@@ -58,7 +59,7 @@ class MaterialsAPI(APIView):
 
             search_query = request.query_params.get('search', None) # Applying search operation
             if search_query is not None:
-                materials = Material.objects.filter(user=user, category='in progress', name__contains=search_query)
+                materials = Material.objects.filter(Q(name__contains=search_query) | Q(name__iexact=search_query), category='in progress', user=user)
                 serializer = MaterialSerializer(instance=materials, many=True)
 
                 return Response(data=serializer.data, status=HTTP_200_OK)            

@@ -29,9 +29,9 @@ if DEBUG:
 else:
     ALLOWED_HOSTS = ['cms.saifchan.online', 'mandelbrotcms-production.up.railway.app']
 
-DOMAIN = 'cms.saifchan.online'
-CSRF_COOKIE_DOMAIN = DOMAIN
-SESSION_COOKIE_DOMAIN = DOMAIN
+    DOMAIN = 'cms.saifchan.online'
+    CSRF_COOKIE_DOMAIN = DOMAIN
+    SESSION_COOKIE_DOMAIN = DOMAIN
 
 # Application definition
 

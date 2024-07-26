@@ -4,6 +4,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.response import Response
 from rest_framework.status import *
+from django.db.models import Q
 from .models import *
 from .serializers import *
 
@@ -17,6 +18,13 @@ from notes.utils import get_obj_notes
 def get_task_containers(request):
     try:
         user = request.user.id
+
+        search_query = request.query_params.get('search', None)
+        if search_query is not None:
+            containers = TasksContainer.objects.filter(Q(title__contains=search_query) | Q(title__iexact=search_query), user=user)
+            serializer = ContainerSerializer(instance=containers, many=True)
+
+            return Response(data=serializer.data, status=HTTP_200_OK)
 
         containers = TasksContainer.objects.filter(user=user).order_by('-id')
 

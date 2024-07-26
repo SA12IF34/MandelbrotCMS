@@ -7,11 +7,12 @@ function ObjectSearch({setRelatedObjName, objectToSearch, setObjSearchOpen, setR
   const [searchResults, setSearchResults] = useState([]);
   const searchRef = useRef();
 
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
 
   async function handleSearch() {
     try {
         const response = await api.get(searchPath+`?search=${searchRef.current.value}`, {
-            baseURL: import.meta.env.VITE_API_BASE__URL
+            baseURL: import.meta.env.VITE_API_BASE_URL
         })
 
         if (response.status === 200) {
@@ -28,18 +29,18 @@ function ObjectSearch({setRelatedObjName, objectToSearch, setObjSearchOpen, setR
   function handleSetSearchPath() {
     switch (objectToSearch) {
         case 'project':
-            setSearchPath('sessions_manager/apis/projects/');
+            setSearchPath(baseURL+'sessions_manager/apis/projects/');
             break;
     
         case 'learning_material':
-            setSearchPath('learning_tracker/apis/materials/');
+            setSearchPath(baseURL+'learning_tracker/apis/materials/');
             break;
         
         case 'tasks_list':
-            setSearchPath('tasks/apis/get-containers/')
+            setSearchPath(baseURL+'tasks/apis/get-containers/')
             break;
         case 'goal':
-            setSearchPath('goals/apis/goals/')
+            setSearchPath(baseURL+'goals/apis/goals/')
             break;
 
         default:

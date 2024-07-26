@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.status import *
+from django.db.models import Q
 from .models import Goal
 from rest_framework import serializers
 from .serializers import GoalSerializer
@@ -38,7 +39,7 @@ class GoalsAPI(APIView):
 
             search_query = request.query_params.get('search', None)
             if search_query is not None:
-                goals = Goal.objects.filter(user=user, name__contains=search_query)
+                goals = Goal.objects.filter(Q(name__contains=search_query) | Q(name__iexact=search_query), user=user)
                 serializer = GoalSerializer(instance=goals, many=True)
                 
                 return Response(data=serializer.data, status=HTTP_200_OK)

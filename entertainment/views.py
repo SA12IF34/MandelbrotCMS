@@ -235,7 +235,7 @@ class MaterialsAPI(APIView):
         search_query = request.query_params.get('search', None)
 
         if search_query is not None:
-            materials = EntertainmentMaterial.objects.filter(Q(status='current') | Q(status='later'), user=user, name__contains=search_query)
+            materials = EntertainmentMaterial.objects.filter(Q(status='current') | Q(status='later'), Q(name__contains=search_query) | Q(name__iexact=search_query), user=user)
             serializer = EntertainmentSerializer(instance=materials, many=True)
 
             return Response(data=serializer.data, status=HTTP_200_OK)

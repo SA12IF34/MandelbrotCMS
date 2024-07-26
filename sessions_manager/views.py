@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes, api_view, authentication_classes
 from rest_framework.authentication import SessionAuthentication
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from django.db.models import Q
 from .models import *
 from .serializers import *
 
@@ -26,7 +27,7 @@ class ProjectsAPI(APIView):
         # Applying search functionality if "search" url parameter exists
         search_query = request.query_params.get('search', None)
         if search_query is not None:
-            projects = Project.objects.filter(user=user, name__contains=search_query)
+            projects = Project.objects.filter(Q(name__contains=search_query) | Q(name__iexact=search_query), user=user)
             serializer = ProjectSerializer(instance=projects, many=True)
 
             return Response(data=serializer.data, status=HTTP_200_OK)
