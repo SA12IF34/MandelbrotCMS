@@ -11,6 +11,20 @@
         flex-direction: column;
     }
 
+    #Phase-2 .SessionsManagerScreen {
+        transform: rotateX(30deg);
+    }
+
+
+    @keyframes SM-rotate {
+        from {
+            transform: rotateX(30deg) rotateZ(0deg);
+        } to {
+            transform: rotateX(30deg) rotateZ(360deg);
+        }
+    }
+
+    #Phase-2 .Screen img,
     #Phase-2 .Screen video {
         height: 100% !important;
         width: auto !important;

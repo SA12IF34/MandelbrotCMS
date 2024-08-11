@@ -139,7 +139,7 @@ function MaterialsContainer({dual, setPageLink, pageLink, setType, data}: props)
                   <Link className='material' to={`/entertainment/materials/${material['id' as keyof typeof material]}/`}>
                     <div>
                       <div className='image'>
-                        <img src={material['image' as keyof typeof material] 
+                        <img fetchpriority="high" src={material['image' as keyof typeof material] 
                         ? material['image' as keyof typeof material] 
                         : 'https://st3.depositphotos.com/23594922/31822/v/450/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg' } 
                         alt={material['name' as keyof typeof material]} />

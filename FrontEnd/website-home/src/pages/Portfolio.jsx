@@ -165,7 +165,7 @@ function Portfolio() {
     mandelbrotContainer.classList.add('MandelbrotContainer');
     mandelbrotImgContainer.src = mandelbrotImg;
 
-    mandelbrotContainer.appendChild(mandelbrotImgContainer);;
+    mandelbrotContainer.appendChild(mandelbrotImgContainer);
 
     const parent = document.querySelector('.PortfolioPage');
 
@@ -185,7 +185,7 @@ function Portfolio() {
   }
 
   function secondPhase() {
-    const paragraphValue = `MandelbrotCMS, a project enables you to track different aspects of your life.`;
+    const paragraphValue = `MandelbrotCMS, a platform which enables you to track different aspects of your life.`; // Intro 2
 
     const paragraphContainer = document.createElement('div');
     const paragraph = document.createElement('p');
@@ -428,7 +428,7 @@ function Portfolio() {
   var num = 0;
 
   function handleStartPage() {
-    const p = `Here, Saif has as his portfolio a CMS he built, it's name is MandelbrotCMS.`;
+    const p = `Now, you are in the MandelbrotCMS platform.`; // Intro 1
 
       setTimeout(() => {
         handleAnimateParagraph(introVoice, p, '#Phase-1 p', handleStartCount);  

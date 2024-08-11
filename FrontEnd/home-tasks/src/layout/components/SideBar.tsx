@@ -15,12 +15,12 @@ function SideBar({className, setClassName}: {className:string, setClassName: any
             </ul>
         </div>
         <div className='Owner'>
-            <h2>Website Owner</h2>
+            <h2>SaifChan</h2>
             <ul>
-                <li><a href="/about/">About</a></li>
-                <li><a href="/contact/">Contact</a></li>
-                <li><a href="/skills/">Skills</a></li>
-                <li><a href="/mandelbrotCMS/">Portfolio</a></li>
+                <li><a href="https://saifchan.online/about/">About</a></li>
+                <li><a href="https://saifchan.online/contact/">Contact</a></li>
+                <li><a href="https://saifchan.online/skills/">Skills</a></li>
+                <li><a href="https://saifchan.online/portfolio/">Portfolio</a></li>
             </ul>
         </div>
     </aside>
