@@ -3,12 +3,12 @@ __pycache__/
 .venv/
 venv/
 
-# .env
-# entertainment/soso.py
-# entertainment/tokens.json
-# tokens.json
+.env
+entertainment/soso.py
+entertainment/tokens.json
+tokens.json
 
-
+*/dist
 
 # Django files
 staticfiles/
