@@ -15,9 +15,9 @@ class NotesTestCase(TestCase):
         self.client.post("/authentication/apis/register/", data=data)
 
         self.client.post("/notes/apis/create/", {
-            "name": "Note 1", 
+            "name": 5.3, 
             "content": "Note 1 content",
-            "user": 1
+            "user": "33"
         })
 
     def test_create_note(self):
