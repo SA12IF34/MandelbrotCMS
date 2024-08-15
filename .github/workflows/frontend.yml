@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-  
+
     runs-on: windows-2022
     timeout-minutes: 10
 
@@ -18,4 +18,4 @@ jobs:
         with:
           node-version: '20'
       - run: npm install -g vite
-      # - run: powershell -File production.ps1
+      - run: powershell -File production.ps1
