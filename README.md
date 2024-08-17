@@ -1,5 +1,5 @@
 ### Table of Contents
-- [Description](tree/main#mandelbrotcms)
+- [Description](#mandelbrotcms)
 
 <hr>
 ## MandelbrotCMS
