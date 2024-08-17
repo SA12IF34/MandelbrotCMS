@@ -96,7 +96,7 @@ my code's practices, readability, and performance.
 
 - To render the frontend in django server you need to:
   - run npm install in every frontend part
-  - create a `.env.development` file in every part
+  - create a `.env.development` file in every part with [these values](#frontend-dev-environment-variables-values)
   - run `vite build --mode development`
 
 - And finally set `DEBUG` to true in settings.py
