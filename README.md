@@ -8,7 +8,7 @@
 
 ## MandelbrotCMS
 MandelbrotCMS is a system built from scratch that is meant to help organizaing different aspects of life 
-and making them clearer.\n
+and making them clearer.<br>
 I desided to build this project because of:
   - It will rise my experience and improve my skills in exponential way
   - It will be a very good portfolio project
