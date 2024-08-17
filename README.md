@@ -1,6 +1,7 @@
 ### Table of Contents
 - [Description](#mandelbrotcms)
 - [Parts and their Aspects](#parts-and-their-aspects)
+- [Benefits](#benefits)
 
 <br>
 <hr>
