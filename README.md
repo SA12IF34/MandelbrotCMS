@@ -2,6 +2,7 @@
 - [Description](#mandelbrotcms)
 - [Parts and their Aspects](#parts-and-their-aspects)
 - [Benefits](#benefits)
+- [How to Run Locally](#how-to-run-locally)
 
 <br>
 <hr>
@@ -65,3 +66,63 @@ or building your own project on top of it's core.
 If you are a recruiter or a person who considers me as a candidate to hire 
 or to work you your next project, you can benefit from this repo by previewing 
 my code's practices, readability, and performance.
+
+<br><hr><br>
+
+## How to Run Locally
+- Add `.env` file in the root directory that contains the following keys:
+    ```
+    SECRET_KEY="django project secret key"
+    YOUTUBE_API_KEY="youtube api key from google console"
+    MAL_CLIENT_ID="My anime list app client id"
+    MAL_CLIENT_SECRET="My anime list app client secret"
+    GOOGLE_CLIENT_SECRET="Google client secret for social auth concent screen"
+    GOOGLE_CLIENT_ID="Google client id for social auth concent screen"
+    GITHUB_CLIENT_ID="Github client id for social auth"
+    GITHUB_CLIENT_SECRET="Github client secret for social auth"
+    ```
+
+- Add `tokens.json` file in entertainment dir that has the following content:
+  ```
+  {
+  "token_type": "Bearer",
+  "expires_in": 2678400,
+  "access_token": "access token mal api",
+  "refresh_token": "refresh token for mal api"
+  }
+  ```
+
+- Create a virtual environtment and install required dependecies from requirements.txt with `python/python3 -m pip install -r requirements.txt`
+
+- To render the frontend in django server you need to:
+  - run npm install in every frontend part
+  - create a `.env.development` file in every part with [these values](#frontend-dev-environment-variables-values)
+  - run `vite build --mode development`
+
+- And finally set `DEBUG` to true in settings.py
+
+<br>
+.<br>
+.<br>
+.<br>
+.<br>
+.<br>
+.<br>
+<br>
+
+### frontend dev environment variables values
+- Sessions Manager: `http://127.0.0.1:8000/sessions_manager/apis/`
+- Learning Tracker: `http://127.0.0.1:8000/learning_tracker/apis/`
+- Entertainment: `http://127.0.0.1:8000/entertainment/apis/`
+- Missions:
+  ```
+  VITE_API_URL=http://127.0.0.1:8000/
+  VITE_GOOGLE_CLIENT=google_client_id
+  VITE_GITHUB_AUTHORIZE=https://github.com/login/oauth/authorize?client_id=CLIENT_ID&amp;redirect_uri=http://127.0.0.1:8000/log-in/&amp;scope=user
+  ```
+- Goals: `http://127.0.0.1:8000/`
+- Notes:
+  ```
+  VITE_NOTES_API_URL=http://127.0.0.1:8000/notes/apis/
+  VITE_API_BASE_URL=http://127.0.0.1:8000/
+  ```
