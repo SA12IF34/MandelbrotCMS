@@ -21,16 +21,12 @@ SECRET_KEY = ENV('SECRET_KEY')
 # hello
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-if DEBUG:
-    ALLOWED_HOSTS = []
 
-else:
-    ALLOWED_HOSTS = ['cms.saifchan.online', 'mandelbrotcms-production.up.railway.app']
+ALLOWED_HOSTS = ['cms.saifchan.online', 'mandelbrotcms-production.up.railway.app', '*']
 
-    DOMAIN = 'cms.saifchan.online'
-    CSRF_COOKIE_DOMAIN = DOMAIN
-    SESSION_COOKIE_DOMAIN = DOMAIN
+DOMAIN = 'cms.saifchan.online'
+CSRF_COOKIE_DOMAIN = DOMAIN
+SESSION_COOKIE_DOMAIN = DOMAIN
 
 # Application definition
 
@@ -70,10 +66,7 @@ INSTALLED_APPS = [
     
     
 ]
-if DEBUG:
-    SITE_ID = 2
-else:
-    SITE_ID = 3
+SITE_ID = 3
     
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -96,34 +89,6 @@ GITHUB_CLIENT_SECRET = ENV('GITHUB_CLIENT_SECRET')
 
 CORS_ALLOW_PRIVATE_NETWORK = False
 
-
-if DEBUG :
-    CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:3000',
-    'http://localhost:5173',
-    'http://127.0.0.1:8000',
-    'http://localhost:8000',
-    'chrome-extension://chaepekccofhljddepeknooibilbohob'
-    ]
-    CSRF_TRUSTED_ORIGINS = [
-        'http://127.0.0.1:3000',
-        'http://localhost:5173',
-        'http://127.0.0.1:8000',
-        'http://localhost:8000',
-        'chrome-extension://chaepekccofhljddepeknooibilbohob'
-    ]
-
-else:
-    CORS_ALLOWED_ORIGINS = [
-        'https://cms.saifchan.online',
-        'https://saifchan.online',
-        'https://mandelbrotcms-production.up.railway.app'
-    ]
-    CSRF_TRUSTED_ORIGINS = [
-        'https://cms.saifchan.online',
-        'https://saifchan.online',
-        'https://mandelbrotcms-production.up.railway.app'
-    ]
 
 
 
@@ -224,28 +189,12 @@ WSGI_APPLICATION = 'Mandelbrot.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': ENV('PG_NAME'), 
-            'USER': ENV('PG_USER'),
-            'PASSWORD': ENV('PG_PASSWORD'),
-            'HOST': ENV('PG_HOST'), 
-            'PORT': ENV('PG_PORT'),
-        }
-    }
-
-
-
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

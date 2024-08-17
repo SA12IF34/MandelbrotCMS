@@ -23,9 +23,9 @@ class NotesTestCase(TestCase):
     def test_create_note(self):
 
         note_data = {
-            "name": "note 2",
+            "name": 34.3,
             "content": "note 2 content",
-            "user": 1
+            "user": "33"
         }
 
         res = self.client.post("/notes/apis/create/", data=note_data)

@@ -21,7 +21,7 @@ class NotesViewSet(ModelViewSet):
 
 
     def create(self, request):
-        data = request.data
+        data = request.data.copy()
         data['user'] = request.user.id
 
         serializer = self.get_serializer(data=data)

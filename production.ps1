@@ -33,6 +33,4 @@ vite build --mode production
 
 
 Set-Location -Path "..\.."
-git add .
-git commit -m "commit"
-git push origin main
+
