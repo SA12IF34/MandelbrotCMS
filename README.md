@@ -114,13 +114,15 @@ my code's practices, readability, and performance.
 - Sessions Manager: `http://127.0.0.1:8000/sessions_manager/apis/`
 - Learning Tracker: `http://127.0.0.1:8000/learning_tracker/apis/`
 - Entertainment: `http://127.0.0.1:8000/entertainment/apis/`
-- Missions: ```
-            VITE_API_URL=http://127.0.0.1:8000/
-            VITE_GOOGLE_CLIENT=google_client_id
-            VITE_GITHUB_AUTHORIZE=https://github.com/login/oauth/authorize?client_id=CLIENT_ID&amp;redirect_uri=http://127.0.0.1:8000/log-in/&amp;scope=user
-            ```
+- Missions:
+  ```
+  VITE_API_URL=http://127.0.0.1:8000/
+  VITE_GOOGLE_CLIENT=google_client_id
+  VITE_GITHUB_AUTHORIZE=https://github.com/login/oauth/authorize?client_id=CLIENT_ID&amp;redirect_uri=http://127.0.0.1:8000/log-in/&amp;scope=user
+  ```
 - Goals: `http://127.0.0.1:8000/`
-- Notes: ```
-         VITE_NOTES_API_URL=http://127.0.0.1:8000/notes/apis/
-         VITE_API_BASE_URL=http://127.0.0.1:8000/
-         ```
+- Notes:
+  ```
+  VITE_NOTES_API_URL=http://127.0.0.1:8000/notes/apis/
+  VITE_API_BASE_URL=http://127.0.0.1:8000/
+  ```
