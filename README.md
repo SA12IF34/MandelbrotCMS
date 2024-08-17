@@ -22,3 +22,33 @@ I desided to build this project because of:
 ### Sessions Manager
 Sessions Manager is the first part and the part responsible 
 for managing, decomposing, and tracking projects.
+
+<br>
+
+### Learning Tracker
+Learning Tracker is the part responsible for listing and tracking courses.
+
+<br>
+
+### Entertainment
+This is the part where you can add, track and specialize any entertainment material you want.
+
+<br>
+
+### Missions
+MIssions part is where you create daily missions list with some missions, 
+and determining a reward for finishing the list from entertainment part.
+
+<br>
+
+### Goals In goals part, you can assemble everything, when you add a new goal, 
+you can determine the projects and courses related to it and connect them, 
+create the goal only missions, and of course add any number of 
+entertainment materials for rewarding yourself with some words for you.
+
+<br>
+
+### Notes
+It is a simple and normal notes part with features like connecting 
+a note with project, course, missionts list, goal or entertainment material, 
+and a small canvas for drawing or hand writing.
