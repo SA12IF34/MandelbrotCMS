@@ -215,7 +215,7 @@ def get_special(request): # Queries user's special materials
     data = {}
 
     for type in types:
-        materials = EntertainmentMaterial.objects.filter(user=user, special=True, type=type).order_by('-id') 
+        materials = EntertainmentMaterial.objects.filter(user=user, special=True, type=type).order_by('-last_update') 
         serializer = EntertainmentSerializer(instance=materials, many=True)
         data[type] = serializer.data
 
@@ -242,7 +242,7 @@ class MaterialsAPI(APIView):
 
         for s in status:
             for type in types:
-                materials = EntertainmentMaterial.objects.filter(user=user, type=type, status=s).order_by('-id') 
+                materials = EntertainmentMaterial.objects.filter(user=user, type=type, status=s).order_by('-last_update') 
                 serializer = EntertainmentSerializer(instance=materials, many=True)
                 data[f'{s}'][f'{type}'] = serializer.data
 
@@ -328,7 +328,7 @@ def search(request):
     except KeyError:
         pass
 
-    materials = EntertainmentMaterial.objects.filter(user=user, **search_query)
+    materials = EntertainmentMaterial.objects.filter(user=user, **search_query).order_by('-last_update')
     serializer = EntertainmentSerializer(instance=materials, many=True)
 
     return Response(data=serializer.data, status=HTTP_200_OK)

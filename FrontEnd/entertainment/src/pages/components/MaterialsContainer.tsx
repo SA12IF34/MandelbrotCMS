@@ -85,18 +85,18 @@ function MaterialsContainer({dual, setPageLink, pageLink, setType, data}: props)
       const fullWidth = document.body.offsetWidth;
       const elementWidth = (container.firstElementChild as HTMLElement).offsetWidth;
       let gap = 10;
-      let limit = 1;
+      let limit = 4;
       
-      if (fullWidth <= 1280 && fullWidth > 912) {
-        limit = 4;
-      } 
+
       if (fullWidth <= 912 && fullWidth > 744) {
         limit = 3;
       }
       if (fullWidth <= 744 && fullWidth > 500) {
         limit=2;
       }
-      
+      if (fullWidth < 500) {
+        limit=1;
+      }
       if (translateCount < container.childNodes.length-limit){
         translateValue -= elementWidth+gap;
         container.style.cssText = `transform: translateX(${translateValue}px)`
@@ -128,9 +128,9 @@ function MaterialsContainer({dual, setPageLink, pageLink, setType, data}: props)
   return (
     <div className={`container ${!dual ? 'container-not-dual' : ''}`}>
       {materials && materials!.length > 0 && setPageLink && (
-        <Link className='materials-page-link' target='_blank' to={pageLink}>
+        <a className='materials-page-link'  href={pageLink}>
           <MdOpenInFull />
-        </Link>
+        </a>
       )}
           <div>
             <div className='materials'>
