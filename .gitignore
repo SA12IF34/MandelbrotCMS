@@ -8,6 +8,8 @@ entertainment/soso.py
 entertainment/tokens.json
 tokens.json
 
+FrontEnd/*/dist
+
 */dist
 
 # Django files

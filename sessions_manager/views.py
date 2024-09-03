@@ -33,7 +33,7 @@ class ProjectsAPI(APIView):
             return Response(data=serializer.data, status=HTTP_200_OK)
 
         
-        projects = Project.objects.filter(user=user)
+        projects = Project.objects.filter(user=user).order_by('-id')
         serializer = ProjectSerializer(instance=projects, many=True)
 
         return Response(data=serializer.data, status=HTTP_200_OK)
@@ -88,7 +88,7 @@ def project_filter_category(request):
         category_query = request.query_params.get('category', None)
 
         if category_query is not None:
-            projects = Project.objects.filter(user=user, categories=category_query)
+            projects = Project.objects.filter(user=user, categories=category_query).order_by('-id')
             serializer = ProjectSerializer(instance=projects, many=True)
 
             return Response(data=serializer.data, status=HTTP_200_OK)

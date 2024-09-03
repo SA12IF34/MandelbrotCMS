@@ -66,7 +66,7 @@ function Home() {
         let gap = 0;
         let limit = 1;
     
-        if (fullWidth <= 1280 && fullWidth > 912) {
+        if (fullWidth > 912) {
           gap = 20;
           limit = 4;
         } 
@@ -98,7 +98,7 @@ function Home() {
         const elementWidth = container.firstElementChild.offsetWidth;
         let gap = 0;
     
-        if (fullWidth <= 1280 && fullWidth > 912) {
+        if ( fullWidth > 912) {
           gap = 20;
         } 
         if (fullWidth <= 912 && fullWidth > 744) {

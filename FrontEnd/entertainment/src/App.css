@@ -8,7 +8,7 @@
   flex-direction: column;
   row-gap: 45px;
   justify-content: space-between;
-  position: absolute !important;
+  position: fixed !important;
   left: 50%;
   top: 0;
   transform: translate(-50%) translateY(-100%);
@@ -408,6 +408,12 @@ section {
   border-right: 1px solid silver;
   outline: none;
   cursor: pointer;
+}
+
+@media screen and (min-width: 1281px) {
+  .material>div {
+    width: 282px;
+  }
 }
 
 @media screen and (max-width: 912px) {
