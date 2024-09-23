@@ -209,7 +209,7 @@ def post_material_by_url(request):
     data['description'] = material_data['description']
     data['image'] = material_data['image']
     if 'genres' in material_data.keys():
-        data['genres'] = material_data['genres']
+        data['genres'] = ','.join(material_data['genres'])
 
     data['user'] = user
     serializer = EntertainmentSerializer(data=data)
@@ -342,11 +342,9 @@ def recommend_anime(request):
             'profile': profile,
             'seen_animes': seen_animes
         }
-        response = requests.post('https://api.ml.saifchan.online/recommend-anime/', json=data)
-        recommendations = response.json()
-        data = map(process_anime_recommendations, recommendations['recommendations'])
 
-        return Response(data={'recommendations': data}, status=response.status_code)
+
+        return Response(data=data, status=200)
     
     except:
         return Response(status=500)
