@@ -330,26 +330,24 @@ def process_anime_recommendations(item):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def recommend_anime(request):
-    # try:
-    materials = EntertainmentMaterial.objects.filter(Q(status='current') | Q(status='done'), type='anime', user=request.user.id)
-    serializer = EntertainmentSerializer(materials, many=True)
-    # Make user profile
-    profile = [p for p in map(generate_profile, serializer.data) if len(p) > 0]
-    seen_animes = list(map(get_anime_id, serializer.data))
-    
-    # Call recommendation api
-    data = {
-        'profile': profile,
-        'seen_animes': seen_animes
-    }
-    # response = requests.post('https://api.ml.saifchan.online/recommend-anime/', json=data)
-    # recommendations = response.json()
-    # data = map(process_anime_recommendations, recommendations['recommendations'])
+    try:
+        materials = EntertainmentMaterial.objects.filter(Q(status='current') | Q(status='done'), type='anime', user=request.user.id)
+        serializer = EntertainmentSerializer(materials, many=True)
+        # Make user profile
+        profile = [p for p in map(generate_profile, serializer.data) if len(p) > 0]
+        seen_animes = list(map(get_anime_id, serializer.data))
+        
+        # Call recommendation api
+        data = {
+            'profile': profile,
+            'seen_animes': seen_animes
+        }
 
-    return Response(data=data, status=200)
+
+        return Response(data=data, status=200)
     
-    # except err:
-    #     return Response(data={'error': err}, status=500)
+    except:
+        return Response(status=500)
 
 class MaterialAPI(APIView):
 
