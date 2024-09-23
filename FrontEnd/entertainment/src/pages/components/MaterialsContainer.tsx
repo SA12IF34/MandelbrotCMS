@@ -1,19 +1,22 @@
 import {useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import ReactLoading from 'react-loading';
 import { MdArrowRight, MdArrowLeft, MdOpenInFull } from "react-icons/md";
 import '../../App.css';
 
 type props = {
   dual: boolean,
   setPageLink: boolean,
-  pageLink: string,
+  pageLink: string ,
   setType?: any,
-  data: object | materialsType | null
+  data: object | materialsType | null,
+  setLoading?: boolean,
+  clickable?: boolean
 }
 
 type materialsType = Array<object> | null | undefined;
 
-function MaterialsContainer({dual, setPageLink, pageLink, setType, data}: props) {
+function MaterialsContainer({dual, setPageLink, pageLink, setType, data, setLoading=false, clickable=true}: props) {
 
   const [materials, setMaterials] = useState<materialsType>(undefined);
 
@@ -123,7 +126,7 @@ function MaterialsContainer({dual, setPageLink, pageLink, setType, data}: props)
         
   })
   
-}, [])
+}, [data])
 
   return (
     <div className={`container ${!dual ? 'container-not-dual' : ''}`}>
@@ -136,7 +139,7 @@ function MaterialsContainer({dual, setPageLink, pageLink, setType, data}: props)
             <div className='materials'>
               {materials && materials!.length > 0 ? materials?.map((material) => {
                 return (
-                  <Link className='material' to={`/entertainment/materials/${material['id' as keyof typeof material]}/`}>
+                  <Link className={`material ${!clickable ? 'not-clickable': ''}`} to={`/entertainment/materials/${material['id' as keyof typeof material]}/`}>
                     <div>
                       <div className='image'>
                         <img fetchpriority="high" src={material['image' as keyof typeof material] 
@@ -148,7 +151,9 @@ function MaterialsContainer({dual, setPageLink, pageLink, setType, data}: props)
                     </div>
                   </Link>
                 )
-              }) : (
+              }) : (setLoading && !materials) ? (
+                <ReactLoading type={'bars'} color='#fff' />
+              ) : (
                 <h1 style={{margin: '20px', color: 'white', maxWidth: 'calc(100% - 80px)'}}>There are no materials</h1>
               )}
             </div>

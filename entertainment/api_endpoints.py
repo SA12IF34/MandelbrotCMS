@@ -7,5 +7,6 @@ urlpatterns = [
     path('materials/url/', post_material_by_url),
     path('materials/<int:pk>/', MaterialAPI.as_view()),
     path('materials/special/', get_special),
-    path('materials/search/', search)
+    path('materials/search/', search),
+    path('recommend-anime/', recommend_anime)
 ]

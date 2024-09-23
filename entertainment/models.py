@@ -25,6 +25,7 @@ class EntertainmentMaterial(models.Model):
     special = models.BooleanField(null=False, blank=False, default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     last_update = models.DateTimeField(auto_created=True, auto_now=True)
+    genres = models.TextField(null=True, default=None)
 
     def __str__(self):
         return f'{self.name} | {self.user.username}'

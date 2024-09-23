@@ -410,6 +410,10 @@ section {
   cursor: pointer;
 }
 
+.not-clickable {
+  pointer-events: none;
+}
+
 @media screen and (min-width: 1281px) {
   .material>div {
     width: 282px;

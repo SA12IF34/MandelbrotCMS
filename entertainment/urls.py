@@ -5,7 +5,8 @@ REACT_ROUTES = [
     'materials/<int:id>',
     'add-material',
     'special',
-    'search'
+    'search',
+    'recommendations'
 ]
 
 def page(request, id=None):
