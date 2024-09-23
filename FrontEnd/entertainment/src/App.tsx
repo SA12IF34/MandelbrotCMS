@@ -1,4 +1,4 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import {Routes, Route} from 'react-router-dom';
 import './App.css';
 
@@ -11,6 +11,7 @@ import Material from './pages/Material';
 import AddMaterial from './pages/AddMaterial';
 import Special from './pages/Special';
 import MaterialsSearch from './pages/MaterialsSearch';
+import Recommendations from './pages/Recommendations';
 
 import axios from 'axios';
 
@@ -23,6 +24,8 @@ export const api = axios.create({
 })
 
 function App() {
+
+  const [animeRecommendations, setAnimeRecommendations] = useState<Array<object>>();
 
   function handleAlert(message: string) {
     let container = document.createElement('div') as HTMLDivElement;
@@ -57,6 +60,10 @@ function App() {
         <Route path='/entertainment/add-material/' element={<AddMaterial handleAlert={handleAlert} />} />
         <Route path='/entertainment/special/' element={<Special />} />
         <Route path='/entertainment/search/' element={<MaterialsSearch />} />
+        <Route path='/entertainment/recommendations/' element={<Recommendations 
+          animeRecommendations={animeRecommendations}
+          setAnimeRecommendations={setAnimeRecommendations}
+        />} />
       </Routes>
     </Layout>
     </>

@@ -47,7 +47,7 @@ def get_anilist(url): # Get's anime's data from Anilist's API.
         url[-1] = ''
         url = ''.join(url)
 
-    id = url.split('/')[-2]
+    id_ = url.split('/')[-2]
     
     query = '''
     query ($id: Int) { # Define which variables will be used in the query (id)
@@ -60,13 +60,14 @@ def get_anilist(url): # Get's anime's data from Anilist's API.
         coverImage {
         large
         }
+        genres
     }
     }
     '''
 
     # Define our query variables and values that will be used in the query request
     variables = {
-        'id': id
+        'id': id_
     }
 
     url = 'https://graphql.anilist.co'
@@ -75,11 +76,14 @@ def get_anilist(url): # Get's anime's data from Anilist's API.
     response = requests.post(url, json={'query': query, 'variables': variables})
 
     data = response.json()['data']['Media']
+    genres = [x.lower() for x in data['genres'] if x.lower() in genre_names]
+    # genres = list(map(lambda y: y.lower(), filter(lambda x: x.lower() in genre_names, data['genres'])))
 
     return {
         'name': data['title']['romaji'],
         'description': data['description'],
-        'image': data['coverImage']['large']
+        'image': data['coverImage']['large'],
+        'genres': genres
     }
 
 
@@ -103,7 +107,17 @@ def write_json(data):
     print('wrote json')
     return
 
+genre_names = ['action', 'adventure', 'ai', 'arts', 'cars', 'comedy', 'dementia',
+    'demons', 'drama', 'ecchi', 'fantasy', 'sci-fi', 'game', 'harem',
+    'hentai', 'historical', 'horror', 'josei', 'kids', 'life', 'magic',
+    'martial', 'mecha', 'military', 'music', 'mystery', 'parody',
+    'police', 'power', 'psychological', 'romance', 'samurai', 'school',
+    'seinen', 'shoujo', 'shounen', 'slice', 'space', 'sports',
+    'super', 'supernatural', 'thriller', 'vampire', 'yaoi', 'yuri']
+
+
 def get_mal(url): # Get's anime's data from Myanimelist's API.
+    # print(url) 
     if url.endswith('/'):
         url = list(url)
         url[-1] = ''
@@ -113,9 +127,9 @@ def get_mal(url): # Get's anime's data from Myanimelist's API.
     url_list = url.split('/')
 
     if url_list[-1].isdigit():
-        id = url_list[-1]
+        id_ = url_list[-1]
     else:
-        id = url.split('/')[-2]
+        id_ = url.split('/')[-2]
 
     access_token, refresh_token = read_json()
     if access_token is None or refresh_token is None:
@@ -125,22 +139,26 @@ def get_mal(url): # Get's anime's data from Myanimelist's API.
     client_secret = settings.ENV('MAL_CLIENT_SECRET')
     
     
-    response = requests.get(f'https://api.myanimelist.net/v2/anime/{id}?fields=title,main_picture,synopsis', headers={
+    response = requests.get(f'https://api.myanimelist.net/v2/anime/{id_}?fields=title,main_picture,synopsis,genres', headers={
         'Authorization': 'Bearer '+access_token
     })
     
-    data = response.json()
-
     if response.status_code == 401:
         update_tokens(client_id, client_secret, refresh_token)
         return get_mal(url)
 
-    update_tokens(client_id, client_secret, refresh_token)    
+    data = response.json()
+    genres = [x['name'].lower() for x in data['genres'] if x['name'].lower() in genre_names]
+    
+
+    # update_tokens(client_id, client_secret, refresh_token)    
+
 
     return {
         'name': data['title'],
         'description': data['synopsis'],
-        'image': data['main_picture']['medium']
+        'image': data['main_picture']['medium'],
+        'genres': genres
     }
 
 def update_tokens(client_id, client_secret, refresh_token):
@@ -190,6 +208,8 @@ def post_material_by_url(request):
     data['name'] = material_data['name']
     data['description'] = material_data['description']
     data['image'] = material_data['image']
+    if 'genres' in material_data.keys():
+        data['genres'] = material_data['genres']
 
     data['user'] = user
     serializer = EntertainmentSerializer(data=data)
@@ -266,7 +286,70 @@ class MaterialsAPI(APIView):
         except serializers.ValidationError:
             return Response(status=HTTP_500_INTERNAL_SERVER_ERROR)
 
+def generate_profile(material):
+    if material['genres'] is not None:
+        genres = ' '.join(material['genres'].split(','))
+    else:
+        genres = ' '.join(get_mal(material['url'])['genres'] if 'myanimelist' in material['url'] else get_anilist(material['url'])['genres'])
+        m = EntertainmentMaterial.objects.get(id=material['id'])
+        m.genres = ','.join(genres)
+        m.save()
+
+    return genres
+
+def get_anime_id(anime):
+    
+    url = anime['url']
+    url = url[:-1] if url[-1] == '/' else url
+
+    url_list = url.split('/')
+
+    if url_list[-1].isdigit():
+        id_ = url_list[-1]
+    else:
+        id_ = url.split('/')[-2]
+    
+    if 'anilist' in url:
+        # Using the API made by Proohit, https://github.com/proohit/find-my-anime
+        res = requests.get(f'https://find-my-anime.dtimur.de/api?id={id_}&provider=Anilist')
+        sources = res.json()[0]['sources']
+        id_ = get_anime_id({'url':list(filter(lambda x: 'myanimelist' in x, sources))[0]})
+    
+    return int(id_)
+
+
+def process_anime_recommendations(item):
+    new_item = {}
+    new_item['name'] = item['title']
+    new_item['description'] = item['synopsis']
+    new_item['image'] = item['main_picture']['medium']
+
+    return new_item
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def recommend_anime(request):
+    try:
+        materials = EntertainmentMaterial.objects.filter(Q(status='current') | Q(status='done'), type='anime', user=request.user.id)
+        serializer = EntertainmentSerializer(materials, many=True)
+        # Make user profile
+        profile = [p for p in map(generate_profile, serializer.data) if len(p) > 0]
+        seen_animes = list(map(get_anime_id, serializer.data))
         
+        # Call recommendation api
+        data = {
+            'profile': profile,
+            'seen_animes': seen_animes
+        }
+        response = requests.post('https://api.ml.saifchan.online/recommend-anime/', json=data)
+        recommendations = response.json()
+        data = map(process_anime_recommendations, recommendations['recommendations'])
+
+        return Response(data={'recommendations': data}, status=response.status_code)
+    
+    except:
+        return Response(status=500)
 
 class MaterialAPI(APIView):
 
