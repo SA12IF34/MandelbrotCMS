@@ -43,6 +43,7 @@ function Recommendations({animeRecommendations, setAnimeRecommendations}: props)
         let recommendations: object[] | void[] = await getAnimeRecommendations(data);
         recommendations = recommendations.map(r => {
           var newObj = {
+            id: '',
             name: '',
             description: '',
             image: ''
@@ -50,7 +51,8 @@ function Recommendations({animeRecommendations, setAnimeRecommendations}: props)
           newObj['name'] = r['title' as keyof typeof r];
           newObj['description'] = r['synopsis' as keyof typeof r];
           newObj['image'] = r['main_picture' as keyof typeof r]['medium'];
-
+          newObj['id'] = `?id=${r['id' as keyof typeof r]}&name=${newObj['name']}&description=${newObj['description']}&image=${r['main_picture' as keyof typeof r]['medium']}`;
+          
           return newObj;
         })
         setAnimeRecommendations(recommendations);
@@ -79,7 +81,7 @@ function Recommendations({animeRecommendations, setAnimeRecommendations}: props)
       <section>
         <h2>Anime Recommendations</h2>
         <br /><br />
-        {(<MaterialsContainer dual={false} pageLink='' setPageLink={false} data={animeRecommendations} setLoading={true} clickable={false} />)}
+        {(<MaterialsContainer dual={false} pageLink='' setPageLink={false} data={animeRecommendations} setLoading={true} />)}
       </section>
     </div>
   )

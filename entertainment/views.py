@@ -209,7 +209,7 @@ def post_material_by_url(request):
     data['description'] = material_data['description']
     data['image'] = material_data['image']
     if 'genres' in material_data.keys():
-        data['genres'] = material_data['genres']
+        data['genres'] = ','.join(material_data['genres'])
 
     data['user'] = user
     serializer = EntertainmentSerializer(data=data)

@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 
 REACT_ROUTES = [
     'materials/<int:id>',
+    'materials',
     'add-material',
     'special',
     'search',

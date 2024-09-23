@@ -57,6 +57,7 @@ function App() {
       <Routes>
         <Route path='/entertainment/' element={<Home />} />
         <Route path='/entertainment/materials/:id/' element={<Material handleAlert={handleAlert} />} />
+        <Route path='/entertainment/materials/' element={<Material />} />
         <Route path='/entertainment/add-material/' element={<AddMaterial handleAlert={handleAlert} />} />
         <Route path='/entertainment/special/' element={<Special />} />
         <Route path='/entertainment/search/' element={<MaterialsSearch />} />

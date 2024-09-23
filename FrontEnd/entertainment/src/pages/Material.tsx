@@ -7,15 +7,15 @@ import {api} from '../App';
 import MaterialNotes from './components/MaterialNotes';
 
 interface materialData {
-  'id': number,
+  'id'?: number,
   'name': string,
   'description': string,
-  'url': string,
-  'image': string,
-  'status': string,
-  'type': string,
-  'special': boolean,
-  'user': number
+  'url'?: string,
+  'image'?: string,
+  'status'?: string,
+  'type'?: string,
+  'special'?: boolean,
+  'user'?: number
 }
 
 interface NoteData {
@@ -24,7 +24,7 @@ interface NoteData {
   'content': string
 }
 
-function Material({handleAlert}: {handleAlert: any}) {
+function Material({handleAlert}: {handleAlert?: any}) {
 
   const {id} = useParams();
   const [material, setMaterial] = useState<materialData>();
@@ -118,7 +118,19 @@ function Material({handleAlert}: {handleAlert: any}) {
   }
 
   useEffect(() => {
-    handleGetMaterial();
+    if (id) {
+      handleGetMaterial();
+    } else {
+      const data = Object.fromEntries(new URLSearchParams(location.search)) as object as materialData;
+      if ((data['image'] as string)[data['image']!.length-1] === '/') {
+        data['image'] = (data['image'] as string).slice(0, data['image']!.length-1);
+      }
+      data['url'] = `https://myanimelist.net/anime/${data['id']}`;
+
+      setMaterial(data);
+    }
+
+    
   }, [])
 
   return (
@@ -135,15 +147,17 @@ function Material({handleAlert}: {handleAlert: any}) {
             </div>
             <div className='info'>
               <h2>{material!['name']}</h2>
-              <span className="url"><a target='_blank' href={material!['url']}>{material!['url']}</a></span>
-              <div>
-                <select onChange={handleChangeStatus} ref={statusRef} className="status">
-                  <option selected={material!['status'] === 'current' ? true : false} value={'current'}>current</option>
-                  <option selected={material!['status'] === 'done' ? true : false} value={'done'}>done</option>
-                  <option selected={material!['status'] === 'later' ? true : false} value={'later'}>later</option>
-                </select>
-                <span title='change speciality' onClick={handleChangeSpecial} style={{cursor: 'pointer'}} className={material!['special'] ? 'special' : ''}>{(! material!['special'] ? 'not ' : '')}special</span>
-              </div>
+              {material['url'] && (<span className="url"><a target='_blank' href={material!['url']}>{material!['url']}</a></span>)}
+              {material['status'] && material['special'] && (
+                <div>
+                  <select onChange={handleChangeStatus} ref={statusRef} className="status">
+                    <option selected={material!['status'] === 'current' ? true : false} value={'current'}>current</option>
+                    <option selected={material!['status'] === 'done' ? true : false} value={'done'}>done</option>
+                    <option selected={material!['status'] === 'later' ? true : false} value={'later'}>later</option>
+                  </select>
+                  <span title='change speciality' onClick={handleChangeSpecial} style={{cursor: 'pointer'}} className={material!['special'] ? 'special' : ''}>{(! material!['special'] ? 'not ' : '')}special</span>
+                </div>
+              )}
             </div>
           </div>
           <div className='material-description'>
@@ -153,7 +167,7 @@ function Material({handleAlert}: {handleAlert: any}) {
           </div>
         </div>
         <br />
-        <button onClick={handleDeleteMateial} className='delete-btn'>Delete</button>
+        {material['user'] && (<button onClick={handleDeleteMateial} className='delete-btn'>Delete</button>)}
       </>): (<>
         <h1 style={{margin: '30px'}}>{message}</h1>
       </>)}
