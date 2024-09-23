@@ -342,11 +342,11 @@ def recommend_anime(request):
         'profile': profile,
         'seen_animes': seen_animes
     }
-    response = requests.post('https://api.ml.saifchan.online/recommend-anime/', json=data)
-    recommendations = response.json()
-    data = map(process_anime_recommendations, recommendations['recommendations'])
-    
-    return Response(data={'recommendations': data}, status=response.status_code)
+    # response = requests.post('https://api.ml.saifchan.online/recommend-anime/', json=data)
+    # recommendations = response.json()
+    # data = map(process_anime_recommendations, recommendations['recommendations'])
+
+    return Response(data=data, status=200)
     
     # except err:
     #     return Response(data={'error': err}, status=500)

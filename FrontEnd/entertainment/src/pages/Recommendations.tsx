@@ -1,4 +1,5 @@
 import {useEffect} from 'react';
+import axios from 'axios';
 import { api } from '../App';
 
 import MaterialsContainer from './components/MaterialsContainer';
@@ -12,6 +13,26 @@ function Recommendations({animeRecommendations, setAnimeRecommendations}: props)
   
   // const [anime, setAnime] = useState<Array<object>>();
   
+  async function getAnimeRecommendations(data: object): Promise<Array<object>> {
+    try {
+      const response = await axios.post('https://api.ml.saifchan.online/recommend-anime/', {
+        profile: data['profile' as keyof typeof data],
+        seen_animes: data['seen_animes' as keyof typeof data]
+      })
+
+      if (response.status === 200) {
+        const data = (await response.data as object);
+
+        return data['recommendations' as keyof typeof data] as Array<object> ;
+      }
+
+      return []
+
+    } catch(error) {
+      console.log(error);
+      return [];
+    }
+  }
 
   async function handleGetAnimeRecommendations() {
     try {
@@ -19,8 +40,20 @@ function Recommendations({animeRecommendations, setAnimeRecommendations}: props)
 
       if (response.status === 200) {
         const data = await response.data;
-        console.log(data);
-        setAnimeRecommendations(data['recommendations'])
+        let recommendations: object[] | void[] = await getAnimeRecommendations(data);
+        recommendations = recommendations.map(r => {
+          var newObj = {
+            name: '',
+            description: '',
+            image: ''
+          };
+          newObj['name'] = r['title' as keyof typeof r];
+          newObj['description'] = r['synopsis' as keyof typeof r];
+          newObj['image'] = r['main_picture' as keyof typeof r]['medium'];
+
+          return newObj;
+        })
+        setAnimeRecommendations(recommendations);
       }
 
     } catch (error) {
